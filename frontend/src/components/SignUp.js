@@ -1,4 +1,6 @@
 import React , {useState} from "react";
+import "../css/SignUp.css";
+import { Link } from "react-router-dom";
 
 const neighborhoods = [
   {
@@ -44,15 +46,15 @@ function SignUp(){
   const[sex, setSex] = useState(null);
 
   //errors
-  const[firstNameError , setFirstNameError] = useState(false);
-  const[lastNameError , setLastNameError] = useState(false);
-  const[phoneNumberError,setPhoneNumberError] = useState(false);
-  const[neighborhoodError , setNeighborhoodError] = useState(false);
-  const[emailAddressError , setEmailAddressError] = useState(false);
-  const[passwordError , setPasswordError] = useState(false);
-  const[confirmPasswordError , setConfirmPasswordError] = useState(false);
-  const[sexError , setSexError] = useState(false);
-  const[submitError , setSubmitError] = useState(false);
+  const[firstNameError , setFirstNameError] = useState(true);
+  const[lastNameError , setLastNameError] = useState(true);
+  const[phoneNumberError,setPhoneNumberError] = useState(true);
+  const[neighborhoodError , setNeighborhoodError] = useState(true);
+  const[emailAddressError , setEmailAddressError] = useState(true);
+  const[passwordError , setPasswordError] = useState(true);
+  const[confirmPasswordError , setConfirmPasswordError] = useState(true);
+  const[sexError , setSexError] = useState(true);
+  const[submitError , setSubmitError] = useState(true);
   //popups
   const[isOpen ,setIsOpen] = useState(false);
 
@@ -193,82 +195,147 @@ function SignUp(){
     setIsOpen(false);
   }
   return(
-    <div className="form">
-      <div>
-        <h1>SignUp</h1>
+    <div className="SignUpPage">
+      <div className="form">
+        <div className="SignUpBanner">
+          <h1>SignUp</h1>
+        </div>
+        <form className="SignUpForm">
+          <div className="firstName">
+            <div className="firstName-label">
+              <label className="label">First Name:</label>
+            </div>
+            <div className="firstName-input">
+              <input type="text" className="input" onChange={handleFirstName}/>
+            </div>
+            <div className="firstName-error">
+              <p>{firstNameError}</p>
+            </div>
+          </div>
+          <div className="lastName">
+            <div className="lastName-label">
+              <label className="label">Last Name:</label>
+            </div>
+            <div className="lastName-input">
+              <input type="text" className="input" onChange={handleLastName}/>
+            </div>
+            <div className="lastName-error"> 
+              <p>{lastNameError}</p>
+            </div>
+          </div>
+          <div className="phoneNumber">
+            <div className="phoneNumber-label">
+              <label className="label">Phone Number</label>
+            </div>
+            <div className="phoneNumber-input">
+              <input type="tel" className="input" onChange={handlePhoneNumber}/>
+            </div>
+            <div className="phoneNumber-error"> 
+              <p>{phoneNumberError}</p>
+            </div>
+          </div>
+          <div className="emailAddress">
+            <div className="emailAddress-label">
+              <label className="label">Email Address:</label>
+            </div>
+            <div className="emailAddress-input">
+              <input type="email"  onChange={handleEmail}/>
+            </div>
+            <div className="emailAddress-error">
+              <p>{emailAddressError}</p>
+            </div>
+          </div>
+          <div className="password">
+            <div className="password-label">
+              <label className="label">Password:</label>
+            </div>
+            <div className="password-input">
+              <input type="password" onChange={handlePassword} id="pswrd"/>
+            </div>
+            <div className="password-eye">
+              <input type="checkbox" onClick={togglePassword}/>
+              <p>show password</p>
+            </div>
+            <div className="password-error">
+              <p>{passwordError}</p>
+            </div>
+          </div>
+          <div className="confirmPassword">
+            <div className="confirm-label">
+              <label className="label">Confirm Password:</label>
+            </div>
+            <div className="confirm-input"> 
+              <input type="password" onChange={handleConfirmPassword} id="pswrdConfirm"/>
+            </div>
+            <div className="confirm-eye">
+              <input type="checkbox" onClick={toggleConfirmPassword}/>
+              <p>show password</p>
+            </div>
+            <div className="confirm-error">
+              <p>{confirmPasswordError}</p>
+            </div>
+          </div>
+          <div className="Neighborhood">
+            <div className="neighborhood-label">
+              <label className="label">Neighborhood:</label>
+            </div>
+            <div className="neighborhood-choose">
+              <select onChange={handleNeighborhood}>
+                {neighborhoods.map((option) =>(
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="neighborhood-error">
+              <p>{neighborhoodError}</p>
+            </div>
+          </div>
+          <div className="Sex">
+            <div className="sex-label">
+              <label className="label">Sex:</label>
+            </div>
+            <div className="sex-choose">
+              <select onChange={handleSex}>
+                  {Sex.map( (option) => (
+                    <option value={option.value}>{option.label}</option>
+                  ))}
+              </select>
+            </div>
+            <div className="sex-error">
+              <p>{sexError}</p>
+            </div>
+          </div>
+          <div className="SubmitButton">
+            <div className="submit-button">
+              <button type="submit" onClick={handleSubmit} className="submitButton">
+                SignUp
+              </button>
+            </div>
+            <div className="submit-error">
+              <p>{submitError}</p>
+            </div>
+          </div>
+        </form>
       </div>
-      <form>
-        <div className="firstName">
-          <label className="label">First Name:</label>
-          <input type="text" className="input" onChange={handleFirstName}/>
-          <p>{firstNameError}</p>
+        {
+          isOpen &&
+          <Popup content ={[
+            firstName,
+            lastName,
+            phoneNumber,
+            neighborhood,
+            emailAddress,
+            password,
+            sex
+          ]}
+          handleClose = {HandleClose}
+          />
+        }
+        <div>
+          <Link to="/">
+            <p>already have an account?Login</p>
+          </Link>
         </div>
-        <div className="lastName">
-          <label className="label">Last Name:</label>
-          <input type="text" className="input" onChange={handleLastName}/>
-          <p>{lastNameError}</p>
-        </div>
-        <div className="PhoneNumber">
-          <label className="label">Phone Number</label>
-          <input type="tel" className="input" onChange={handlePhoneNumber}/>
-          <p>{phoneNumberError}</p>
-        </div>
-        <div className="Neighborhood">
-          <label className="label">Neighborhood:</label>
-          <select onChange={handleNeighborhood}>
-            {neighborhoods.map((option) =>(
-              <option value={option.value}>{option.label}</option>
-            ))}
-          </select>
-          <p>{neighborhoodError}</p>
-        </div>
-        <div className="EmailAddress">
-          <label className="label">Email Address:</label>
-          <input type="email"  onChange={handleEmail}/>
-          <p>{emailAddressError}</p>
-        </div>
-        <div className="Password">
-          <label className="label">Password:</label>
-          <input type="password" onChange={handlePassword} id="pswrd"/>
-          <input type="checkbox" onClick={togglePassword}/>show password
-          <p>{passwordError}</p>
-        </div>
-        <div className="ConfirmPassword">
-          <label className="label">Confirm Password:</label>
-          <input type="password" onChange={handleConfirmPassword} id="pswrdConfirm"/>
-          <input type="checkbox" onClick={toggleConfirmPassword}/>show password
-          <p>{confirmPasswordError}</p>
-        </div>
-        <div className="Sex">
-          <label className="label">Sex:</label>
-          <select onChange={handleSex}>
-              {Sex.map( (option) => (
-                <option value={option.value}>{option.label}</option>
-              ))}
-          </select>
-          <p>{sexError}</p>
-        </div>
-        <div className="SubmitButton">
-          <button type="submit" onClick={handleSubmit} className="Button">
-            SignUp
-          </button>
-          <p>{submitError}</p>
-        </div>
-      </form>
-      {
-        isOpen &&
-        <Popup content ={[
-          firstName,
-          lastName,
-          phoneNumber,
-          neighborhood,
-          emailAddress,
-          password,
-          sex
-        ]}
-        handleClose = {HandleClose}
-        />
-      }
     </div>
   )
 
