@@ -157,6 +157,7 @@ function SignUp(){
   }
   function handleSubmit(event){
     event.preventDefault();
+  
     axios({
       method: "post",
       url: "http://127.0.0.1:8000/auth/customer/signup/",
@@ -175,7 +176,12 @@ function SignUp(){
   .then((res) => {
       console.log('.') 
       alert('Your account registered succesfully'); 
+  
   })
+  // .catch(error => {
+  //   console.log(error.response.data)
+  // }) 
+
     if(NameError === false  && phoneNumberError ===  false && emailAddressError === false && passwordError === false && confirmPasswordError === false && sexError === false){
       setSubmitError(false)
       setIsOpen(true);

@@ -1,5 +1,6 @@
 import React , {useState} from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import"../css/Login.css"
 
 function Login(){
@@ -8,17 +9,26 @@ function Login(){
   );
   const [emailAddress , setEmailAddress] = useState(null);
   const [emailAddressError , setEmailAddressError] = useState(true);
-  const handleEmail = (event) => {
-    //check if email is valid and exists
-    if(validEmailAddress.test(event.taeget.value) === false){
-      setEmailAddressError("Invalid Email!");
-    }
-    //check email exists if it does put email error to false (if it doesnt put error to doesnt exist) and set email address to value
-  }
-  const handlePassword = (event) => {
-    //check if password is correct
-  }
+  const [password , setpassword] = useState(null);
+  
   const handleLogin = (event) => {
+    event.preventDefault();
+    axios({
+      method: "post",
+      url: "http://127.0.0.1:8000/auth/customer/login/",
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      data: {
+          email: emailAddress,
+          password: password,
+      }
+  })
+  .then((res) => {
+    console.log('.') 
+    alert('You are logged in'); 
+  })
+
 
   }
   return(
@@ -27,7 +37,7 @@ function Login(){
         <h2>Login</h2>
             <form className="login-form">
                 <label className="label">email:</label>
-                <input type="email" placeholder="Enter your email" onChange={handleEmail}/>
+                <input type="email" placeholder="Enter your email" />
     
                 <label className="label">password</label>
                 <input type="password" placeholder="Enter your password"/>
