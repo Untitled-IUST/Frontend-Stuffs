@@ -39,7 +39,7 @@ function SignUp(){
   const[sexError , setSexError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
   //popups
-  const[isOpen ,setIsOpen] = useState(false);
+  //const[isOpen ,setIsOpen] = useState(false);
 
   const validName = new RegExp(
     /^[a-zA-Z ]{2,30}$/
@@ -157,43 +157,47 @@ function SignUp(){
   }
   function handleSubmit(event){
     event.preventDefault();
-  
-    axios({
-      method: "post",
-      url: "http://127.0.0.1:8000/auth/customer/signup/",
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      data: {
-          first_name: Name,
-          last_name: "Hashemi",
-          phone_Number: phoneNumber,
-          email: emailAddress,
-          gender: "F",
-          password: password,
-      }
-  })
+  if(NameError===false && phoneNumberError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false && sexError === false)
+  {
+      axios({
+        method: "post",
+        url: "http://127.0.0.1:8000/auth/customer/signup/",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: {
+            first_name: Name,
+            last_name: "Hashemi",
+            phone_Number: phoneNumber,
+            email: emailAddress,
+            gender: "F",
+            password: password,
+        }
+    })
   .then((res) => {
       console.log('.') 
       alert('Your account registered succesfully'); 
   
   })
-  // .catch(error => {
-  //   console.log(error.response.data)
-  // }) 
+  .catch(error => {
+    setNameError(error.response.data["first_name"]);
+    setPhoneNumberError(error.response.data["phone_Number"]);
+    setEmailAddressError(error.response.data["email"]);
+    setPasswordError(error.response.data["password"]);
+    setSexError(error.response.data["gender"]);
+  }) 
+  setSubmitError(false)
+      //setIsOpen(true);
+}
 
-    if(NameError === false  && phoneNumberError ===  false && emailAddressError === false && passwordError === false && confirmPasswordError === false && sexError === false){
-      setSubmitError(false)
-      setIsOpen(true);
-    }
     else{
       setSubmitError("Please check again!");
     }
   }
 
-  const HandleClose = () => {
-    setIsOpen(false);
-  }
+  // const HandleClose = () => {
+  //   setIsOpen(false);
+  // }
   return(
     <div className="SignUpPage">
     <div className="auth-form-container2">
@@ -239,11 +243,14 @@ function SignUp(){
                 SignUp
               </button>
               <p>{submitError}</p>
+              <Link to="/">
+            <p1>already have an account?Login</p1>
+          </Link>
         </form>
       </div>
   
 
-      {
+      {/* {
           isOpen &&
           <Popup content ={[
             Name,
@@ -254,32 +261,27 @@ function SignUp(){
           ]}
           handleClose = {HandleClose}
           />
-        }
-        <div>
-          <Link to="/">
-            <p1>already have an account?Login</p1>
-          </Link>
-        </div>
+        } */}
     </div>
   )
 
 }
 
-const Popup = function(props){
-  return(
-    <div className="PopUpbox">
-      <div className="box">
-        <button className="close-icon" onClick={props.handleClose} >close</button>
-        <div className="content">
-          <p>Successfuly signed in</p>
-          <p> name :{props.content[0]}</p>
-          <p>phone number :{props.content[1]}</p>
-          <p>email :{props.content[2]}</p>
-          <p>password :{props.content[3]}</p>
-          <p>sex :{props.content[4]}</p>
-        </div>
-      </div>
-    </div>
-  )
-}
+// const Popup = function(props){
+//   return(
+//     <div className="PopUpbox">
+//       <div className="box">
+//         <button className="close-icon" onClick={props.handleClose} >close</button>
+//         <div className="content">
+//           <p>Successfuly signed in</p>
+//           <p> name :{props.content[0]}</p>
+//           <p>phone number :{props.content[1]}</p>
+//           <p>email :{props.content[2]}</p>
+//           <p>password :{props.content[3]}</p>
+//           <p>sex :{props.content[4]}</p>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
 export default SignUp;
