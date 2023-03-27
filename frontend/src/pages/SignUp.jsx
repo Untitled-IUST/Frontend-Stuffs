@@ -21,7 +21,6 @@ const Sex = [
 function SignUp(){
   //inputs
   const [Name , setName] = useState(null);
-  //const [lastName , setLastName] = useState(null);
   const[phoneNumber , setPhoneNumber] = useState(null);
   const[emailAddress , setEmailAddress] = useState(null);
   const[password , setPassword] = useState(null);
@@ -30,7 +29,6 @@ function SignUp(){
 
   //errors
   const[NameError , setNameError] = useState(true);
-  //const[lastNameError , setLastNameError] = useState(true);
   const[phoneNumberError,setPhoneNumberError] = useState(true);
   const[emailAddressError , setEmailAddressError] = useState(true);
   const[passwordError , setPasswordError] = useState(true);
@@ -66,19 +64,6 @@ function SignUp(){
       setName(event.target.value);
     }
   }
-  //const handleLastName = (event) => {
-    //if(event.target.value === "")
-    //{
-      //setLastNameError("Please enter first name");
-    //}
-    //else if(!validName.test(event.target.value)){
-      //setLastNameError("Invalid name");
-    //}
-    //else{
-      //setLastNameError(false);
-      //setLastName(event.target.value);
-    //}
-  //}
   const handlePhoneNumber = (event) => {
     if(event.target.value === ""){
       setPhoneNumberError("Please enter phone number");
@@ -214,6 +199,11 @@ function SignUp(){
               </button>
               <p>{submitError}</p>
         </form>
+        <div>
+          <Link to="/">
+            <p1>already have an account?Login</p1>
+          </Link>
+        </div>
       </div>
   
 
@@ -229,11 +219,6 @@ function SignUp(){
           handleClose = {HandleClose}
           />
         }
-        <div>
-          <Link to="/">
-            <p1>already have an account?Login</p1>
-          </Link>
-        </div>
     </div>
   )
 
