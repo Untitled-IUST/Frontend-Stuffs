@@ -1,23 +1,5 @@
 import React , {useState} from "react";
-import "../css/SignUp.css";
 import { Link } from "react-router-dom";
-
-const neighborhoods = [
-  {
-    label: "choose",
-    value : "choose"
-  }
-  ,
-  {
-    label : "Narmak",
-    value : "Narmak"
-  }
-  ,
-  {
-    label : "NaziAbad",
-    value : "NaziAbad"
-  }
-]
 
 const Sex = [
   {
@@ -36,20 +18,15 @@ const Sex = [
 ]
 function SignUp(){
   //inputs
-  const [firstName , setFirstName] = useState(null);
-  const [lastName , setLastName] = useState(null);
+  const [fullName , setFullName] = useState(null);
   const[phoneNumber , setPhoneNumber] = useState(null);
-  const[neighborhood , setNeighborhood] = useState(null);
   const[emailAddress , setEmailAddress] = useState(null);
   const[password , setPassword] = useState(null);
-  const[confirmPassword , setConfirmPassword] = useState(null);
   const[sex, setSex] = useState(null);
 
   //errors
-  const[firstNameError , setFirstNameError] = useState(true);
-  const[lastNameError , setLastNameError] = useState(true);
+  const[fullNameError , setFullNameError] = useState(true);
   const[phoneNumberError,setPhoneNumberError] = useState(true);
-  const[neighborhoodError , setNeighborhoodError] = useState(true);
   const[emailAddressError , setEmailAddressError] = useState(true);
   const[passwordError , setPasswordError] = useState(true);
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
@@ -71,30 +48,17 @@ function SignUp(){
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
   );
 
-  const handleFirstName = (event) => {
+  const handleFullName = (event) => {
     if(event.target.value === "")
     {
-      setFirstNameError("Please enter first name");
+      setFullNameError("Please enter first name");
     }
     else if(!validName.test(event.target.value)){
-      setFirstNameError("Invalid name");
+      setFullNameError("Invalid name");
     }
     else{
-      setFirstNameError(false);
-      setFirstName(event.target.value);
-    }
-  }
-  const handleLastName = (event) => {
-    if(event.target.value === "")
-    {
-      setLastNameError("Please enter first name");
-    }
-    else if(!validName.test(event.target.value)){
-      setLastNameError("Invalid name");
-    }
-    else{
-      setLastNameError(false);
-      setLastName(event.target.value);
+      setFullNameError(false);
+      setFullName(event.target.value);
     }
   }
   const handlePhoneNumber = (event) => {
@@ -107,15 +71,6 @@ function SignUp(){
     else{
       setPhoneNumberError(false);
       setPhoneNumber(event.target.value);
-    }
-  }
-  const handleNeighborhood = (event) => {
-    if(event.target.value === "choose"){
-      setNeighborhoodError("Please chose neighborhood");
-    }
-    else{
-      setNeighborhoodError(false);
-      setNeighborhood(event.target.value);
     }
   }
   const handleEmail = (event) => {
@@ -150,10 +105,6 @@ function SignUp(){
     else if(event.target.value !== password){
       setConfirmPasswordError("password != confirm password");
     }
-    else{
-      setConfirmPasswordError(false);
-      setConfirmPassword(event.target.value);
-    }
   }
   const handleSex = (event) => {
     if(event.target.value === "choose"){
@@ -182,7 +133,7 @@ function SignUp(){
   }
   function handleSubmit(event){
     event.preventDefault();
-    if(firstNameError === false && lastNameError === false && phoneNumberError === false && neighborhoodError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false && sexError === false){
+    if(fullNameError === false && phoneNumberError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false && sexError === false){
       setSubmitError(false)
       setIsOpen(true);
     }
@@ -201,26 +152,15 @@ function SignUp(){
           <h1>SignUp</h1>
         </div>
         <form className="SignUpForm">
-          <div className="firstName">
-            <div className="firstName-label">
-              <label className="label">First Name:</label>
+          <div className="fullName">
+            <div className="fullName-label">
+              <label className="label">Full Name:</label>
             </div>
-            <div className="firstName-input">
-              <input type="text" className="input" onChange={handleFirstName}/>
+            <div className="fullName-input">
+              <input type="text" className="input" onChange={handleFullName} placeholder="Enter full name"/>
             </div>
-            <div className="firstName-error">
-              <p>{firstNameError}</p>
-            </div>
-          </div>
-          <div className="lastName">
-            <div className="lastName-label">
-              <label className="label">Last Name:</label>
-            </div>
-            <div className="lastName-input">
-              <input type="text" className="input" onChange={handleLastName}/>
-            </div>
-            <div className="lastName-error"> 
-              <p>{lastNameError}</p>
+            <div className="fullName-error">
+              <p>{fullNameError}</p>
             </div>
           </div>
           <div className="phoneNumber">
@@ -228,7 +168,7 @@ function SignUp(){
               <label className="label">Phone Number</label>
             </div>
             <div className="phoneNumber-input">
-              <input type="tel" className="input" onChange={handlePhoneNumber}/>
+              <input type="tel" className="input" onChange={handlePhoneNumber} placeholder="Enter phone number"/>
             </div>
             <div className="phoneNumber-error"> 
               <p>{phoneNumberError}</p>
@@ -239,7 +179,7 @@ function SignUp(){
               <label className="label">Email Address:</label>
             </div>
             <div className="emailAddress-input">
-              <input type="email"  onChange={handleEmail}/>
+              <input type="email"  onChange={handleEmail} placeholder="Enter email"/>
             </div>
             <div className="emailAddress-error">
               <p>{emailAddressError}</p>
@@ -250,7 +190,7 @@ function SignUp(){
               <label className="label">Password:</label>
             </div>
             <div className="password-input">
-              <input type="password" onChange={handlePassword} id="pswrd"/>
+              <input type="password" onChange={handlePassword} id="pswrd" placeholder="Enter password"/>
             </div>
             <div className="password-eye">
               <input type="checkbox" onClick={togglePassword}/>
@@ -265,7 +205,7 @@ function SignUp(){
               <label className="label">Confirm Password:</label>
             </div>
             <div className="confirm-input"> 
-              <input type="password" onChange={handleConfirmPassword} id="pswrdConfirm"/>
+              <input type="password" onChange={handleConfirmPassword} id="pswrdConfirm" placeholder="Confirm your password"/>
             </div>
             <div className="confirm-eye">
               <input type="checkbox" onClick={toggleConfirmPassword}/>
@@ -273,21 +213,6 @@ function SignUp(){
             </div>
             <div className="confirm-error">
               <p>{confirmPasswordError}</p>
-            </div>
-          </div>
-          <div className="Neighborhood">
-            <div className="neighborhood-label">
-              <label className="label">Neighborhood:</label>
-            </div>
-            <div className="neighborhood-choose">
-              <select onChange={handleNeighborhood}>
-                {neighborhoods.map((option) =>(
-                  <option value={option.value}>{option.label}</option>
-                ))}
-              </select>
-            </div>
-            <div className="neighborhood-error">
-              <p>{neighborhoodError}</p>
             </div>
           </div>
           <div className="Sex">
@@ -316,48 +241,16 @@ function SignUp(){
             </div>
           </div>
         </form>
-      </div>
-        {
-          isOpen &&
-          <Popup content ={[
-            firstName,
-            lastName,
-            phoneNumber,
-            neighborhood,
-            emailAddress,
-            password,
-            sex
-          ]}
-          handleClose = {HandleClose}
-          />
-        }
         <div>
           <Link to="/">
             <p>already have an account?Login</p>
           </Link>
         </div>
-    </div>
-  )
-
-}
-
-const Popup = function(props){
-  return(
-    <div className="PopUpbox">
-      <div className="box">
-        <button className="close-icon" onClick={props.handleClose} >close</button>
-        <div className="content">
-          <p>Successfuly signed in</p>
-          <p>first name :{props.content[0]}</p>
-          <p>last name :{props.content[1]}</p>
-          <p>phone number :{props.content[2]}</p>
-          <p>neighborhood :{props.content[3]}</p>
-          <p>email :{props.content[4]}</p>
-          <p>password :{props.content[5]}</p>
-          <p>sex :{props.content[6]}</p>
-        </div>
       </div>
     </div>
   )
+
 }
+
+
 export default SignUp;

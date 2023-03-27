@@ -1,6 +1,6 @@
 import './App.css';
-import SignUp from './components/SignUp';
-import Login from './components/Login';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,8 +11,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='/SignUp' element={<SignUp/>}/>
+        <Route path='/' Component={Login} exact/>
+        <Route path='/SignUp' Component={SignUp}/>
       </Routes>
     </Router>
   );
