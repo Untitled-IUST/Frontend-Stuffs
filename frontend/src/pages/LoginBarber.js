@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../css/Login.css"
 
-function LoginCustomer(){
+function LoginBarber(){
   const validEmailAddress = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   );
@@ -17,7 +17,7 @@ function LoginCustomer(){
     event.preventDefault();
     axios({
       method: "post",
-      url: "http://127.0.0.1:8000/auth/customer/login/",
+      url: "http://127.0.0.1:8000/auth/barber/login/",
       headers: {
           'Content-Type': 'application/json',
       },
@@ -53,11 +53,11 @@ function LoginCustomer(){
               <button type="submit" className="submitButton" onClick={handleLogin}>
                 Login
               </button>
-          <Link to="/SignUpCustomer">
+          <Link to="/SignUpBarber">
             <p1>dont have an account?SignUp</p1>
           </Link>
           <Link to="/">
-            <p1>Im not a customer!</p1>
+            <p1>Im not a barber!</p1>
           </Link>
         </form>
       </div>
@@ -65,4 +65,4 @@ function LoginCustomer(){
   )
 }
 
-export default LoginCustomer;
+export default LoginBarber;

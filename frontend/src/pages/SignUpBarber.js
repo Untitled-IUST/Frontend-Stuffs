@@ -1,5 +1,5 @@
 import React , {useState} from "react";
-import "../css/SignUp.css"
+import "../css/SignUpBarber.css"
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -19,24 +19,26 @@ const Sex = [
     value : "F" 
   }
 ]
-function SignUpCustomer(){
+function SignUpBarber(){
   //inputs
-  const [Name , setName] = useState(null);
-  const [lastName , setLastName] = useState(null);
-  const[phoneNumber , setPhoneNumber] = useState(null);
-  const[emailAddress , setEmailAddress] = useState(null);
-  const[password , setPassword] = useState(null);
-  const[confirmPassword , setConfirmPassword] = useState(null);
-  const[sex, setSex] = useState(null);
+  const [barberShop , setBarberShop] = useState(null);
+  const [owner , setOwner] = useState(null);
+  const [parvaneh , setParvaneh] = useState(null);
+  const [phoneNumber , setPhoneNumber] = useState(null);
+  const [emailAddress , setEmailAddress] = useState(null);
+  const [address ,setAddress] = useState(null);
+  const [password , setPassword] = useState(null);
+  const [confirmPassword , setConfirmPassword] = useState(null);
 
   //errors
-  const[NameError , setNameError] = useState(true);
-  //const[lastNameError , setLastNameError] = useState(true);
+  const[barberShopError , setBarberShopError] = useState(true);
+  const[ownerError , setOwnerError] = useState(true);
+  const[parvanehError , setParvanehError] = useState(true);
   const[phoneNumberError,setPhoneNumberError] = useState(true);
   const[emailAddressError , setEmailAddressError] = useState(true);
+  const[addressError , setAddressError] = useState(true);
   const[passwordError , setPasswordError] = useState(true);
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
-  const[sexError , setSexError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
   //popups
   //const[isOpen ,setIsOpen] = useState(false);
@@ -54,38 +56,50 @@ function SignUpCustomer(){
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
   );
 
-  const handleName = (event) => {
+  const handleBarberShop = (event) => {
     if(event.target.value === "")
     {
-      setNameError("Please enter first name");
+      setBarberShopError("Please enter your shop name");
     }
     else if(!validName.test(event.target.value)){
-      setNameError("Invalid name");
+      setBarberShopError("Invalid name");
     }
     else{
-      setNameError(false);
-      setName(event.target.value);
+      setBarberShopError(false);
+      setBarberShop(event.target.value);
     }
   }
-  //const handleLastName = (event) => {
-    //if(event.target.value === "")
-    //{
-      //setLastNameError("Please enter first name");
-    //}
-    //else if(!validName.test(event.target.value)){
-      //setLastNameError("Invalid name");
-    //}
-    //else{
-      //setLastNameError(false);
-      //setLastName(event.target.value);
-    //}
-  //}
+  const handleOwner = (event) => {
+    if(event.target.value === "")
+    {
+      setOwnerError("Please enter owner name");
+    }
+    else if(!validName.test(event.target.value)){
+      setOwnerError("Invalid name");
+    }
+    else{
+      setOwnerError(false);
+      setOwner(event.target.value);
+    }
+  }
+
+  const handleParvaneh = (event) => {
+    if(event.target.value === "")
+    {
+      setParvanehError("Please enter parvaneh");
+    }
+    else{
+      setParvanehError(false);
+      setParvaneh(event.target.value);
+    }
+  }
+
   const handlePhoneNumber = (event) => {
     if(event.target.value === ""){
       setPhoneNumberError("Please enter phone number");
     }
     else if(!validPhoneNumber.test(event.target.value)){
-      setPhoneNumberError("Please enter valid phone number");
+      setPhoneNumberError("Please enter valid mobile phone number");
     }
     else{
       setPhoneNumberError(false);
@@ -106,6 +120,7 @@ function SignUpCustomer(){
       setEmailAddress(event.target.value);
     }
   }
+
   const handlePassword = (event) => {
     if(event.target.value === ""){
       setPasswordError("Please enter password");
@@ -118,6 +133,7 @@ function SignUpCustomer(){
       setPassword(event.target.value);
     }
   }
+
   const handleConfirmPassword = (event) => {
     if(event.target.value === ""){
       setConfirmPasswordError("Please confirm password");
@@ -130,15 +146,7 @@ function SignUpCustomer(){
       setConfirmPassword(event.target.value);
     }
   }
-  const handleSex = (event) => {
-    if(event.target.value === "choose"){
-      setSexError("Please choose sex");
-    }
-    else {
-      setSexError(false);
-      setSex(event.target.value);
-    }
-  }
+  
   const togglePassword = (event) => {
     let x = document.getElementById("pswrd");
     if(x.type === "password"){
@@ -155,40 +163,52 @@ function SignUpCustomer(){
       x.type = "password"
     }
   }
+  const handleAddress = (event) => {
+    if(event.target.value === ""){
+      setConfirmPasswordError("Please enter address");
+    }
+    else{
+      setAddressError(false);
+      setAddress(event.target.value);
+    }
+  }
+
   function handleSubmit(event){
     event.preventDefault();
-  if(NameError===false && phoneNumberError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false && sexError === false)
-  {
+    if(barberShopError === false && ownerError === false && parvanehError === false && phoneNumberError === false && emailAddressError === false && addressError === false && passwordError === false && confirmPasswordError === false)
+    {
       axios({
         method: "post",
-        url: "http://127.0.0.1:8000/auth/customer/signup/",
+        url: "http://127.0.0.1:8000/auth/barber/signup/",
         headers: {
             'Content-Type': 'application/json',
         },
         data: {
-            first_name: Name,
-            last_name: "Hashemi",
-            phone_Number: phoneNumber,
-            email: emailAddress,
-            gender: "F",
-            password: password,
+          "BarberShop": barberShop,
+          "Owner": owner,
+          "Parvaneh": parvaneh,
+          "phone_Number": phoneNumber,
+          "email": emailAddress,
+          "address": address,
+          "password": password
         }
-    })
-  .then((res) => {
-      console.log('.') 
-      alert('Your account registered succesfully'); 
+      })
+      .then((res) => {
+        console.log('.') 
+        alert('Your account registered succesfully'); 
   
-  })
-  .catch(error => {
-    setNameError(error.response.data["first_name"]);
-    setPhoneNumberError(error.response.data["phone_Number"]);
-    setEmailAddressError(error.response.data["email"]);
-    setPasswordError(error.response.data["password"]);
-    setSexError(error.response.data["gender"]);
-  }) 
-  setSubmitError(false)
+      })
+      .catch(error => {
+        setBarberShopError(error.response.data["BarberShop"]);
+        setOwnerError(error.response.data["Owner"]);
+        setParvanehError(error.response.data["Parvaneh"]);
+        setPhoneNumberError(error.response.data["phone_Number"]);
+        setEmailAddressError(error.response.data["email"]);
+        setPasswordError(error.response.data["password"]);
+      }) 
+      setSubmitError(false)
       //setIsOpen(true);
-}
+    }
 
     else{
       setSubmitError("Please check again!");
@@ -203,51 +223,53 @@ function SignUpCustomer(){
     <div className="auth-form-container2">
         <h2>Register</h2>
             <form className="signup-form">
-              <label2 className="label">Name:</label2>
-              <input type="text" className="input" onChange={handleName}/>
-              <p>{NameError}</p>
-              <label2 className="label">Phone Number</label2>
+              <label className="label">BarberShop</label>
+              <input type="text" className="input" onChange={handleBarberShop}/>
+              <p>{barberShopError}</p>
 
+              <label className="label">Owner</label>
+              <input type="text" className="input" onChange={handleOwner}/>
+              <p>{ownerError}</p>
+
+              <label className="label">Parvaneh</label>
+              <input type="number" className="input" onChange={handleParvaneh}/>
+              <p>{parvanehError}</p>
+
+              <label className="label">Phone Number</label>
               <input type="tel" className="input" onChange={handlePhoneNumber}/>
               <p>{phoneNumberError}</p>
 
-              <label2 className="label">Email Address:</label2>
+              <label className="label">Email Address</label>
               <input type="email"  onChange={handleEmail}/>
               <p>{emailAddressError}</p>
 
-              <label2 className="label">Password:</label2>
+              <label className="label">Address</label>
+              <input type="email"  onChange={handleAddress}/>
+              <p>{addressError}</p>
+
+              <label className="label">Password</label>
               <input type="password" onChange={handlePassword} id="pswrd"/>
-              <label3>{passwordError}</label3>
+              <p>{passwordError}</p>
 
               <input type="checkbox" onClick={togglePassword}/>
               <p>show password</p>
 
-              <label2 className="label">Confirm Password:</label2>
-
+              <label className="label">Confirm Password</label>
               <input type="password" onChange={handleConfirmPassword} id="pswrdConfirm"/>
-              <label4>{confirmPasswordError}</label4>
+              <p>{confirmPasswordError}</p>
 
               <input type="checkbox" onClick={toggleConfirmPassword}/> 
               <p>show password</p>
-
-
-              <label2 className="label">Sex:</label2>
-
-              <select onChange={handleSex}>
-                  {Sex.map( (option) => (
-                    <option value={option.value}>{option.label}</option>
-                  ))}
-              </select>
-              <p>{sexError}</p>
+              
               <button type="submit" onClick={handleSubmit} className="submitButton">
                 SignUp
               </button>
               <p>{submitError}</p>
-              <Link to="/LoginCustomer">
+              <Link to="/LoginBarber">
             <p1>already have an account?Login</p1>
           </Link>
           <Link to="/">
-            <p1>Im not a customer!</p1>
+            <p1>Im not a barber!</p1>
           </Link>
         </form>
       </div>
@@ -287,4 +309,4 @@ function SignUpCustomer(){
 //     </div>
 //   )
 // }
-export default SignUpCustomer;
+export default SignUpBarber;
