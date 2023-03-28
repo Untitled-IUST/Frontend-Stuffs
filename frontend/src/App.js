@@ -1,5 +1,5 @@
-import SignUp from './pages/SignUp';
-import Login from './pages/Login';
+import SignUpCustomer from './pages/SignUpCustomer';
+import LoginCustomer from './pages/LoginCustomer';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,8 +11,8 @@ function App() {
     <div className="App">
     <Router>
       <Routes>
-        <Route path='/' Component={Login} exact/>
-        <Route path='/SignUp' Component={SignUp}/>
+        <Route path='/' Component={LoginCustomer} exact/>
+        <Route path='/SignUp' Component={SignUpCustomer}/>
       </Routes>
     </Router>
     </div>
