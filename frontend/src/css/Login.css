@@ -4,7 +4,7 @@
     min-height: 100vh;
     align-items: center;
     justify-content:center ;
-    background-image: url(C:\Users\PC\Desktop\university\term6\touchandcare\Frontend-Stuffs\frontend\src\images\image.png);
+    background-image: url("../images/image.png");
     background-size: cover;
     background-repeat: no-repeat;
     font-size: 23px;
