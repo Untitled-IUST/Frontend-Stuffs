@@ -217,6 +217,7 @@ function SignUp(){
 
               <label2 className="label">Password:</label2>
               <input type="password" onChange={handlePassword} id="pswrd"/>
+              <label3>{passwordError}</label3>
 
               <input type="checkbox" onClick={togglePassword}/>
               <p>show password</p>
@@ -224,6 +225,7 @@ function SignUp(){
               <label2 className="label">Confirm Password:</label2>
 
               <input type="password" onChange={handleConfirmPassword} id="pswrdConfirm"/>
+              <label4>{confirmPasswordError}</label4>
 
               <input type="checkbox" onClick={toggleConfirmPassword}/> 
               <p>show password</p>
@@ -237,8 +239,6 @@ function SignUp(){
                   ))}
               </select>
               <p>{sexError}</p>
-              <label3>{passwordError}</label3>
-              <label4>{confirmPasswordError}</label4>
               <button type="submit" onClick={handleSubmit} className="submitButton">
                 SignUp
               </button>

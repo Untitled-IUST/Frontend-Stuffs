@@ -8,6 +8,8 @@ function Login(){
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   );
   const [emailAddress , setEmailAddress] = useState("");
+  const [emailAddressError , setEmailAddressError] = useState("");
+  const [passwordError , setPasswordError] = useState("");
   const [Error , setError] = useState("");
   const [password , setpassword] = useState("");
   
@@ -30,6 +32,8 @@ function Login(){
   })
   .catch(error => {
     setError(error.response.data["non_field_errors"]);
+    setEmailAddressError(error.response.data["email"]);
+    setPasswordError(error.response.data["password"]);
   }) 
 
 
@@ -41,11 +45,11 @@ function Login(){
             <form className="login-form">
                 <label className="label">email:</label>
                 <input type="email" placeholder="Enter your email" onChange={(e) => setEmailAddress(e.target.value)}/>
-    
+                <p>{emailAddressError}</p>
                 <label className="label">password</label>
                 <input type="password" placeholder="Enter your password" onChange={(e) => setpassword(e.target.value)}/>
-                <label3>{Error}</label3>
-
+                <label3>{passwordError}</label3>
+                <p>{Error}</p>
               <button type="submit" className="submitButton" onClick={handleLogin}>
                 Login
               </button>
