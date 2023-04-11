@@ -1,7 +1,7 @@
 import React , {useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../css/Login.css"
+import "../../css/Login.css"
 
 function LoginBarber(){
   const validEmailAddress = new RegExp(
@@ -17,7 +17,7 @@ function LoginBarber(){
     event.preventDefault();
     axios({
       method: "post",
-      url: "http://127.0.0.1:8000/auth/barber/login/",
+      url: "https://amirmohammadkomijani.pythonanywhere.com/auth/barber/login/",
       headers: {
           'Content-Type': 'application/json',
       },

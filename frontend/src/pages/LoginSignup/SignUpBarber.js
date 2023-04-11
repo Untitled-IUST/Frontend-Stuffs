@@ -1,5 +1,5 @@
 import React , {useState} from "react";
-import "../css/SignUpBarber.css"
+import "../../css/SignUpBarber.css"
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -179,7 +179,7 @@ function SignUpBarber(){
     {
       axios({
         method: "post",
-        url: "http://127.0.0.1:8000/auth/barber/signup/",
+        url: "https://amirmohammadkomijani.pythonanywhere.com/auth/barber/signup/",
         headers: {
             'Content-Type': 'application/json',
         },

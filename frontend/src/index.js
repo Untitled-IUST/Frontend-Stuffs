@@ -5,8 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import styles from "./index.css";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // <React.StrictMode>
+  //   <App />
+  // </React.StrictMode>
   <BrowserRouter>
-    <App />
+    <App/>
   </BrowserRouter>
 );
 

@@ -1,15 +1,15 @@
-import SignUpCustomer from './pages/SignUpCustomer';
-import LoginCustomer from './pages/LoginCustomer';
+import SignUpCustomer from './pages/LoginSignup/SignUpCustomer';
+import LoginCustomer from './pages/LoginSignup/LoginCustomer';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 }from "react-router-dom";
-import SignUpBarber from './pages/SignUpBarber';
-import LoginBarber from './pages/LoginBarber'
-import ChangePages from './pages/changePages'
-import SalonCard from './components/salonCard';
+import SignUpBarber from './pages/LoginSignup/SignUpBarber';
+import LoginBarber from './pages/LoginSignup/LoginBarber'
+import ChangePages from './pages/LoginSignup/changePages'
+import SalonSelect from './pages/salonSelect/salonSelect';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
     //   </Routes>
     // </Router>
     // </div>
-    <SalonCard/>
+    <SalonSelect/>
   );
 }
 
