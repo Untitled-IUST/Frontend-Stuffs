@@ -1,0 +1,139 @@
+.wholebarber{
+    background-color: #120c1e;
+    height: 300vh;
+    margin-bottom: -50px;
+}
+.slider {
+    margin-top: -80px;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image {
+    width: 1380px;
+    height: 500px;
+    border-radius: 0px;
+  }
+  
+  .right-arrow {
+    position: absolute;
+    top: 50%;
+    right: 32px;
+    font-size: 3rem;
+    color: #ffecee;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .left-arrow {
+    position: absolute;
+    top: 50%;
+    left: 32px;
+    font-size: 3rem;
+    color: #ffecee;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+  }
+  
+  .slide.active {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08);
+  }
+.barber{
+    color: #ffecee;
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 35px;
+    padding: 20px;
+    width: 350px;
+    border: 3px double #ffecee;
+    background-color: rgba(248, 220, 220, 0.35);
+    border-radius: 0px;
+    
+
+}
+.barber1{
+    color: #ffecee;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: overline;
+    margin-top: 30px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+.selectmakeup{
+    background-color:  #120c1e;
+    color: #ffecee;
+    padding: 10px;
+    border: none;
+    margin-left: 500px;
+
+}
+.selecthair{
+    background-color:  #120c1e;
+    color: #ffecee;
+    padding: 10px;
+    border: none;
+    margin-left: 60px;
+
+}
+.selectskin{
+    background-color:  #120c1e;
+    color: #ffecee;
+    padding: 10px;
+    border: none;
+    margin-left: 60px;
+
+}
+.info{
+    background-color:  #120c1e;
+    color: #ffecee;
+   
+    border: none;
+    margin-left: 400px;
+    margin-top: -500px;
+    font-size: 35px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+
+}
+.info1{
+    background-color:  #120c1e;
+    text-align: left;
+    color: #ffecee;
+    border: none;
+    margin-left: 720px;
+    font-size: 30px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+}
+.info2{
+    background-color:  #120c1e;
+    text-align: left;
+    color: #ffecee;
+    border: none;
+    margin-left: 770px;
+    font-size: 30px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+}
+.info3{
+    background-color:  #120c1e;
+    text-align: left;
+    color: #ffecee;
+    border: none;
+    margin-left: 800px;
+    font-size: 20px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+}

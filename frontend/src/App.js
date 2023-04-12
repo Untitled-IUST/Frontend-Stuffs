@@ -9,19 +9,13 @@ import {
 import SignUpBarber from './pages/SignUpBarber';
 import LoginBarber from './pages/LoginBarber'
 import ChangePages from './pages/changePages'
+import ImageSlider from './pages/ImageSlider';
+import { SliderData } from './pages/SliderData';
 
 function App() {
   return (
     <div className="App">
-    <Router>
-      <Routes>
-        <Route path='/' Component={ChangePages} exact/>
-        <Route path='/SignUpCustomer' Component={SignUpCustomer}/>
-        <Route path='/LoginCustomer' Component={LoginCustomer} />
-        <Route path='/SignUpBarber' Component={SignUpBarber}/>
-        <Route path='/LoginBarber' Component={LoginBarber} />
-      </Routes>
-    </Router>
+    <ImageSlider slides={SliderData} />;
     </div>
     
   );

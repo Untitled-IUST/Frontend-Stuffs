@@ -6,9 +6,9 @@ import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import AdbIcon from '@mui/icons-material/Adb';
 import"../css/ImageSlider.css"
-import { Adb, AddBox, FmdGood } from '@mui/icons-material';
 import CallIcon from '@mui/icons-material/Call';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
+import GradeIcon from '@mui/icons-material/Grade';
 import axios from "axios";
 
 const ImageSlider = ({ slides }) => {
@@ -79,15 +79,15 @@ const prevSlide = () => {
         </section>
         <diV>
           <img style={{ width: 240,
-        height: 230, marginLeft:550,
-        marginTop:220,
-          borderRadius: 130,}} src={data.images.logo} alt="React lost" />
+        height: 230, marginLeft:640,
+        marginTop:20,
+          borderRadius: 130,}} src={"https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg"} alt="React lost" />
         </diV>
 
-        <div>
+        <div> 
         <p className='barber1'>___________________________servises___________________________</p>
         <img style={{ width: 140,
-          height: 130, marginLeft:420,
+          height: 130, marginLeft:500,
           borderRadius: 130,
             }} src= "https://s2.uupload.ir/files/969d06b413bc138719a3fb26fffc989d_h7sl.jpg"alt="React lost" />
           <img style={{ width: 140,
@@ -137,19 +137,9 @@ const prevSlide = () => {
         <CallIcon style={{ marginLeft:730,marginBottom:-25,color:'#ffd3d3'
       }}></CallIcon>
       <p className='info2' onChange={handleNameofsalon}>Phone Number: {data.phone_Number} </p>
+      <GradeIcon style={{ marginLeft:760,marginBottom:-25,color:'#e6f335'
+      }}></GradeIcon> <p className='info3'>Rate {data.rate}</p>
 
-       <Box
-      sx={{
-        '& > legend': { mt: 2 },
-      }}
-    >
-      
-
-       <Typography component="legend" style={{ marginLeft:760,color:'#ffd3d3'
-      }}>Rate</Typography> 
-      <Rating precision={0.1} style={{ marginLeft:760,
-      }} name="Rate" defaultValue={data.rate} value={data.rate}  readOnly />
-    </Box>
 
   </div>
   </div>
