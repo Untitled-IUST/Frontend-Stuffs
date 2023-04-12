@@ -10,11 +10,13 @@ import SignUpBarber from './pages/SignUpBarber';
 import LoginBarber from './pages/LoginBarber'
 import ChangePages from './pages/changePages'
 import ImageSlider from './pages/ImageSlider';
+import Salon from './pages/ImageSlider';
 import { SliderData } from './pages/SliderData';
 
 function App() {
   return (
     <div className="App">
+      <ImageSlider props={Salon}/>
     <ImageSlider slides={SliderData} />;
     </div>
     

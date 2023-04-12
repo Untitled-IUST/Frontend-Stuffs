@@ -4,31 +4,22 @@ import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import AdbIcon from '@mui/icons-material/Adb';
 import"../css/ImageSlider.css"
 import CallIcon from '@mui/icons-material/Call';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import GradeIcon from '@mui/icons-material/Grade';
 import axios from "axios";
 
+
 const ImageSlider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
   const [value, setValue] = React.useState(0);
-  const [flag, setFlag] = React.useState(false);
 
   const[nameofsalon,setNameofsalon]=useState(null)
   const[address,setAddress]=useState(null)
   const[phonenumberofsalon,setPhonenumberofsalon]=useState(null)
-  const[data,setMydata]=useState('')
-  useEffect(()=> {
-    axios.get("https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/   ")
 
-    .then((response) => {
-        console.log(response.data)
-        setMydata(response.data)
-    }).catch(err=> console.log(err)).finally(setFlag(true))
-    },)
 
 
   
@@ -56,7 +47,18 @@ const prevSlide = () => {
   const handlePhonenumberofsalon=(event) => {
     setPhonenumberofsalon(event.target.value);
  }
+ function Salon(props){
+  const baseurl="https://amirmohammadkomijani.pythonanywhere.com/barber/info/";
+  const[data,setMydata]=useState('')
+  useEffect(()=> {
+    axios.get( baseurl+(props.id))
 
+    .then((response) => {
+        console.log(response.data)
+        setMydata(response.data)
+    }).catch(err=> console.log(err))
+    },[])
+  
 
   return (
     <div className='wholebarber'>
@@ -146,5 +148,5 @@ const prevSlide = () => {
         
   
   );
-};
-export default ImageSlider;
+}};
+export default Salon;
