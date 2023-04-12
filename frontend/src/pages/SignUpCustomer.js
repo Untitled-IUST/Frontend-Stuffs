@@ -157,6 +157,7 @@ function SignUpCustomer(){
   }
   function handleSubmit(event){
     event.preventDefault();
+    console.log('')
   if(NameError===false && phoneNumberError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false && sexError === false)
   {
       axios({

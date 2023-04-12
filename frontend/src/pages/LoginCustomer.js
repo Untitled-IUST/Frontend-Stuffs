@@ -1,7 +1,9 @@
 import React , {useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../css/Login.css"
+import "../css/Login.css";
+//import { idCheck } from './contextAll';
+//import { useContext , createContext } from 'react';
 
 function LoginCustomer(){
   const validEmailAddress = new RegExp(
@@ -12,6 +14,7 @@ function LoginCustomer(){
   const [passwordError , setPasswordError] = useState("");
   const [Error , setError] = useState("");
   const [password , setpassword] = useState("");
+  //const {id,setID} = useContext (idCheck);
   
   const handleLogin = (event) => {
     event.preventDefault();

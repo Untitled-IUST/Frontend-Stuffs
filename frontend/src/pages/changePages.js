@@ -12,6 +12,7 @@ function ChangePages()
     <div>
       <button><Link to="/LoginBarber">Barber</Link></button>
       <button><Link to="/LoginCustomer">Customer</Link></button>
+      <button><Link to="/CustomerProfile">Customerprofile</Link></button>
     </div>
   )
 }
