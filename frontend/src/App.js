@@ -1,25 +1,22 @@
-import SignUpCustomer from './pages/SignUpCustomer';
-import LoginCustomer from './pages/LoginCustomer';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 }from "react-router-dom";
-import SignUpBarber from './pages/SignUpBarber';
-import LoginBarber from './pages/LoginBarber'
-import ChangePages from './pages/changePages'
+import LoginBarber from "./pages/LoginSignup/LoginBarber";
+import SignUpBarber from "./pages/LoginSignup/SignUpBarber"
+import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
+import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
 
 function App() {
   return (
     <div className="App">
     <Router>
       <Routes>
-        <Route path='/' Component={ChangePages} exact/>
-        <Route path='/SignUpCustomer' Component={SignUpCustomer}/>
-        <Route path='/LoginCustomer' Component={LoginCustomer} />
-        <Route path='/SignUpBarber' Component={SignUpBarber}/>
-        <Route path='/LoginBarber' Component={LoginBarber} />
+        <Route path="/LoginBarber" Component={LoginBarber} />
+        <Route path="/SignUpBarber" Component={SignUpBarber} />
+        <Route path="/LoginCustomer" Component={LoginCustomer} />
+        <Route path="/SignUpCustomer" Component={SignUpCustomer} />
       </Routes>
     </Router>
     </div>
