@@ -16,7 +16,6 @@ import { SliderData } from './pages/SliderData';
 function App() {
   return (
     <div className="App">
-      <ImageSlider props={Salon}/>
     <ImageSlider slides={SliderData} />;
     </div>
     

@@ -9,9 +9,12 @@ import CallIcon from '@mui/icons-material/Call';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import GradeIcon from '@mui/icons-material/Grade';
 import axios from "axios";
+import {useParam} from 'react-router-dom';
+import BrushIcon from '@mui/icons-material/Brush';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
 
-
-const ImageSlider = ({ slides }) => {
+const ImageSlider = ({ slides }, props) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
   const [value, setValue] = React.useState(0);
@@ -20,13 +23,19 @@ const ImageSlider = ({ slides }) => {
   const[address,setAddress]=useState(null)
   const[phonenumberofsalon,setPhonenumberofsalon]=useState(null)
 
-
-
-  
-
+  const[data,setMydata]=useState('')
+  useEffect(()=> {
+    axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1')
+ 
+    .then((response) => {
+        setMydata(response.data)
+    }).catch(err=> console.log(err))
+    },)
+   
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
+  console.log("******** the image slider data is *********** ", data);
 
 const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
@@ -47,22 +56,12 @@ const prevSlide = () => {
   const handlePhonenumberofsalon=(event) => {
     setPhonenumberofsalon(event.target.value);
  }
- function Salon(props){
-  const baseurl="https://amirmohammadkomijani.pythonanywhere.com/barber/info/";
-  const[data,setMydata]=useState('')
-  useEffect(()=> {
-    axios.get( baseurl+(props.id))
 
-    .then((response) => {
-        console.log(response.data)
-        setMydata(response.data)
-    }).catch(err=> console.log(err))
-    },[])
-  
 
   return (
     <div className='wholebarber'>
-      <p className='barber'  >Name of salon {data.BarberShop}</p>
+      
+
         <section className='slider'>
           <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
           <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
@@ -79,13 +78,16 @@ const prevSlide = () => {
             );
           })}
         </section>
-        <diV>
-          <img style={{ width: 240,
-        height: 230, marginLeft:640,
-        marginTop:20,
-          borderRadius: 130,}} src={"https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg"} alt="React lost" />
-        </diV>
+        <div> 
+           <img style={{ width: 200, 
+                height: 200, marginLeft:10,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
+                zIndex: '3',marginBottom:50,  marginTop:-400,
+           borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
+           // data.images[0]["background"] 
 
+        </div> 
+ 
+        <p className='barber'  >Name of salon {data.BarberShop}</p>
         <div> 
         <p className='barber1'>___________________________servises___________________________</p>
         <img style={{ width: 140,
@@ -121,14 +123,68 @@ const prevSlide = () => {
       
       <diV/>
       <div>
-          <img style={{ width: 700,
-        height: 500, marginLeft:10,
+          <img style={{ width: 900,
+        height: 500, marginLeft:20,
         marginTop:100,
-          borderRadius: 20,}} src= "https://s2.uupload.ir/files/nineteen91_salon_myminerva.jpeg_cdsv.jpg"alt="React lost" />
+          borderRadius: 0,}} src= "https://s2.uupload.ir/files/studio_benicky_salon_design.jpeg_parj.jpg"alt="React lost" />
 
         </div>
+    <Typography component="div">
+      <Box sx={{ bgcolor: '#ffecee', width: 350,
+        height: 415,textAlign: 'left', ml: 130 ,mt:-63,fontSize: 30, mb:10,fontFamily:'Roboto',p: 5 , color:'#120c1e'}}>
+      our salon beauty is a calm and nice plase
+        which will give you the best experince of a beauty salon you ever try. We have perfetional artists and good services
+        enjoy your time
+      </Box>
+    </Typography>
+    <Box
+      sx={{
+        width: '62%',
+        height: '270px',
+        bgcolor: '#120c1e',
+        ml: 3 ,
+        '& > .MuiBox-root > .MuiBox-root': {
+          p: .5,
+          borderRadius: 5,
+          color:'#fdccc8',
+          fontSize:  25,
+          fontFamily:'Roboto',
+        },
+      }}
+    >
+      <Box
+        sx={{
+          ml:4,
+          mr:1,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 2,
+          gridTemplateRows: 'auto',
+          gridTemplateAreas: `"header header header header"
+        "main main main main"
+        "one one one one"
+        "footer footer footer footer"`,
+        }}
+      >
+        <Box sx={{ gridArea: 'header', bgcolor: '#382b49' }}>Owner: {data.Owner}
+        <BrushIcon  style={{ marginLeft:-190,marginBottom:-3,color:'#ffecee' ,fontSize:35,
+      }}></BrushIcon> 
 
-        <p  className='info'> Name of salon beauty {data.BarberShop} </p>
+        </Box>
+        <Box sx={{ gridArea: 'main', bgcolor: '#382b49' }}> Address: {data.address} 
+        <FmdGoodIcon style={{ marginLeft:-220,marginBottom:-3,color:'#ffecee',fontSize:35,
+      }} ></FmdGoodIcon></Box>
+        <Box sx={{ gridArea: 'one', bgcolor: '#382b49' }}>Phone Number: {data.phone_Number} 
+        <CallIcon style={{ marginLeft:-340,marginBottom:-5,color:'#ffecee',fontSize:35,
+      }}></CallIcon></Box>
+        <Box sx={{ gridArea: 'footer', bgcolor: '#382b49' }}>Rate: {data.rate}
+        <GradeIcon style={{ marginLeft:-130,marginBottom:-6,color:'#ffecee',fontSize:35,
+      }}></GradeIcon>
+        </Box>
+      </Box>
+    </Box>
+
+        {/* <p  className='info'> Name of salon beauty {data.BarberShop} </p>
         <p className='info1'> our salon beauty is a calm and nice plase
         which will give you the best experince of a beauty salon you ever try. We have perfoshebal artists and good services
         enjoy your time</p>
@@ -138,9 +194,10 @@ const prevSlide = () => {
       <p className='info2' >Address: {data.address} </p>
         <CallIcon style={{ marginLeft:730,marginBottom:-25,color:'#ffd3d3'
       }}></CallIcon>
-      <p className='info2' onChange={handleNameofsalon}>Phone Number: {data.phone_Number} </p>
+      <p className='info2' >Phone Number: {data.phone_Number} </p>
       <GradeIcon style={{ marginLeft:760,marginBottom:-25,color:'#e6f335'
-      }}></GradeIcon> <p className='info3'>Rate {data.rate}</p>
+      }}></GradeIcon> <p className='info3'>Rate {data.rate}</p> */}
+      
 
 
   </div>
@@ -148,5 +205,5 @@ const prevSlide = () => {
         
   
   );
-}};
-export default Salon;
+};
+export default ImageSlider;
