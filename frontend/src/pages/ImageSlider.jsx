@@ -11,8 +11,11 @@ import GradeIcon from '@mui/icons-material/Grade';
 import axios from "axios";
 import {useParam} from 'react-router-dom';
 import BrushIcon from '@mui/icons-material/Brush';
-import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 const ImageSlider = ({ slides }, props) => {
   const [current, setCurrent] = useState(0);
@@ -22,20 +25,38 @@ const ImageSlider = ({ slides }, props) => {
   const[nameofsalon,setNameofsalon]=useState(null)
   const[address,setAddress]=useState(null)
   const[phonenumberofsalon,setPhonenumberofsalon]=useState(null)
-
+  const theme = createTheme({
+    typography: {
+      fontFamily: 'Roboto',
+    },
+  });
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#ffecee',
+    ...theme.typography.body2,
+    padding: theme.spacing(3),
+    textAlign: 'left',
+    color: '#120c1e',
+    fontFamily: 'Roboto',
+    fontSize:  25,
+    borderRadius:10,
+  }));
   const[data,setMydata]=useState('')
+  const[img,setImg]=useState(0)
+  const[img1,setImg1]=useState(0)
   useEffect(()=> {
     axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1')
  
     .then((response) => {
         setMydata(response.data)
+        console.log(data.images[0].background)
+        setImg(data.images[0].logo)
+        setImg1(data.images[0].background)
     }).catch(err=> console.log(err))
     },)
    
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
-  console.log("******** the image slider data is *********** ", data);
 
 const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
@@ -80,15 +101,23 @@ const prevSlide = () => {
         </section>
         <div> 
            <img style={{ width: 200, 
-                height: 200, marginLeft:10,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
+                height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
                 zIndex: '3',marginBottom:50,  marginTop:-400,
-           borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
-           // data.images[0]["background"] 
+           borderRadius: 130,}} src={img} alt="React lost" />
 
-        </div> 
- 
-        <p className='barber'  >Name of salon {data.BarberShop}</p>
-        <div> 
+      <Container fixed>
+      <Typography component="div">
+      <ThemeProvider theme={theme}>
+      <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: 400,borderRadius:3,
+        height: 90,textAlign: 'center', ml: 48,mt:-10,fontSize: 30, mb:10, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
+        Name of salon {data.BarberShop}
+      </Box>
+      </ThemeProvider>
+    </Typography>
+    </Container>
+
+
+
         <p className='barber1'>___________________________servises___________________________</p>
         <img style={{ width: 140,
           height: 130, marginLeft:500,
@@ -121,27 +150,41 @@ const prevSlide = () => {
         <option value="fmake">Skin routin</option>
       </select>
       
-      <diV/>
+      <diV/>    
+      <Container fixed>
+      <Typography component="div">
+      <Box sx={{ bgcolor: '#ffecee', width: 500,
+        height: 50,textAlign: 'left', ml: 93 ,fontSize: 30, mt:20,mb:-25,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+    you are beautiful cause you care.
+      </Box>
+    </Typography>
+    </Container>
+      <Container fixed>
       <div>
-          <img style={{ width: 900,
-        height: 500, marginLeft:20,
+          <img style={{ width: 560,
+        height: 500, marginLeft:-150,
         marginTop:100,
-          borderRadius: 0,}} src= "https://s2.uupload.ir/files/studio_benicky_salon_design.jpeg_parj.jpg"alt="React lost" />
+          borderRadius: 10,}} src= "https://s2.uupload.ir/files/studio_benicky_salon_design.jpeg_parj.jpg"alt="React lost" />
 
         </div>
+
     <Typography component="div">
-      <Box sx={{ bgcolor: '#ffecee', width: 350,
-        height: 415,textAlign: 'left', ml: 130 ,mt:-63,fontSize: 30, mb:10,fontFamily:'Roboto',p: 5 , color:'#120c1e'}}>
+      
+      <Box sx={{ bgcolor: '#ffecee', width: 500,
+        height: 255,textAlign: 'left', ml: 93 ,mt:-40,fontSize: 30, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
       our salon beauty is a calm and nice plase
         which will give you the best experince of a beauty salon you ever try. We have perfetional artists and good services
         enjoy your time
       </Box>
     </Typography>
+    </Container>
+    {/* <Container fixed>
     <Box
       sx={{
         width: '62%',
         height: '270px',
-        bgcolor: '#120c1e',
+        bgcolor: 'rgba(248, 220, 220, 0.35)',
+        mt:15,
         ml: 3 ,
         '& > .MuiBox-root > .MuiBox-root': {
           p: .5,
@@ -183,20 +226,31 @@ const prevSlide = () => {
         </Box>
       </Box>
     </Box>
+    </Container> */}
+    <Container fixed>
+      <Box sx={{ width: '125%',ml:-18}}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 40 }}>
+          <Grid item xs={6}>
+            <Item ><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#120c1e' ,fontSize:35,
+      }}></BrushIcon> Owner: {data.Owner}</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item><FmdGoodIcon style={{ marginLeft:0,marginBottom:-3,color:'#120c1e',fontSize:35,
+      }} ></FmdGoodIcon> Address: {data.address} </Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item><CallIcon style={{ marginLeft:0,marginBottom:-5,color:'#120c1e',fontSize:35,
+      }}></CallIcon> Phone Number: {data.phone_Number} </Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item><GradeIcon style={{ marginLeft:0,marginBottom:-6,color:'#120c1e',fontSize:35,
+      }}></GradeIcon>Rate: {data.rate}</Item>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
 
-        {/* <p  className='info'> Name of salon beauty {data.BarberShop} </p>
-        <p className='info1'> our salon beauty is a calm and nice plase
-        which will give you the best experince of a beauty salon you ever try. We have perfoshebal artists and good services
-        enjoy your time</p>
-        <p className='info2' >Owner: {data.Owner} </p>
-        <FmdGoodIcon style={{ marginLeft:730,marginBottom:-25,color:'#ffd3d3'
-      }} ></FmdGoodIcon>
-      <p className='info2' >Address: {data.address} </p>
-        <CallIcon style={{ marginLeft:730,marginBottom:-25,color:'#ffd3d3'
-      }}></CallIcon>
-      <p className='info2' >Phone Number: {data.phone_Number} </p>
-      <GradeIcon style={{ marginLeft:760,marginBottom:-25,color:'#e6f335'
-      }}></GradeIcon> <p className='info3'>Rate {data.rate}</p> */}
+
       
 
 
