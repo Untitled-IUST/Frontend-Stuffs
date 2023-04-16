@@ -10,13 +10,15 @@ import SignUpBarber from './pages/SignUpBarber';
 import LoginBarber from './pages/LoginBarber'
 import ChangePages from './pages/changePages'
 import ImageSlider from './pages/ImageSlider';
-import Salon from './pages/ImageSlider';
 import { SliderData } from './pages/SliderData';
 
 function App() {
   return (
     <div className="App">
-    <ImageSlider slides={SliderData} />;
+      <Routes>
+          {/* <ImageSlider slides={SliderData} />; */}
+          <Route exact path="/ehsanpage/ImageSlider/:id" element={<ImageSlider slides={SliderData} />}/>
+    </Routes>
     </div>
     
   );
