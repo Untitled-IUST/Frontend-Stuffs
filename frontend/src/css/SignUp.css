@@ -1,5 +1,5 @@
-
-/* .App{
+/* 
+.App{
     text-align: center;
     display: flex;
     min-height: 100vh;
@@ -12,7 +12,7 @@
     height:115vh;
     margin-top:-70px;
     
-} */
+}
 
   
   .auth-form-container2,.signup-form{
@@ -48,7 +48,7 @@ label2{
     padding-right: 10rem;
     font-size: 15px;
     font-style:italic;
-    /*font-family: cursive;*/
+    font-family: cursive;
     font-family: Arial, Helvetica, sans-serif;
   
     
@@ -57,7 +57,7 @@ label2{
   label3{
     margin-top:-5px;
     font-size: 13px;
-    /*font-family: cursive;*/
+    font-family: cursive;
     font-family: Arial, Helvetica, sans-serif;
     color: #eebfbf;
   
@@ -67,7 +67,7 @@ label2{
   label4{
     
     font-size: 13px;
-    /*font-family: cursive;*/
+    font-family: cursive;
     font-family: Arial, Helvetica, sans-serif;
     color: #eebfbf;
   
@@ -78,14 +78,14 @@ label2{
     text-align: center;
     margin-top:-3px;    
     font-size: 13px;
-    /*font-family: cursive;*/
+    font-family: cursive;
     font-family: Arial, Helvetica, sans-serif;
     color: #eebfbf;
   }
 p1{
     text-align: center;    
     font-size: 13px;
-    /*font-family: cursive;*/
+    font-family: cursive;
     font-family: Arial, Helvetica, sans-serif;
     color: #eebfbf;
   }
@@ -112,4 +112,4 @@ button{
     color: white;
     text-decoration: underline;
     font-family: Arial, Helvetica, sans-serif;
-  }
+  } */

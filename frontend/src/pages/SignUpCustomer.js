@@ -162,7 +162,7 @@ function SignUpCustomer(){
   {
       axios({
         method: "post",
-        url: "http://127.0.0.1:8000/auth/customer/signup/",
+        url: "https://amirmohammadkomijani.pythonanywhere.com/auth/customer/signup/", 
         headers: {
             'Content-Type': 'application/json',
         },

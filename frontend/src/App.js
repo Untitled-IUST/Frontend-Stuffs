@@ -24,7 +24,7 @@ function App() {
         <Route path='/LoginCustomer' Component={LoginCustomer} />
         <Route path='/SignUpBarber' Component={SignUpBarber}/>
         <Route path='/LoginBarber' Component={LoginBarber} />
-        <Route path='/Customer_Profile' Component={ProfilePage} />  */}
+        <Route path='/Customer_Profile' Component={ProfilePage} />  */} 
       </Routes>
     </Router>
     </div>

@@ -24,22 +24,41 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import toast from "react-hot-toast";
 
 export  default function ProfilePage() {
+  
+
+
   const [Name , setName] = useState("");
   const [LastName , setLastName] = useState("");
   const[phoneNumber , setPhoneNumber] = useState(null);
   const[emailAddress , setEmailAddress] = useState(null);
   const [imgFile, setImgFile] = useState("");
-  const [data, setdata] = useState("");
+  // const [data, setdata] = useState("");
+  const [error, seterror] = useState("");
 
   //const [userProfileFlag, setUserProfileFlag] = useState(false);
   //const[password , setpassword] = useState(null);
   //const {id,setID} = useContext (idCheck);
+  useEffect(() => {
+    axios
+      .get("https://amirmohammadkomijani.pythonanywhere.com/customer/info/1/")
+      .then((res) => {
+      setName(res.data.first_name);
+      setLastName(res.data.last_name);
+      setPhoneNumber(res.data.phone_Number);
+      setEmailAddress(res.data.email);
+    }).catch(error => 
+      seterror(error.response.data))
+  }, []);
+  const handlename = (event) =>
+  {
+    
+  }
   const handlesubmit = (event) =>
   {
     event.preventDefault();
     axios({
       method : "patch",
-      url : "https://amirmohammadkomijani.pythonanywhere.com/customer/info/2/",
+      url : "https://amirmohammadkomijani.pythonanywhere.com/customer/info/1/",
       headers: {
         'Content-Type': 'application/json',
     },
@@ -47,55 +66,38 @@ export  default function ProfilePage() {
     {
       first_name : Name,
       last_name : LastName,
-      phone_number : phoneNumber,
+      phone_Number : phoneNumber,
       email : emailAddress,
     }
     })
     .then((res) => {
       toast.success("profile updates succesfully");
-      setName(Name);
+      window.location.reload(false);
     }); 
   }
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://amirmohammadkomijani.pythonanywhere.com/customer/info/2/")
-  //     .then((res) => {
-  //       setImgFile(res.imgFile)
 
-  //     })
-  // },[]);
-
-
-  useEffect(() => {
-    axios
-      .get("https://amirmohammadkomijani.pythonanywhere.com/customer/info/2/")
-      .then((res) => {
-      setName(data.Name);
-      setLastName(data.LastName);
-      setPhoneNumber(data.phoneNumber);
-    });
-  }, []);
+  useEffect(() =>{
+    console.log()
+  })
 
 
 
   return (
-    <section style={{ backgroundColor: '#120d1c'}} >
-      <MDBContainer className="py-5">
-        <MDBRow >
-  
-            <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4" >
-              <MDBBreadcrumb active>User Profile</MDBBreadcrumb>
-            </MDBBreadcrumb>
-
-
-        </MDBRow>
-
-        <MDBRow>
-            <MDBCard className="mb-4" style={{backgroundColor: '#ffecee'}}>
+    <section style={{ backgroundColor: ''}} >
+      <MDBContainer className="py-5" >
+        <MDBRow className='rowContainer'>
+            <MDBCard className="mb-3">
               <MDBCardBody className="text-center">
+                <MDBCard className='user'>
+                  <div className='divpro'>
+                    <h3>
+                      My Profile
+                    </h3>
+                  </div>
+                </MDBCard>
                 <MDBCardImage
-                  //src=imgFile.{profile_picture}
+                  src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg"
                   alt="avatar"
                   className="rounded-circle"
                   style={{ width: '150px' }}
@@ -121,8 +123,7 @@ export  default function ProfilePage() {
                 </MDBListGroup>
               </MDBCardBody>
             </MDBCard>
-
-            <MDBCard className="mb-4" style={{backgroundColor: '#ffecee'}}> 
+            <MDBCard className="mbs-4 salam" style={{backgroundColor: ''}}> 
               <MDBCardBody>
                 <MDBRow>
                   <MDBRow sm="3">
@@ -130,11 +131,11 @@ export  default function ProfilePage() {
                         FirstName:</label>
                       <input
                           className="personal-form-input"
-                          value={data.Name}
+                          value={Name}
                           type="text"
                           id="title"
                           onChange={(e) => setName(e.target.value)}
-                          //Name = {data.Name} 
+                          //Name = {data.Name}  
                         />
                   </MDBRow>
                   <MDBRow>
