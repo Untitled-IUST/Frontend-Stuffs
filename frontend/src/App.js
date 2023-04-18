@@ -8,7 +8,6 @@ import SignUpBarber from "./pages/LoginSignup/SignUpBarber"
 import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
 import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
 import SalonSelect from './pages/salonSelect/salonSelect';
-import SalonCard from './components/salonCard';
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
         <Route path="/SignUpBarber" Component={SignUpBarber} />
         <Route path="/LoginCustomer" Component={LoginCustomer} />
         <Route path="/SignUpCustomer" Component={SignUpCustomer} />
-        <Route path="/SalonSelect" Component={SalonCard} />
+        <Route path="/SalonSelect" Component={SalonSelect} />
       </Routes>
     </div>
     
