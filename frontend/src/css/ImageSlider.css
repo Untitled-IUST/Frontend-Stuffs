@@ -141,3 +141,15 @@
     font-family:Georgia, 'Times New Roman', Times, serif;
 
 }
+.MuiTabs-indicator{
+  background: #ffecee !important;
+  
+}
+.Mui-selected {
+  color:  #ffecee!important;
+  font-size: 25px !important;
+}
+.Mui-disabled{
+  background:  #ffecee!important;
+  font-size: 25px !important;
+}

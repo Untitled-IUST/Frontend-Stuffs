@@ -57,3 +57,47 @@ https://s2.uupload.ir/files/cosmetics_instagram_highlight_covers_your_story_-_te
 https://s2.uupload.ir/files/pink_beauty_minimalist_highlight_covers_your_story_-_templates_by_canva.jpeg_mf12.jpg
 
 https://s2.uupload.ir/files/minimalist_beauty_salon_highlight_covers_your_story_-_templates_by_canva.jpeg_stp.jpg
+
+
+      //   <p className='barber1'>___________________________servises___________________________</p>
+      //   <img style={{ width: 140,
+      //     height: 130, marginLeft:500,
+      //     borderRadius: 130,
+      //       }} src= "https://s2.uupload.ir/files/969d06b413bc138719a3fb26fffc989d_h7sl.jpg"alt="React lost" />
+      //     <img style={{ width: 140,
+      //     height: 130, marginLeft:50,
+      //     borderRadius: 130,
+      //       }} src= "https://s2.uupload.ir/files/f6bab4d47f99bdbb85d06f0d8b05c7bc_3zf6.jpg"alt="React lost" />
+      //     <img style={{ width: 140,
+      //     height: 130, marginLeft:50,
+      //     borderRadius: 130,
+      //       }} src= "https://s2.uupload.ir/files/26b565408bc94830eecee1a7533dea55_q2gk.jpg"alt="React lost" />
+      //     </div>
+      // <div>
+      // <select className='selectmakeup' >
+      //   <option value="fmake">Makeup service</option>
+      //   <option value="fmake">Face make up</option>
+      //   <option value="fmake">Wedding make up</option>
+      // </select>
+      // <select className='selecthair ' >
+      //   <option value="fmake">Hair service</option>
+      //   <option value="fmake">Haircut</option>
+      //   <option value="fmake">Shinion</option>
+      //   <option value="fmake">Hair color</option>
+      // </select>
+      // <select className='selectskin' >
+      //   <option value="fmake">Skin service</option>
+      //   <option value="fmake">Brush</option>
+      //   <option value="fmake">Skin routin</option>
+      // </select>
+https://blog.logrocket.com/creating-react-sortable-table/
+
+https://www.google.com/url?sa=t&source=web&rct=j&url=https://ej2.syncfusion.com/react/documentation/gantt/sorting&ved=2ahUKEwjhm7Wx5bH-AhVlRPEDHeoBAr4QFnoECDMQAQ&usg=AOvVaw31w7j2ZPlqyUbIe7spclhy
+
+https://www.copycat.dev/blog/material-ui-table/
+
+https://mui.com/x/react-data-grid/sorting/
+
+https://blog.openreplay.com/display-data-with-material-ui-s-data-grid/
+
+https://dev.to/ramonak/react-how-to-dynamically-sort-an-array-of-objects-using-the-dropdown-with-react-hooks-195p

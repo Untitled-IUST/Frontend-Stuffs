@@ -16,12 +16,13 @@ import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
-const ImageSlider = ({ slides }, props) => {
+function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-  const [value, setValue] = React.useState(0);
-
   const[nameofsalon,setNameofsalon]=useState(null)
   const[address,setAddress]=useState(null)
   const[phonenumberofsalon,setPhonenumberofsalon]=useState(null)
@@ -40,12 +41,18 @@ const ImageSlider = ({ slides }, props) => {
     fontSize:  25,
     borderRadius:10,
   }));
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const handleTabChange = (e, tabIndex) => {
+    console.log(tabIndex);
+    setCurrentTabIndex(tabIndex);
+  };
   const[data,setMydata]=useState('')
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
   let { id } = useParams();
   useEffect(()=> {
-  axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
+  // axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
+  axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1')
     .then((response) => {
         setMydata(response.data)
         console.log(data.images[0].background)
@@ -54,7 +61,6 @@ const ImageSlider = ({ slides }, props) => {
         setImg1(data.images[0].background)
     }).catch(err=> console.log(err))
     },)
-   
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
@@ -82,8 +88,6 @@ const prevSlide = () => {
 
   return (
     <div className='wholebarber'>
-      
-
         <section className='slider'>
           <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
           <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
@@ -105,7 +109,7 @@ const prevSlide = () => {
                 height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
                 zIndex: '3',marginBottom:50,  marginTop:-400,
            borderRadius: 130,}} src={img} alt="React lost" />
-
+        <diV/> 
       <Container fixed>
       <Typography component="div">
       <ThemeProvider theme={theme}>
@@ -116,43 +120,62 @@ const prevSlide = () => {
       </ThemeProvider>
     </Typography>
     </Container>
+    <React.Fragment>
+      <Tabs value={currentTabIndex} onChange={handleTabChange} centered>
+        <Tab label='Hair' />
+        <Tab label='Makeup' />
+        <Tab label='Skin' />
+      </Tabs>
+
+      {/* TAB 1 Contents */}
+      {currentTabIndex === 0 && (
+        <Box sx={{ p: 3, bgcolor: '#ffecee' }}>
+          <Typography variant='h5'>Tab 1 Content</Typography>
+          <Typography variant='p'>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+finibus odio eget orci bibendum, ac hendrerit mi porta. Nullam
+volutpat libero tempus leo lacinia ornare. In hac habitasse platea
+dictumst. Pellentesque facilisis ex eget vulputate tincidunt.
+Curabitur fringilla ultrices commodo.
+          </Typography>
+        </Box>
+      )}
+
+      {/* TAB 2 Contents */}
+      {currentTabIndex === 1 && (
+        <Box sx={{ p: 3 }}>
+          <Typography variant='h5'>Tab 2 Content</Typography>
+          <Typography variant='p'>
+Lorem Ipsum is simply dummy text of the printing and typesetting
+industry. Lorem Ipsum has been the industry's standard dummy text
+ever since the 1500s, when an unknown printer took a galley of type
+and scrambled it to make a type specimen book.
+          </Typography>
+        </Box>
+      )}
+
+      {/* TAB 3 Contents */}
+      {currentTabIndex === 2 && (
+        <Box sx={{ p: 3 }}>
+          <Typography variant='h5'>Tab 3 Content</Typography>
+          <Typography variant='p'>
+It is a long established fact that a reader will be distracted by
+the readable content of a page when looking at its layout. The point
+of using Lorem Ipsum is that it has a more-or-less normal
+distribution of letters, as opposed to using 'Content here, content
+here', making it look like readable English.
+          </Typography>
+        </Box>
+      )}
+    </React.Fragment>
 
 
 
-        <p className='barber1'>___________________________servises___________________________</p>
-        <img style={{ width: 140,
-          height: 130, marginLeft:500,
-          borderRadius: 130,
-            }} src= "https://s2.uupload.ir/files/969d06b413bc138719a3fb26fffc989d_h7sl.jpg"alt="React lost" />
-          <img style={{ width: 140,
-          height: 130, marginLeft:50,
-          borderRadius: 130,
-            }} src= "https://s2.uupload.ir/files/f6bab4d47f99bdbb85d06f0d8b05c7bc_3zf6.jpg"alt="React lost" />
-          <img style={{ width: 140,
-          height: 130, marginLeft:50,
-          borderRadius: 130,
-            }} src= "https://s2.uupload.ir/files/26b565408bc94830eecee1a7533dea55_q2gk.jpg"alt="React lost" />
-          </div>
-      <div>
-      <select className='selectmakeup' >
-        <option value="fmake">Makeup service</option>
-        <option value="fmake">Face make up</option>
-        <option value="fmake">Wedding make up</option>
-      </select>
-      <select className='selecthair ' >
-        <option value="fmake">Hair service</option>
-        <option value="fmake">Haircut</option>
-        <option value="fmake">Shinion</option>
-        <option value="fmake">Hair color</option>
-      </select>
-      <select className='selectskin' >
-        <option value="fmake">Skin service</option>
-        <option value="fmake">Brush</option>
-        <option value="fmake">Skin routin</option>
-      </select>
-      
-      <diV/>    
-      <Container fixed>
+
+
+
+
+    <Container fixed>
       <Typography component="div">
       <Box sx={{ bgcolor: '#ffecee', width: 500,
         height: 50,textAlign: 'left', ml: 93 ,fontSize: 30, mt:20,mb:-25,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
@@ -160,7 +183,7 @@ const prevSlide = () => {
       </Box>
     </Typography>
     </Container>
-      <Container fixed>
+    <Container fixed>
       <div>
           <img style={{ width: 560,
         height: 500, marginLeft:-150,
@@ -179,55 +202,7 @@ const prevSlide = () => {
       </Box>
     </Typography>
     </Container>
-    {/* <Container fixed>
-    <Box
-      sx={{
-        width: '62%',
-        height: '270px',
-        bgcolor: 'rgba(248, 220, 220, 0.35)',
-        mt:15,
-        ml: 3 ,
-        '& > .MuiBox-root > .MuiBox-root': {
-          p: .5,
-          borderRadius: 5,
-          color:'#fdccc8',
-          fontSize:  25,
-          fontFamily:'Roboto',
-        },
-      }}
-    >
-      <Box
-        sx={{
-          ml:4,
-          mr:1,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 2,
-          gridTemplateRows: 'auto',
-          gridTemplateAreas: `"header header header header"
-        "main main main main"
-        "one one one one"
-        "footer footer footer footer"`,
-        }}
-      >
-        <Box sx={{ gridArea: 'header', bgcolor: '#382b49' }}>Owner: {data.Owner}
-        <BrushIcon  style={{ marginLeft:-190,marginBottom:-3,color:'#ffecee' ,fontSize:35,
-      }}></BrushIcon> 
 
-        </Box>
-        <Box sx={{ gridArea: 'main', bgcolor: '#382b49' }}> Address: {data.address} 
-        <FmdGoodIcon style={{ marginLeft:-220,marginBottom:-3,color:'#ffecee',fontSize:35,
-      }} ></FmdGoodIcon></Box>
-        <Box sx={{ gridArea: 'one', bgcolor: '#382b49' }}>Phone Number: {data.phone_Number} 
-        <CallIcon style={{ marginLeft:-340,marginBottom:-5,color:'#ffecee',fontSize:35,
-      }}></CallIcon></Box>
-        <Box sx={{ gridArea: 'footer', bgcolor: '#382b49' }}>Rate: {data.rate}
-        <GradeIcon style={{ marginLeft:-130,marginBottom:-6,color:'#ffecee',fontSize:35,
-      }}></GradeIcon>
-        </Box>
-      </Box>
-    </Box>
-    </Container> */}
     <Container fixed>
       <Box sx={{ width: '125%',ml:-18}}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 40 }}>
@@ -250,15 +225,12 @@ const prevSlide = () => {
         </Grid>
       </Box>
     </Container>
-
-
-      
-
-
   </div>
   </div>
+  
         
   
   );
 };
+
 export default ImageSlider;

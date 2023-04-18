@@ -14,14 +14,18 @@ import { SliderData } from './pages/SliderData';
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-          {/* <ImageSlider slides={SliderData} />; */}
+    <div className="App">`123
+      <ImageSlider slides={SliderData} />;
+      {/* <Routes>
           <Route exact path="/ehsanpage/ImageSlider/:id" element={<ImageSlider slides={SliderData} />}/>
-    </Routes>
+    </Routes> */}
     </div>
     
   );
 }
+
+
+
+
 
 export default App;
