@@ -1,7 +1,5 @@
-import SignUpCustomer from './pages/SignUpCustomer';
-import LoginCustomer from './pages/LoginCustomer';
+import{BrowserRouter as Router}from 'react-router-dom';
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
 }from "react-router-dom";
@@ -9,18 +7,20 @@ import LoginBarber from "./pages/LoginSignup/LoginBarber";
 import SignUpBarber from "./pages/LoginSignup/SignUpBarber"
 import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
 import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
+import SalonSelect from './pages/salonSelect/salonSelect';
+import SalonCard from './components/salonCard';
 
 function App() {
   return (
     <div className="App">
-    <Router>
+
       <Routes>
         <Route path="/LoginBarber" Component={LoginBarber} />
         <Route path="/SignUpBarber" Component={SignUpBarber} />
         <Route path="/LoginCustomer" Component={LoginCustomer} />
         <Route path="/SignUpCustomer" Component={SignUpCustomer} />
+        <Route path="/SalonSelect" Component={SalonCard} />
       </Routes>
-    </Router>
     </div>
     
   );
