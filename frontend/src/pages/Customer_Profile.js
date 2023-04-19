@@ -22,6 +22,7 @@ import {
 } from 'mdb-react-ui-kit';
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import toast from "react-hot-toast";
+import { json } from 'react-router-dom';
 
 export  default function ProfilePage() {
   
@@ -32,35 +33,53 @@ export  default function ProfilePage() {
   const[phoneNumber , setPhoneNumber] = useState(null);
   const[emailAddress , setEmailAddress] = useState(null);
   const [imgFile, setImgFile] = useState("");
-  // const [data, setdata] = useState("");
+  const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
+  let access_token =localStorage.getItem('acctoken');
+  // console.log(JSON.parse(access_token).access)
 
-  //const [userProfileFlag, setUserProfileFlag] = useState(false);
-  //const[password , setpassword] = useState(null);
-  //const {id,setID} = useContext (idCheck);
   useEffect(() => {
-    axios
-      .get("https://amirmohammadkomijani.pythonanywhere.com/customer/info/1/")
-      .then((res) => {
+    
+  //   axios({method :'get',url:'https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `JWT ${access_token}`}
+  //     })
+  //     .then((res) => {
+  //     setName(res.data.first_name);
+  //     setLastName(res.data.last_name);
+  //     setPhoneNumber(res.data.phone_Number);
+  //     setEmailAddress(res.data.email);
+  //   }).catch(error => 
+  //     seterror(error.response.data))
+  // }, []);
+    console.log(access_token);
+    axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
+      headers:{
+        "Content-Type": 'application/json',
+        Authorization: `JWT ${access_token}`
+      }
+    }).then((res)=>{
+      // console.log(res.data)
       setName(res.data.first_name);
       setLastName(res.data.last_name);
       setPhoneNumber(res.data.phone_Number);
-      setEmailAddress(res.data.email);
-    }).catch(error => 
-      seterror(error.response.data))
-  }, []);
-  const handlename = (event) =>
-  {
-    
-  }
+      setEmailAddress(res.data.user.email);
+      setpassword(res.data.user.password);
+      setImgFile("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic)
+      console.log("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic);
+    }).catch((err)=>{
+      console.log(err)
+    })},[])
   const handlesubmit = (event) =>
   {
+    
     event.preventDefault();
     axios({
-      method : "patch",
-      url : "https://amirmohammadkomijani.pythonanywhere.com/customer/info/1/",
+      method : "put",
+      url : "https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/",
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `JWT ${access_token}`
     },
     data :
     {
@@ -68,6 +87,8 @@ export  default function ProfilePage() {
       last_name : LastName,
       phone_Number : phoneNumber,
       email : emailAddress,
+      password : password,
+
     }
     })
     .then((res) => {
@@ -97,16 +118,12 @@ export  default function ProfilePage() {
                   </div>
                 </MDBCard>
                 <MDBCardImage
-                  src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg"
+                  src={imgFile}
                   alt="avatar"
                   className="rounded-circle"
                   style={{ width: '150px' }}
                   fluid />
 
-                    <label className="uploadImg" for="imageUpload">
-                        upload your photo
-
-                      </label>
                       <input
                           type="file"
                           id="imageUpload"
@@ -165,7 +182,7 @@ export  default function ProfilePage() {
                           onChange={(e) => setEmailAddress(e.target.value)}
                         />
                   </MDBRow>
-                  {/* <MDBRow>
+                  <MDBRow>
                   <label>Password:</label>
                       <input
                           className="personal-form-input"
@@ -173,15 +190,20 @@ export  default function ProfilePage() {
                           type="email"
                           onChange={(e) => setpassword(e.target.value)}
                         />
-                  </MDBRow> */}
+                  </MDBRow>
+                  <br></br>
                   <MDBCol>
-                  <button
-                          type="submit"
-                          className="update"
-                          onClick={handlesubmit}
-                        >
-                          Update
-                        </button>
+                    <div style={{ display: "flex", alignItems: "flex-end", alignContent: "flex-end"}}>
+                      <button
+                              type="submit"
+                              className="update"
+                              onClick={handlesubmit}
+                              style={{ marginTop: "0.5rem" }}
+                            >
+                              Update
+                      </button>
+
+                    </div>
                   </MDBCol>
 
                 </MDBRow>
@@ -193,4 +215,4 @@ export  default function ProfilePage() {
       </MDBContainer>
     </section>
   );
-}
+                        }

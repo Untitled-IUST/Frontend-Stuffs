@@ -8,13 +8,11 @@ section{
     background-image: url("../images/makeup-artist-vlogging-elements.jpg");
     background-size: cover;
     display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
 }
 .rowContainer{
     justify-content: center;
 }
+
 .salam{
     background-color: rgb(255, 238, 236, 0.6) !important;
     width: 700px !important;
@@ -44,6 +42,7 @@ section{
     text-align: center;
     padding: 10px;
     background-color: rgb(56,43,73, 0.3) !important;
+    justify-content: center;
 }
 
 .mbs-4{
@@ -60,4 +59,5 @@ section{
     border-radius: 1rem;
     border-style:none;
     margin: auto;
+    justify-content: left;
 }

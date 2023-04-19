@@ -5,7 +5,7 @@ import ProfilePage from './pages/Customer_Profile';
 // import { idCheck } from './contextAll';
 import { useContext , createContext } from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Routes,
   Route
 }from "react-router-dom";
@@ -17,16 +17,17 @@ import ChangePages from './pages/changePages'
 function App() {
   return (
     <div className="App">
-    <Router>
+      <BrowserRouter>
       <Routes>
-        <Route path='/' Component={ProfilePage} exact/>
-        {/* <Route path='/SignUpCustomer' Component={SignUpCustomer}/>
+        <Route path='/' Component={ChangePages} exact/>
+        <Route path='/SignUpCustomer' Component={SignUpCustomer}/>
         <Route path='/LoginCustomer' Component={LoginCustomer} />
         <Route path='/SignUpBarber' Component={SignUpBarber}/>
         <Route path='/LoginBarber' Component={LoginBarber} />
-        <Route path='/Customer_Profile' Component={ProfilePage} />  */} 
+        <Route path='/ProfilePage' Component={ProfilePage} />  
       </Routes>
-    </Router>
+      </BrowserRouter>
+
     </div>
     
   );

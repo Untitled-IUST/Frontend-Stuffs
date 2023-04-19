@@ -1,5 +1,5 @@
 import React , {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate , useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/Login.css";
 //import { idCheck } from './contextAll';
@@ -14,13 +14,14 @@ function LoginCustomer(){
   const [passwordError , setPasswordError] = useState("");
   const [Error , setError] = useState("");
   const [password , setpassword] = useState("");
+  const navigate = useNavigate();
   //const {id,setID} = useContext (idCheck);
   
   const handleLogin = (event) => {
     event.preventDefault();
     axios({
       method: "post",
-      url: "http://127.0.0.1:8000/auth/customer/login/",
+      url: 'https://amirmohammadkomijani.pythonanywhere.com/auth/jwt/create',
       headers: {
           'Content-Type': 'application/json',
       },
@@ -30,8 +31,11 @@ function LoginCustomer(){
       }
   })
   .then((res) => {
+    console.log(res.data)
+    localStorage.setItem('acctoken',res.data.access)
     console.log('.') 
     alert('You are logged in'); 
+    navigate('/ProfilePage');
   })
   .catch(error => {
     setError(error.response.data["non_field_errors"]);
