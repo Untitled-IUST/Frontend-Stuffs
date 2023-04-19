@@ -14,7 +14,7 @@ import { SliderData } from './pages/SliderData';
 
 function App() {
   return (
-    <div className="App">`123
+    <div className="App">
       <ImageSlider slides={SliderData} />;
       {/* <Routes>
           <Route exact path="/ehsanpage/ImageSlider/:id" element={<ImageSlider slides={SliderData} />}/>
@@ -22,7 +22,7 @@ function App() {
     </div>
     
   );
-}
+  }
 
 
 

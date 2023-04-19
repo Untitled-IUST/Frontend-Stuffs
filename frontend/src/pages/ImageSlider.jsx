@@ -19,6 +19,11 @@ import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
 
 function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
@@ -121,50 +126,228 @@ const prevSlide = () => {
     </Typography>
     </Container>
     <React.Fragment>
-      <Tabs value={currentTabIndex} onChange={handleTabChange} centered>
-        <Tab label='Hair' />
+      <Tabs value={currentTabIndex} onChange={handleTabChange}  sx={{ p: 3,bgcolor:'rgba(248, 220, 220, 0.35)',fontFamily:'Roboto', color:'#120c1e' }}centered>
+        <Tab label='Hair'/>
         <Tab label='Makeup' />
         <Tab label='Skin' />
       </Tabs>
 
       {/* TAB 1 Contents */}
       {currentTabIndex === 0 && (
-        <Box sx={{ p: 3, bgcolor: '#ffecee' }}>
-          <Typography variant='h5'>Tab 1 Content</Typography>
-          <Typography variant='p'>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-finibus odio eget orci bibendum, ac hendrerit mi porta. Nullam
-volutpat libero tempus leo lacinia ornare. In hac habitasse platea
-dictumst. Pellentesque facilisis ex eget vulputate tincidunt.
-Curabitur fringilla ultrices commodo.
-          </Typography>
+        <Box sx={{ p: 3 }}>
+    <Grid container spacing={2}>
+      {/* First card */}
+      <Grid item xs={12} sm={2}>
+      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
+        title="Hair style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Chignon
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+
+      {/* Second card */}
+      <Grid item xs={12} sm={2}>
+      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
+        title="Hair Style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Haircut
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+            {/* Second card */}
+            <Grid item xs={12} sm={2}>
+            <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
+        title="Hair Style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Dye Hair
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+
+      {/* Add more cards here as needed */}
+    </Grid>
         </Box>
       )}
 
       {/* TAB 2 Contents */}
       {currentTabIndex === 1 && (
         <Box sx={{ p: 3 }}>
-          <Typography variant='h5'>Tab 2 Content</Typography>
-          <Typography variant='p'>
-Lorem Ipsum is simply dummy text of the printing and typesetting
-industry. Lorem Ipsum has been the industry's standard dummy text
-ever since the 1500s, when an unknown printer took a galley of type
-and scrambled it to make a type specimen book.
-          </Typography>
+    <Grid container spacing={2}>
+      {/* First card */}
+      <Grid item xs={12} sm={2}>
+      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/10a8fc806c5eaceb72877fa762e204e1_xg74.jpg"
+        title="Hair style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Chignon
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+
+      {/* Second card */}
+      <Grid item xs={12} sm={2}>
+      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/10a8fc806c5eaceb72877fa762e204e1_xg74.jpg"
+        title="Hair Style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Haircut
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+            {/* Second card */}
+            <Grid item xs={12} sm={2}>
+            <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/10a8fc806c5eaceb72877fa762e204e1_xg74.jpg"
+        title="Hair Style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Dye Hair
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+
+      {/* Add more cards here as needed */}
+    </Grid>
         </Box>
       )}
 
       {/* TAB 3 Contents */}
       {currentTabIndex === 2 && (
         <Box sx={{ p: 3 }}>
-          <Typography variant='h5'>Tab 3 Content</Typography>
-          <Typography variant='p'>
-It is a long established fact that a reader will be distracted by
-the readable content of a page when looking at its layout. The point
-of using Lorem Ipsum is that it has a more-or-less normal
-distribution of letters, as opposed to using 'Content here, content
-here', making it look like readable English.
-          </Typography>
+    <Grid container spacing={2}>
+      {/* First card */}
+      <Grid item xs={12} sm={2}>
+      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/664f5bc68654b7629090d294fc6b61b5_efq0.jpg"
+        title="Hair style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Chignon
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+
+      {/* Second card */}
+      <Grid item xs={12} sm={2}>
+      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/664f5bc68654b7629090d294fc6b61b5_efq0.jpg"
+        title="Hair Style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Haircut
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+            {/* Second card */}
+            <Grid item xs={12} sm={2}>
+            <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://s2.uupload.ir/files/664f5bc68654b7629090d294fc6b61b5_efq0.jpg"
+        title="Hair Style"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Dye Hair
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Book</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+
+      {/* Add more cards here as needed */}
+    </Grid>
         </Box>
       )}
     </React.Fragment>
