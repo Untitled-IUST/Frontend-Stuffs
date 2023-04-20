@@ -22,21 +22,17 @@ const Gender = [
 
 function SignUpCustomer(){
 
-  const [name , setName] = useState(null);
   const[phoneNumber , setPhoneNumber] = useState(null);
   const[emailAddress , setEmailAddress] = useState(null);
   const[password , setPassword] = useState(null);
   const[confirmPassword , setConfirmPassword] = useState(null);
-  const[gender, setGender] = useState(null);
   const[isPasswordVisible ,setIsPasswordVisible] = useState(false);
   const[isCPasswordVisible ,setIsCPasswordVisible] = useState(false);
   //errors
-  const[nameError , setNameError] = useState(true);
   const[phoneNumberError,setPhoneNumberError] = useState(true);
   const[emailAddressError , setEmailAddressError] = useState(true);
   const[passwordError , setPasswordError] = useState(true);
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
-  const[genderError , setGenderError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
 
   const validName = new RegExp(
@@ -57,20 +53,6 @@ function SignUpCustomer(){
   }
   const toggleCPasswordVisibility = () => {
     setIsCPasswordVisible((prevState) => !prevState);
-  }
-
-  const handleName = (event) => {
-    if(event.target.value === "")
-    {
-      setNameError("Please enter your name");
-    }
-    else if(!validName.test(event.target.value)){
-      setNameError("Invalid name");
-    }
-    else{
-      setNameError(false);
-      setName(event.target.value);
-    }
   }
 
   const handlePhoneNumber = (event) => {
@@ -125,33 +107,21 @@ function SignUpCustomer(){
       setConfirmPassword(event.target.value);
     }
   }
-  
-  const handleGender = (event) => {
-    if(event.target.value === "choose"){
-      setGenderError("Please select your gender");
-    }
-    else {
-      setGenderError(false);
-      setGender(event.target.value);
-    }
-  }
 
   function handleSubmit(event){
     event.preventDefault();
-    if(nameError===false && phoneNumberError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false && genderError === false)
+    if( phoneNumberError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false )
     {
         axios({
           method: "post",
-          url: "http://127.0.0.1:8000/auth/customer/signup/",
+          url: "https://amirmohammadkomijani.pythonanywhere.com/auth/users/",
           headers: {
               'Content-Type': 'application/json',
           },
           data: {
-              first_name: name,
               last_name: "Passed the field for lator editing",
               phone_Number: phoneNumber,
               email: emailAddress,
-              gender: gender,
               password: password,
           }
         })
@@ -160,11 +130,9 @@ function SignUpCustomer(){
         
         })
         .catch(error => {
-          setNameError(error.response.data["first_name"]);
           setPhoneNumberError(error.response.data["phone_Number"]);
           setEmailAddressError(error.response.data["email"]);
           setPasswordError(error.response.data["password"]);
-          setGenderError(error.response.data["gender"]);
         }) 
         setSubmitError(false)
     }
@@ -184,19 +152,6 @@ function SignUpCustomer(){
             <h3 className="pt-4 text-2xl text-center">Sign Up</h3>
             <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
               <div className="mb-4 md:flex md:justify-between">
-                <div className="mb-4 md:mr-2 md:mb-0">
-                  <label className="block mb-2 text-sm font-bold text-gray-700" for="FullName">
-                    Full name
-                  </label>
-                  <input
-                    className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="FullName"
-										type="text"
-										placeholder="Full name"
-                    onChange={handleName}
-                  />
-                  <p className="text-xs italic text-red-500">{nameError}</p>
-                </div>
                 <div className="md:ml-2">
                   <label class="block mb-2 text-sm font-bold text-gray-700" for="PhoneNumber">
                     Phone number
@@ -336,17 +291,7 @@ function SignUpCustomer(){
                   <p className="text-xs italic text-red-500"><p>{confirmPasswordError}</p></p>
 								</div>
 							</div>
-              <div className="mb-4">
-								<label className="block mb-2 text-sm font-bold text-gray-700" for="Gender">
-									Gender
-								</label>
-								<select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleGender}>
-                  {Gender.map( (option) => (
-                    <option value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-                <p className="text-xs italic text-red-500">{genderError}</p>
-							</div>
+              
               <div className="mb-6 text-center">
 								<button
 									className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"

@@ -6,7 +6,6 @@ import { Pagination, Typography } from "@mui/material";
 const SalonSelect = () => {
   
   const [data , setData] = useState("");
-  const [error, setError] = useState(null);
   const [page ,setPage] = useState(1);
   const baseURL = "https://amirmohammadkomijani.pythonanywhere.com/barber/info/"
   const [continueApi , setContinueApi] = useState("");
@@ -30,7 +29,7 @@ const SalonSelect = () => {
       const result = await axios(
         baseURL+continueApi
       );
-      setData(result.data["results"]);
+      setData(result.data.results);
       setHowManyPages(Math.ceil(result.data["count"]/9));
     };
     fetchData();

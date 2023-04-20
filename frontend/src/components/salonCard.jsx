@@ -3,25 +3,9 @@ import { useState } from "react";
 import { Link }from "react-router-dom";
 
 function SalonCard({id,name,address,phoneNumber,rate,image1,image2}){
-  
-  // const [BarberShop , setBarberShop] = useState(null);
-  // const [address , setAddress] = useState(null);
-  // const [phoneNumber , setPhoneNumber] = useState(null);
-  // const [rate , setRate] = useState(null);
-  // const [image1 , setImage1] = useState(null);
-  // const [image2 , setImage2] = useState(null);
 
-  // useEffect( () => {
-  //   setBarberShop(information.name);
-  //   setAddress(information.address);
-  //   setPhoneNumber(information.phoneNumber);
-  //   setRate(information.rate);
-  //   setImage1(information.image1);
-  //   setImage2(information.image2);
-  // },[])
   const path =  "https://amirmohammadkomijani.pythonanywhere.com/barber/info/"+id+"/";
-
-
+  
   return(
     <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <Link className="relative" to={path}>

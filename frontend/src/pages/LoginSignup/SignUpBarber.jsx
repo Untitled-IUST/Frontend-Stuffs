@@ -5,7 +5,7 @@ import axios from "axios";
 import backGroundImageBarberSignUp from "./images/SignUpBarber.jpg"
 
 function SignUpBarber(){
-
+  //states
   const [barberShop , setBarberShop] = useState(null);
   const [owner , setOwner] = useState(null);
   const [parvaneh , setParvaneh] = useState(null);
@@ -26,8 +26,6 @@ function SignUpBarber(){
   const[passwordError , setPasswordError] = useState(true);
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
-  //popups
-  //const[isOpen ,setIsOpen] = useState(false);
 
   const validName = new RegExp(
     /^[a-zA-Z ]{2,30}$/
@@ -172,7 +170,7 @@ function SignUpBarber(){
     {
       axios({
         method: "post",
-        url: "http://127.0.0.1:8000/auth/barber/signup/",
+        url: "",
         headers: {
             'Content-Type': 'application/json',
         },
