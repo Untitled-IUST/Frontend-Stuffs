@@ -34,24 +34,13 @@ export  default function ProfilePage() {
   const[emailAddress , setEmailAddress] = useState(null);
   const [imgFile, setImgFile] = useState("");
   const [password, setpassword] = useState("");
-  const [error, seterror] = useState("");
+  //const [error, seterror] = useState("");
   let access_token =localStorage.getItem('acctoken');
+  const [UserName, setUserName] = useState("");
+  const [Area, setArea] = useState("");
   // console.log(JSON.parse(access_token).access)
 
   useEffect(() => {
-    
-  //   axios({method :'get',url:'https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `JWT ${access_token}`}
-  //     })
-  //     .then((res) => {
-  //     setName(res.data.first_name);
-  //     setLastName(res.data.last_name);
-  //     setPhoneNumber(res.data.phone_Number);
-  //     setEmailAddress(res.data.email);
-  //   }).catch(error => 
-  //     seterror(error.response.data))
-  // }, []);
     console.log(access_token);
     axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
       headers:{
@@ -62,9 +51,12 @@ export  default function ProfilePage() {
       // console.log(res.data)
       setName(res.data.first_name);
       setLastName(res.data.last_name);
+      setUserName(res.data.user.username);
+      setArea(res.data.area);
       setPhoneNumber(res.data.phone_Number);
-      setEmailAddress(res.data.user.email);
+      //setEmailAddress(res.data.user.email);
       setpassword(res.data.user.password);
+
       setImgFile("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic)
       console.log("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic);
     }).catch((err)=>{
@@ -85,22 +77,27 @@ export  default function ProfilePage() {
     {
       first_name : Name,
       last_name : LastName,
+      username : UserName,
+      area : Area,
       phone_Number : phoneNumber,
-      email : emailAddress,
       password : password,
+      profile_pic : imgFile,
 
     }
     })
     .then((res) => {
       toast.success("profile updates succesfully");
       window.location.reload(false);
+    }
+    )
+    .catch((error) => {
+      console.log(error);
     }); 
+    
   }
 
 
-  useEffect(() =>{
-    console.log()
-  })
+
 
 
 
@@ -165,6 +162,24 @@ export  default function ProfilePage() {
                     />
                   </MDBRow>
                   <MDBRow>
+                  <label>UserName:</label>
+                  <input
+                      className="personal-form-input"
+                      value={UserName}
+                      type="text"
+                      onChange={(e) => setUserName(e.target.value)}
+                    />
+                  </MDBRow>
+                  <MDBRow>
+                  <label>Area:</label>
+                  <input
+                      className="personal-form-input"
+                      value={Area}
+                      type="text"
+                      onChange={(e) => setArea(e.target.value)}
+                    />
+                  </MDBRow>
+                  <MDBRow>
                   <label>PhoneNumber:</label>
                       <input
                           className="personal-form-input"
@@ -173,7 +188,7 @@ export  default function ProfilePage() {
                           onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                   </MDBRow>
-                  <MDBRow>
+                  {/* <MDBRow>
                   <label>EmailAddress:</label>
                       <input
                           className="personal-form-input"
@@ -181,7 +196,7 @@ export  default function ProfilePage() {
                           type="email"
                           onChange={(e) => setEmailAddress(e.target.value)}
                         />
-                  </MDBRow>
+                  </MDBRow> */}
                   <MDBRow>
                   <label>Password:</label>
                       <input
