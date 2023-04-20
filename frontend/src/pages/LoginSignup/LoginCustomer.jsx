@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { json } from "react-router-dom";
 import backgroundImageLoginCustomer from "./images/LoginCustomer.jpg";
 
 function LoginCustomer(){
@@ -17,13 +18,19 @@ function LoginCustomer(){
     setIsPasswordVisible((prevState) => !prevState);
   }
 
+  //tokens
+  let accessToken = localStorage.getItem('accessToken');
+  let refreshToken = localStorage.getItem('refreshToken');
+
   const handleLogin = (event) => {
     event.preventDefault();
+    setError("");
     axios({
       method: "post",
-      url: "http://127.0.0.1:8000/auth/barber/login/",
+      url: "https://amirmohammadkomijani.pythonanywhere.com/auth/jwt/create/",
       headers: {
           'Content-Type': 'application/json',
+          Authorization : `JWT ${accessToken}`
       },
       data: {
           email: emailAddress,
@@ -31,16 +38,22 @@ function LoginCustomer(){
       }
     })
     .then((res) => {
-      console.log('.') 
       alert('You are logged in'); 
+      localStorage.setItem('accessToken',res.data.access);
+      localStorage.setItem('refreshToken',res.data.refresh);
     })
     .catch(error => {
-      setError(error.response.data["non_field_errors"]);
+      setError(error.response.data["detail"]);
       setEmailAddressError(error.response.data["email"]);
       setPasswordError(error.response.data["password"]);
     }) 
   }
-
+  const handleEmail = (event) => {
+    setEmailAddress(event.target.value);
+  }
+  const handlePassword = (event) => {
+    setpassword(event.target.value);
+  }
   return(
     <div className="container mx-auto">
 			<div className="flex justify-center px-6 my-12">
@@ -60,6 +73,7 @@ function LoginCustomer(){
 									id="Email"
 									type="email"
 									placeholder="Email"
+                  onChange={handleEmail}
 								/>
                 <p className="m-1 text-xs italic text-red-500">{emailAddressError}</p>
 							</div>
@@ -72,6 +86,7 @@ function LoginCustomer(){
 									id="Password"
 									type={isPasswordVisible ? "text" : "password"}
 									placeholder="******************"
+                  onChange={handlePassword}
 								/>
                 <button
                     type="button"
@@ -117,7 +132,6 @@ function LoginCustomer(){
                   </button>
 								<p className="text-xs italic text-red-500">{passwordError}</p>
 							</div>
-              <p className="m-1 text-xs italic text-red-500">{Error}</p>
 							<div className="mb-6 text-center">
 								<button
 									className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
@@ -126,6 +140,7 @@ function LoginCustomer(){
 								>
 									Login
 								</button>
+                <p className="m-1 text-xs italic text-red-500">{Error}</p>
 							</div>
 							<hr className="mb-6 border-t" />
 							<div className="text-center">

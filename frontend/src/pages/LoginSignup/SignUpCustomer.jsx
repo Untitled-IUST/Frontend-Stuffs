@@ -1,51 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState} from "react";
 import axios from "axios";
 import backGroundImageCustomerSignUp from "./images/SignUpCustomer.jpg";
 
-const Gender = [
-  {
-    label: "choose",
-    value : "choose"
-  }
-  ,
-  {
-    label : "Male",
-    value : "M"
-  },
-  {
-    label : "Female",
-    value : "F" 
-  }
-]
 
 function SignUpCustomer(){
-
-  const[phoneNumber , setPhoneNumber] = useState(null);
+  const[username , setUsername] = useState(null);
   const[emailAddress , setEmailAddress] = useState(null);
   const[password , setPassword] = useState(null);
   const[confirmPassword , setConfirmPassword] = useState(null);
   const[isPasswordVisible ,setIsPasswordVisible] = useState(false);
   const[isCPasswordVisible ,setIsCPasswordVisible] = useState(false);
   //errors
-  const[phoneNumberError,setPhoneNumberError] = useState(true);
+  const[usernameError, setUsernameError] = useState(true);
   const[emailAddressError , setEmailAddressError] = useState(true);
   const[passwordError , setPasswordError] = useState(true);
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
+  //token
 
-  const validName = new RegExp(
-    /^[a-zA-Z ]{2,30}$/
-  );
-  const validPhoneNumber = new RegExp(
-    "09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}"
-  );
   const validEmailAddress = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   );
   const validPassword = new RegExp(
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+  );
+  const validUserName =  new RegExp(
+    /^[A-Za-z0-9_]{4,15}$/
   );
 
   const togglePasswordVisibility = () => {
@@ -53,19 +35,6 @@ function SignUpCustomer(){
   }
   const toggleCPasswordVisibility = () => {
     setIsCPasswordVisible((prevState) => !prevState);
-  }
-
-  const handlePhoneNumber = (event) => {
-    if(event.target.value === ""){
-      setPhoneNumberError("Please enter phone number");
-    }
-    else if(!validPhoneNumber.test(event.target.value)){
-      setPhoneNumberError("Please enter valid mobile phone number");
-    }
-    else{
-      setPhoneNumberError(false);
-      setPhoneNumber(event.target.value);
-    }
   }
 
   const handleEmail = (event) => {
@@ -107,34 +76,46 @@ function SignUpCustomer(){
       setConfirmPassword(event.target.value);
     }
   }
+  const handleUserName = (event) => {
+    if(event.target.value == ""){
+      setUsernameError("Please enter username");
+    }
+    else if(!validUserName.test(event.target.value)){
+      setUsernameError("Username must start with a letter and only contains letters,numbers and _");
+    }
+    else{
+      setUsernameError(false);
+      setUsername(event.target.value);
+    }
+  }
 
   function handleSubmit(event){
     event.preventDefault();
-    if( phoneNumberError === false && emailAddressError === false && passwordError === false && confirmPasswordError === false )
+    setSubmitError("");
+    if( emailAddressError === false && passwordError === false && confirmPasswordError === false && usernameError === false)
     {
-        axios({
-          method: "post",
-          url: "https://amirmohammadkomijani.pythonanywhere.com/auth/users/",
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          data: {
-              last_name: "Passed the field for lator editing",
-              phone_Number: phoneNumber,
-              email: emailAddress,
-              password: password,
-          }
-        })
-        .then((res) => {
-            alert('Your account registered succesfully'); 
-        
-        })
-        .catch(error => {
-          setPhoneNumberError(error.response.data["phone_Number"]);
-          setEmailAddressError(error.response.data["email"]);
-          setPasswordError(error.response.data["password"]);
-        }) 
-        setSubmitError(false)
+      axios({
+        method: "post",
+        url: "https://amirmohammadkomijani.pythonanywhere.com/auth/users/",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: {
+          role : "customer",
+          username: username,
+          email: emailAddress,
+          password: password,
+        }
+      })
+      .then((res) => {
+          alert('Your account registered succesfully'); 
+      
+      })
+      .catch(error => {
+        setEmailAddressError(error.response.data["email"]);
+        setPasswordError(error.response.data["password"]);
+      }) 
+      setSubmitError(false)
     }
     else{
       setSubmitError("Please check again!");
@@ -151,21 +132,6 @@ function SignUpCustomer(){
           <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
             <h3 className="pt-4 text-2xl text-center">Sign Up</h3>
             <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-              <div className="mb-4 md:flex md:justify-between">
-                <div className="md:ml-2">
-                  <label class="block mb-2 text-sm font-bold text-gray-700" for="PhoneNumber">
-                    Phone number
-                  </label>
-                  <input
-                    className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="PhoneNumber"
-                    type="tel"
-                    placeholder="Phone number"
-                    onChange={handlePhoneNumber}
-                  />
-                  <p className="text-xs italic text-red-500">{phoneNumberError}</p>
-                </div>
-              </div>
               <div className="mb-4">
 								<label className="block mb-2 text-sm font-bold text-gray-700" for="Email">
 									Email
@@ -179,6 +145,19 @@ function SignUpCustomer(){
 								/>
                 <p className="text-xs italic text-red-500">{emailAddressError}</p>
 							</div>
+              <div className="mb-4">
+								<label className="block mb-2 text-sm font-bold text-gray-700" for="Username">
+									Username
+								</label>
+								<input
+									className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+									id="Username"
+									type="text"
+									placeholder="Username"
+                  onChange={handleUserName}
+								/>
+                <p className="text-xs italic text-red-500">{usernameError}</p>
+							</div>
               <div className="mb-4 md:flex md:justify-between">
 								<div className="relative mb-4 md:mr-2 md:mb-0">
 									<label className="block mb-2 text-sm font-bold text-gray-700" for="Password">
@@ -188,7 +167,7 @@ function SignUpCustomer(){
 										className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="Password"
 										type={isPasswordVisible ? "text" : "password"}
-										placeholder="******************"
+										placeholder="********"
                     onChange={handlePassword}
 									/>
                   <button
@@ -243,7 +222,7 @@ function SignUpCustomer(){
 										className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
 										id="C_password"
 										type={isCPasswordVisible ? "text" : "password"}
-										placeholder="******************"
+										placeholder="********"
                     onChange={handleConfirmPassword}
 									/>
                   <button

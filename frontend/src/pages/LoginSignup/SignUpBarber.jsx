@@ -6,38 +6,28 @@ import backGroundImageBarberSignUp from "./images/SignUpBarber.jpg"
 
 function SignUpBarber(){
   //states
-  const [barberShop , setBarberShop] = useState(null);
-  const [owner , setOwner] = useState(null);
-  const [parvaneh , setParvaneh] = useState(null);
-  const [phoneNumber , setPhoneNumber] = useState(null);
+  const [username , setUsername] = useState(null);
   const [emailAddress , setEmailAddress] = useState(null);
-  const [address ,setAddress] = useState(null);
   const [password , setPassword] = useState(null);
   const [confirmPassword , setConfirmPassword] = useState(null);
   const [isPasswordVisible , setIsPasswordVisible] = useState(false);
   const [isCPasswordVisible , setIsCPasswordVisible] = useState(false);
   //errors
-  const[barberShopError , setBarberShopError] = useState(true);
-  const[ownerError , setOwnerError] = useState(true);
-  const[parvanehError , setParvanehError] = useState(true);
-  const[phoneNumberError,setPhoneNumberError] = useState(true);
+  const[usernameError,setUsernameError] = useState(true);
   const[emailAddressError , setEmailAddressError] = useState(true);
-  const[addressError , setAddressError] = useState(true);
   const[passwordError , setPasswordError] = useState(true);
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
 
-  const validName = new RegExp(
-    /^[a-zA-Z ]{2,30}$/
-  );
-  const validPhoneNumber = new RegExp(
-    "09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}"
-  );
+
   const validEmailAddress = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   );
   const validPassword = new RegExp(
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+  );
+  const validUserName =  new RegExp(
+    /^[A-Za-z0-9_]{4,15}$/
   );
 
   const togglePasswordVisibility = () => {
@@ -45,57 +35,6 @@ function SignUpBarber(){
   }
   const toggleCPasswordVisibility = () => {
     setIsCPasswordVisible((prevState) => !prevState);
-  }
-
-  const handleBarberShop = (event) => {
-    if(event.target.value === "")
-    {
-      setBarberShopError("Please enter your shop name");
-    }
-    else if(!validName.test(event.target.value)){
-      setBarberShopError("Invalid name");
-    }
-    else{
-      setBarberShopError(false);
-      setBarberShop(event.target.value);
-    }
-  }
-  const handleOwner = (event) => {
-    if(event.target.value === "")
-    {
-      setOwnerError("Please enter owner name");
-    }
-    else if(!validName.test(event.target.value)){
-      setOwnerError("Invalid name");
-    }
-    else{
-      setOwnerError(false);
-      setOwner(event.target.value);
-    }
-  }
-
-  const handleParvaneh = (event) => {
-    if(event.target.value === "")
-    {
-      setParvanehError("Please enter parvaneh");
-    }
-    else{
-      setParvanehError(false);
-      setParvaneh(event.target.value);
-    }
-  }
-
-  const handlePhoneNumber = (event) => {
-    if(event.target.value === ""){
-      setPhoneNumberError("Please enter phone number");
-    }
-    else if(!validPhoneNumber.test(event.target.value)){
-      setPhoneNumberError("Please enter valid mobile phone number");
-    }
-    else{
-      setPhoneNumberError(false);
-      setPhoneNumber(event.target.value);
-    }
   }
 
   const handleEmail = (event) => {
@@ -137,6 +76,18 @@ function SignUpBarber(){
       setConfirmPassword(event.target.value);
     }
   }
+  const handleUsername = (event) => {
+    if(event.target.value === ""){
+      setUsernameError("Please enter username");
+    }
+    else if(!validUserName.test(event.target.value)){
+      setUsernameError("Username must start with a letter and only contains letters,numbers and _ and have 4 to 15 char");
+    }
+    else{
+      setUsernameError(false);
+      setUsername(event.target.value);
+    }
+  }
   
   const togglePassword = (event) => {
     let x = document.getElementById("pswrd");
@@ -154,46 +105,33 @@ function SignUpBarber(){
       x.type = "password"
     }
   }
-  const handleAddress = (event) => {
-    if(event.target.value === ""){
-      setAddressError("Please enter address");
-    }
-    else{
-      setAddressError(false);
-      setAddress(event.target.value);
-    }
-  }
-
+  
   function handleSubmit(event){
     event.preventDefault();
-    if(barberShopError === false && ownerError === false && parvanehError === false && phoneNumberError === false && emailAddressError === false && addressError === false && passwordError === false && confirmPasswordError === false)
+    setSubmitError("");
+    if( emailAddressError === false && passwordError === false && confirmPasswordError === false && usernameError === false)
     {
       axios({
         method: "post",
-        url: "",
+        url: "https://amirmohammadkomijani.pythonanywhere.com/auth/users/",
         headers: {
             'Content-Type': 'application/json',
         },
         data: {
-          "BarberShop": barberShop,
-          "Owner": owner,
-          "Parvaneh": parvaneh,
-          "phone_Number": phoneNumber,
+          "role" : "barber",
+          "username" : username,
           "email": emailAddress,
-          "address": address,
           "password": password
         }
       })
       .then((res) => {
-        alert('Your salon registered succesfully'); 
+        alert('Your salon registered succesfully');
       })
       .catch(error => {
-        setBarberShopError(error.response.data["BarberShop"]);
-        setOwnerError(error.response.data["Owner"]);
-        setParvanehError(error.response.data["Parvaneh"]);
-        setPhoneNumberError(error.response.data["phone_Number"]);
+        setUsernameError(error.response.data["username"]);
         setEmailAddressError(error.response.data["email"]);
         setPasswordError(error.response.data["password"]);
+        console.log(error.response.data);
       }) 
       setSubmitError(false)
     }
@@ -212,62 +150,19 @@ function SignUpBarber(){
           <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
             <h3 className="pt-4 text-2xl text-center">Sign Up Your Salon</h3>
             <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-              <div className="mb-4 md:flex md:justify-between">
-                <div className="mb-4 md:mr-2 md:mb-0">
-                  <label className="block mb-2 text-sm font-bold text-gray-700" for="SalonName">
-                    Salon name
-                  </label>
-                  <input
-                    className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="SalonName"
-										type="text"
-										placeholder="SalonName"
-                    onChange={handleBarberShop}
-                  />
-                  <p className="text-xs italic text-red-500">{barberShopError}</p>
-                </div>
-                <div className="md:ml-2">
-                  <label class="block mb-2 text-sm font-bold text-gray-700" for="OwnerName">
-                    Owner
-                  </label>
-                  <input
-                    className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="OwnerName"
-                    type="text"
-                    placeholder="Owner"
-                    onChange={handleOwner}
-                  />
-                  <p className="text-xs italic text-red-500">{ownerError}</p>
-                </div>
-              </div>
-              <div className="mb-4 md:flex md:justify-between">
-                <div className="mb-4 md:mr-2 md:mb-0">
-                  <label className="block mb-2 text-sm font-bold text-gray-700" for="Parvaneh">
-                    Parvaneh
-                  </label>
-                  <input
-                    className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="Parvaneh"
-										type="number"
-										placeholder="Parvaneh"
-                    onChange={handleParvaneh}
-                  />
-                  <p className="text-xs italic text-red-500">{parvanehError}</p>
-                </div>
-                <div className="md:ml-2">
-                  <label class="block mb-2 text-sm font-bold text-gray-700" for="PhoneNumber">
-                    Phone number
-                  </label>
-                  <input
-                    className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="PhoneNumber"
-                    type="tel"
-                    placeholder="Phone number"
-                    onChange={handlePhoneNumber}
-                  />
-                  <p className="text-xs italic text-red-500">{phoneNumberError}</p>
-                </div>
-              </div>
+            <div className="mb-4">
+								<label className="block mb-2 text-sm font-bold text-gray-700" for="Username">
+									Username
+								</label>
+								<input
+									className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+									id="Username"
+									type="text"
+									placeholder="Username"
+                  onChange={handleUsername}
+								/>
+                <p className="text-xs italic text-red-500">{usernameError}</p>
+							</div>
               <div className="mb-4">
 								<label className="block mb-2 text-sm font-bold text-gray-700" for="Email">
 									Email
@@ -280,19 +175,6 @@ function SignUpBarber(){
                   onChange={handleEmail}
 								/>
                 <p className="text-xs italic text-red-500">{emailAddressError}</p>
-							</div>
-              <div className="mb-4">
-								<label className="block mb-2 text-sm font-bold text-gray-700" for="SalonAddress">
-									Salon address
-								</label>
-								<input
-									className="focus:placeholder-gray-500 focus:border-gray-600 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-									id="SalonAddress"
-									type="text"
-									placeholder="Salon address"
-                  onChange={handleAddress}
-								/>
-                <p className="text-xs italic text-red-500">{addressError}</p>
 							</div>
               <div className="mb-4 md:flex md:justify-between">
 								<div className="relative mb-4 md:mr-2 md:mb-0">
