@@ -1,8 +1,13 @@
 import React, { useState,useEffect } from 'react';
 import { SliderData } from './SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+}from "react-router-dom";
 import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import"../css/ImageSlider.css"
 import CallIcon from '@mui/icons-material/Call';
@@ -24,13 +29,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+
 
 function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-  const[nameofsalon,setNameofsalon]=useState(null)
-  const[address,setAddress]=useState(null)
-  const[phonenumberofsalon,setPhonenumberofsalon]=useState(null)
+
   const theme = createTheme({
     typography: {
       fontFamily: 'Roboto',
@@ -51,6 +56,7 @@ function ImageSlider ({ slides }, props) {
     console.log(tabIndex);
     setCurrentTabIndex(tabIndex);
   };
+  
   const[data,setMydata]=useState('')
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
@@ -62,10 +68,23 @@ function ImageSlider ({ slides }, props) {
         setMydata(response.data)
         console.log(data.images[0].background)
         console.log("************** The id is **************** ", id)
-        setImg(data.images[0].logo)
-        setImg1(data.images[0].background)
+        // setImg(data.images[0].logo)
+        // setImg1(data.images[0].background)
     }).catch(err=> console.log(err))
     },)
+
+  const [selectedCards, setSelectedCards] = useState([]);
+  const [error, setError] = useState(null);
+    
+  const handleCardSelection = (card) => {
+        if (selectedCards.length < 3) {
+          setSelectedCards([...selectedCards, card]);
+        } else {
+          setError('You can only book up to 3 times!');
+        }
+      };
+    
+const totalPrice = selectedCards.reduce((total, card) => total + card.price, 0);
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
@@ -77,18 +96,8 @@ const prevSlide = () => {
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
   }
-  const handleFilterChange = (event) => {
-    //check if password is correct
-  }
-  const handleNameofsalon =(event) => {  
-    setNameofsalon(event.target.value);
-  }
- const handleAddress=(event) => {
-    setAddress(event.target.value);
- }
-  const handlePhonenumberofsalon=(event) => {
-    setPhonenumberofsalon(event.target.value);
- }
+
+
 
 
   return (
@@ -109,29 +118,34 @@ const prevSlide = () => {
             );
           })}
         </section>
+         <div className='count'>{selectedCards.length}</div> 
         <div> 
            <img style={{ width: 200, 
                 height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
                 zIndex: '3',marginBottom:50,  marginTop:-400,
-           borderRadius: 130,}} src={img} alt="React lost" />
-        <diV/> 
+           borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
+           <LocalGroceryStoreIcon style={{color:'#ffecee', fontSize:45, marginTop:-300,marginBottom:95,marginLeft:5}} ></LocalGroceryStoreIcon> 
+        <div/> 
+        
+
       <Container fixed>
       <Typography component="div">
       <ThemeProvider theme={theme}>
       <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: 400,borderRadius:3,
-        height: 90,textAlign: 'center', ml: 48,mt:-10,fontSize: 30, mb:10, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
+        height: 80,textAlign: 'center', ml: 48,mt:-20,fontSize: 30, mb:30, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
         Name of salon {data.BarberShop}
       </Box>
       </ThemeProvider>
     </Typography>
     </Container>
+    
     <React.Fragment>
       <Tabs value={currentTabIndex} onChange={handleTabChange}  sx={{ p: 3,bgcolor:'rgba(248, 220, 220, 0.35)',fontFamily:'Roboto', color:'#120c1e' }}centered>
         <Tab label='Hair'/>
         <Tab label='Makeup' />
         <Tab label='Skin' />
       </Tabs>
-
+      {error && <p className='er'>{error}</p>}  
       {/* TAB 1 Contents */}
       {currentTabIndex === 0 && (
         <Box sx={{ p: 3 }}>
@@ -149,12 +163,13 @@ const prevSlide = () => {
         Chignon
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          
+        Price: $50
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Chignon', price: 50 })}>Book</Button>
       </CardActions>
+      
     </Card>
       </Grid>
 
@@ -172,10 +187,11 @@ const prevSlide = () => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
 
+        Price: $40
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Haircut', price: 40 })}> Book </Button>
       </CardActions>
     </Card>
       </Grid>
@@ -192,10 +208,12 @@ const prevSlide = () => {
         Dye Hair
         </Typography>
         <Typography variant="body2" color="text.secondary">
+
+        Price: $20
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Dye Hair', price: 20 })}> Book </Button>
       </CardActions>
     </Card>
       </Grid>
@@ -219,14 +237,16 @@ const prevSlide = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Chignon
+        Face Makeup
         </Typography>
         <Typography variant="body2" color="text.secondary">
           
+        Price: $25
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Face Makeup', price: 25 })}> Book </Button>
+
       </CardActions>
     </Card>
       </Grid>
@@ -241,14 +261,15 @@ const prevSlide = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Haircut
+        Wedding Makeup
         </Typography>
         <Typography variant="body2" color="text.secondary">
 
+      Price: $60
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Wedding Makeup', price: 60 })}> Book </Button>
       </CardActions>
     </Card>
       </Grid>
@@ -262,13 +283,15 @@ const prevSlide = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Dye Hair
+        IDK Makeup
         </Typography>
         <Typography variant="body2" color="text.secondary">
+
+        Price: $23
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'IDK Makeup', price: 23 })}> Book </Button>
       </CardActions>
     </Card>
       </Grid>
@@ -292,14 +315,15 @@ const prevSlide = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Chignon
+        Skin Care
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          
+
+        Price: $21
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Skin care', price: 21 })}> Book </Button>
       </CardActions>
     </Card>
       </Grid>
@@ -314,14 +338,16 @@ const prevSlide = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Haircut
+        Skin IDK
         </Typography>
         <Typography variant="body2" color="text.secondary">
 
+   
+        Price: $28
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Skin IDK', price: 28 })}> Book </Button>
       </CardActions>
     </Card>
       </Grid>
@@ -335,13 +361,16 @@ const prevSlide = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Dye Hair
+        Skin IDK
         </Typography>
         <Typography variant="body2" color="text.secondary">
+
+        Price: $29
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Book</Button>
+      <Button onClick={() => handleCardSelection({ name: 'Skin IDK', price: 29 })}> Book </Button>
+
       </CardActions>
     </Card>
       </Grid>
@@ -353,6 +382,22 @@ const prevSlide = () => {
     </React.Fragment>
 
 
+    {error && (
+        <Box sx={{ p: 3 }}>
+          <Typography color="error">{error}</Typography>
+        </Box>
+      )}
+
+      {!error && (
+
+              <Box sx={{ p: 3 }}>
+                <Typography variant="h6">Selected Cards:</Typography>
+                {selectedCards.map((card) => (
+                  <Typography key={card.name}>{card.name}</Typography>
+                ))}
+                <Typography variant="h6">Total Price: ${totalPrice}</Typography>
+              </Box>
+      )}
 
 
 

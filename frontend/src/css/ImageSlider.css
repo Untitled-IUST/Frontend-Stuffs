@@ -16,8 +16,9 @@
   .image {
 
     width: 1380px;
-    height: 400px;
+    height: 450px;
     border-radius: 0px;
+    margin-bottom: -90px;
   }
   
   .right-arrow {
@@ -152,4 +153,28 @@
 .Mui-disabled{
   background:  #ffecee!important;
   font-size: 25px !important;
+}
+.count{
+  font-size: 15px;
+  width: 1%;
+  height: 1%;
+  color: #120c1e;
+  background-color: #ffecee;
+  margin-left: 16%;
+  margin-top: -190;
+  margin-bottom: 7rem;
+  padding-left: 6px;
+  padding-bottom: 3px;
+  border:solid;
+  border-color: #120c1e;
+  border-width: 1px;
+  border-radius: 100%;
+  z-index: 3;
+  position: relative;
+}
+.er{
+  font-size: 15px;
+  margin-left: -50%;
+margin-top: 3%;
+  
 }
