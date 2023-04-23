@@ -15,10 +15,12 @@ import { SliderData } from './pages/SliderData';
 function App() {
   return (
     <div className="App">
-      <ImageSlider slides={SliderData} />;
-      {/* <Routes>
-          <Route exact path="/ehsanpage/ImageSlider/:id" element={<ImageSlider slides={SliderData} />}/>
-    </Routes> */}
+      <Router>
+          <Routes>
+          <Route path="/images" element={<ImageSlider slides={SliderData} />} />
+          </Routes>
+      </Router>
+
     </div>
     
   );

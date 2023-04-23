@@ -1,6 +1,9 @@
+
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 .wholebarber{
     background-color: #120c1e;
-    height: 300vh;
+    height: 100%;
     margin-bottom: -50px;
 }
 .slider {
@@ -177,4 +180,30 @@
   margin-left: -50%;
 margin-top: 3%;
   
+}
+.bt{
+  padding: 1.5rem;
+  width: 40rem;
+  color: #120c1e;
+  background-color: #ffecee;
+  text-align: center;
+  margin-top: 5%;
+  margin-left: 29%;
+  font-family: "Roboto",sans-serif;
+  font-size: 20PX;
+
+
+}
+.bt2{
+  padding: 1.5rem;
+  width: 40rem;
+  color: #ffecee;
+  background-color: #120c1e;
+  text-align: center;
+  margin-top: 5%;
+  margin-left: 29%;
+  font-family: "Roboto",sans-serif;
+  font-size: 20PX;
+
+
 }

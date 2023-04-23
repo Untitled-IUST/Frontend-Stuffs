@@ -8,6 +8,7 @@ import {
   Link
 }from "react-router-dom";
 import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 import"../css/ImageSlider.css"
 import CallIcon from '@mui/icons-material/Call';
@@ -83,7 +84,15 @@ function ImageSlider ({ slides }, props) {
           setError('You can only book up to 3 times!');
         }
       };
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+        setOpen(true);
+      };
     
+  const handleClose = () => {
+        setOpen(false);
+      };    
 const totalPrice = selectedCards.reduce((total, card) => total + card.price, 0);
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
@@ -118,7 +127,7 @@ const prevSlide = () => {
             );
           })}
         </section>
-         <div className='count'>{selectedCards.length}</div> 
+         <div className='count'>{selectedCards.length} </div> 
         <div> 
            <img style={{ width: 200, 
                 height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
@@ -382,22 +391,27 @@ const prevSlide = () => {
     </React.Fragment>
 
 
-    {error && (
+    {/* {error && (
         <Box sx={{ p: 3 }}>
           <Typography color="error">{error}</Typography>
         </Box>
-      )}
+      )} */}
 
-      {!error && (
+          <div>
+          <button className='bt' onClick={handleClickOpen}>Order</button>
+          <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': { borderRadius: '16px' } }}>
+            <Box sx={{ p: 7,bgcolor: '#ffecee',width: 300,height:400 }}>
+              <Typography variant="h6" color='#120c1e' padding={2} border={5} borderColor={'#120c1e'} borderRadius={2} marginBottom={3}>Selected Cards: </Typography>
+              {selectedCards.map((card) => (
+                <Typography  color='#120c1e'  key={card.name}>{card.name}</Typography>
+              ))}
+              <Typography variant="h6"color='#120c1e' padding={2} marginTop={10} border={5} borderColor={'#120c1e'} borderRadius={2}>
+                Total Price: ${totalPrice}</Typography>
+              <Button sx={{ backgroundColor: '#120c1e', color: 'white',marginTop:5,width:300,padding:2 }}onClick={null}>BUY</Button>
+            </Box>
+          </Dialog>
+        </div>
 
-              <Box sx={{ p: 3 }}>
-                <Typography variant="h6">Selected Cards:</Typography>
-                {selectedCards.map((card) => (
-                  <Typography key={card.name}>{card.name}</Typography>
-                ))}
-                <Typography variant="h6">Total Price: ${totalPrice}</Typography>
-              </Box>
-      )}
 
 
 
@@ -432,7 +446,7 @@ const prevSlide = () => {
     </Container>
 
     <Container fixed>
-      <Box sx={{ width: '125%',ml:-18}}>
+      <Box sx={{ width: '125%',ml:-18,pb:3}}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 40 }}>
           <Grid item xs={6}>
             <Item ><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#120c1e' ,fontSize:35,
