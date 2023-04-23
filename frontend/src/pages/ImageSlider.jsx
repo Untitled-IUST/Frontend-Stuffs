@@ -31,12 +31,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import { Select, MenuItem } from '@mui/material';
 
 
 function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-
   const theme = createTheme({
     typography: {
       fontFamily: 'Roboto',
@@ -52,6 +52,33 @@ function ImageSlider ({ slides }, props) {
     fontSize:  25,
     borderRadius:10,
   }));
+  
+const StyledSelect = styled(Select)({
+  backgroundColor: 'lightblue',
+  color: 'white',
+  '& .MuiSelect-select': {
+    paddingLeft: '8px',
+  },
+  '& .MuiOutlinedInput-root': {
+    '&:before': {
+      borderColor: 'red',
+    },
+    '&:hover:not(.Mui-disabled):before': {
+      borderColor: 'orange',
+    },
+    '&:after': {
+      borderColor: 'green',
+    },
+  },
+});
+
+const StyledMenuItem = styled(MenuItem)({
+  backgroundColor: 'lightblue',
+  color: 'white',
+  '&:hover': {
+    backgroundColor: 'blue',
+  },
+});
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const handleTabChange = (e, tabIndex) => {
     console.log(tabIndex);
@@ -93,7 +120,16 @@ function ImageSlider ({ slides }, props) {
   const handleClose = () => {
         setOpen(false);
       };    
-const totalPrice = selectedCards.reduce((total, card) => total + card.price, 0);
+  const totalPrice = selectedCards.reduce((total, card) => total + card.price, 0);
+  const times = [];
+  for (let i = 9; i <= 21; i += 2) {
+    times.push(`${i}:00`);
+  }
+  const [selectedTime, setSelectedTime] = React.useState('');
+
+  const handleTimeChange = (event) => {
+    setSelectedTime(event.target.value);
+  };
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
   };
@@ -174,6 +210,13 @@ const prevSlide = () => {
         <Typography variant="body2" color="text.secondary">
         Price: $50
         </Typography>
+        <Select value={selectedTime} onChange={handleTimeChange}>
+          {times.map((time) => (
+            <MenuItem key={time} value={time}>
+              {time}
+            </MenuItem>
+          ))}
+        </Select>
       </CardContent>
       <CardActions>
       <Button onClick={() => handleCardSelection({ name: 'Chignon', price: 50 })}>Book</Button>
@@ -403,7 +446,8 @@ const prevSlide = () => {
             <Box sx={{ p: 7,bgcolor: '#ffecee',width: 300,height:400 }}>
               <Typography variant="h6" color='#120c1e' padding={2} border={5} borderColor={'#120c1e'} borderRadius={2} marginBottom={3}>Selected Cards: </Typography>
               {selectedCards.map((card) => (
-                <Typography  color='#120c1e'  key={card.name}>{card.name}</Typography>
+                <Typography  color='#120c1e'  key={card.name} >{card.name} {card.price}</Typography>
+                
               ))}
               <Typography variant="h6"color='#120c1e' padding={2} marginTop={10} border={5} borderColor={'#120c1e'} borderRadius={2}>
                 Total Price: ${totalPrice}</Typography>
