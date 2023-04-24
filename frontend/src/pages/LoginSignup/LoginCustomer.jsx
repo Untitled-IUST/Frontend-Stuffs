@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { json } from "react-router-dom";
-import backgroundImageLoginCustomer from "./images/LoginCustomer.jpg";
+import backgroundImageLoginCustomer from "./images/LoginCustomer.png";
 
 function LoginCustomer(){
 
