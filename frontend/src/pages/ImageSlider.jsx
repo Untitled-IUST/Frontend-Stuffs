@@ -53,27 +53,9 @@ function ImageSlider ({ slides }, props) {
     borderRadius:10,
   }));
   
-const StyledSelect = styled(Select)({
-  backgroundColor: 'lightblue',
-  color: 'white',
-  '& .MuiSelect-select': {
-    paddingLeft: '8px',
-  },
-  '& .MuiOutlinedInput-root': {
-    '&:before': {
-      borderColor: 'red',
-    },
-    '&:hover:not(.Mui-disabled):before': {
-      borderColor: 'orange',
-    },
-    '&:after': {
-      borderColor: 'green',
-    },
-  },
-});
 
 const StyledMenuItem = styled(MenuItem)({
-  backgroundColor: 'lightblue',
+  backgroundColor: 'red',
   color: 'white',
   '&:hover': {
     backgroundColor: 'blue',
@@ -210,13 +192,7 @@ const prevSlide = () => {
         <Typography variant="body2" color="text.secondary">
         Price: $50
         </Typography>
-        <Select value={selectedTime} onChange={handleTimeChange}>
-          {times.map((time) => (
-            <MenuItem key={time} value={time}>
-              {time}
-            </MenuItem>
-          ))}
-        </Select>
+
       </CardContent>
       <CardActions>
       <Button onClick={() => handleCardSelection({ name: 'Chignon', price: 50 })}>Book</Button>
@@ -449,9 +425,30 @@ const prevSlide = () => {
                 <Typography  color='#120c1e'  key={card.name} >{card.name} {card.price}</Typography>
                 
               ))}
-              <Typography variant="h6"color='#120c1e' padding={2} marginTop={10} border={5} borderColor={'#120c1e'} borderRadius={2}>
+              <Typography variant="h6"color='#120c1e' padding={2} marginTop={2}  marginBottom={2}  border={5} borderColor={'#120c1e'} borderRadius={2}>
                 Total Price: ${totalPrice}</Typography>
-              <Button sx={{ backgroundColor: '#120c1e', color: 'white',marginTop:5,width:300,padding:2 }}onClick={null}>BUY</Button>
+              <Select        sx={{
+        width: 300,
+        height: 40,
+        backgroundColor:'#120c1e',
+        border: "1px solid darkgrey",
+        color: "#ffecee",
+        "& .MuiSvgIcon-root": {
+          color: "white",
+        },
+
+      }}           value={selectedTime} onChange={handleTimeChange}>
+                {times.map((time) => (
+                  <MenuItem key={time} value={time}sx={{  backgroundColor: '#120c1e',
+                  color: '#382b49',
+                  '&:hover': {
+                    backgroundColor: '#fdccc8',
+                  }}}>
+                    {time}
+                  </MenuItem>
+                ))}
+              </Select>
+              <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:300,padding:2 }}onClick={null}>BUY</Button>
             </Box>
           </Dialog>
         </div>
