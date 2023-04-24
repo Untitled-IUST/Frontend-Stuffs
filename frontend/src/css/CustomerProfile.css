@@ -1,0 +1,63 @@
+.py-5{
+    font-family: 'Roboto' !important;
+    font-style: normal !important;
+    height: 790px;
+    justify-content: center;
+}
+section{
+    background-image: url("../images/makeup-artist-vlogging-elements.jpg");
+    background-size: cover;
+    display: flex;
+}
+.rowContainer{
+    justify-content: center;
+}
+
+.salam{
+    background-color: rgb(255, 238, 236, 0.6) !important;
+    width: 700px !important;
+    /* position:fixed;
+    left: 300px; */
+}
+
+.mb-3{
+    width: 700px !important;
+    padding: auto;
+    background-color: rgb(255, 238, 236, 0.6) !important;
+    /* position: absolute;
+    left: 300px; */
+}
+.p-0{
+    width: 10px !important;
+}
+.divpro{
+    font-family: 'Roboto' !important;
+    font-style: normal !important;
+}
+
+.user{
+    color : #120d1c;
+    height: 50px;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    background-color: rgb(56,43,73, 0.3) !important;
+    justify-content: center;
+}
+
+.mbs-4{
+    color: #120d1c;
+}
+.personal-form-input{
+    border-radius: 0.5rem ;
+    /* border-color: #120d1c; */
+    border-style: hidden;
+    background-color: rgb(56,43,73, 0.3) ;
+}
+.update{
+    background-color:rgb(56,43,73, 0.3) ;
+    border-radius: 1rem;
+    border-style:none;
+    margin: auto;
+    justify-content: left;
+}
