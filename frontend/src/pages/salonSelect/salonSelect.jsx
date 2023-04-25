@@ -1,5 +1,4 @@
 import React , { useState , useEffect} from "react";
-import axios from "axios";
 import SalonCard from "../../components/salonCard";
 import { Pagination } from "@mui/material";
 

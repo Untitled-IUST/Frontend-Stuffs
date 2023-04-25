@@ -9,7 +9,7 @@ import SignUpBarber from "./pages/LoginSignup/SignUpBarber"
 import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
 import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
 import SalonSelect from './pages/salonSelect/salonSelect';
-import ProfilePage from './pages/Customer_Profile';
+import ProfilePage from './pages/customerProfile/Customer_Profile';
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 //import { idCheck } from './contextAll';
 //import { useContext , createContext } from 'react';
-import "../css/CustomerProfile.css"
+import "./css/CustomerProfile.css"
 import axios from "axios";
 import {
   MDBCol,
