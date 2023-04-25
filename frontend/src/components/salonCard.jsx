@@ -12,13 +12,13 @@ function SalonCard({id,name,address,phoneNumber,rate,background,logo}){
           <Link to={path}>
               <img className="w-full h-[155px] rounded-t-lg" src={background} alt="salon page" />
           </Link>
-              <div className="justify-items-center -mt-11 grid grid-cols-3">
-                <div></div>
-                <div>
-                  <img className="w-[88px] h-[88px]  ring-4 ring-blue-300 rounded-full" src={logo} alt="profile" />
-                </div>
-                <div></div>
-              </div>
+          <div className="justify-items-center -mt-11 grid grid-cols-3">
+            <div></div>
+            <div className="flex justify-center items-center w-[90px] h-[90px] overflow-hidden">
+              <img className=" w-[81px] h-[81px]  ring-4 ring-blue-300 rounded-full" src={logo} alt="profile" />
+            </div>
+            <div></div>
+          </div>
         </div>
         <div className="p-3">
             <Link to={path}>
