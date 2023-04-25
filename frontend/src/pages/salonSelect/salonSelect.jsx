@@ -32,11 +32,11 @@ const SalonSelect = () => {
 
     return(
       <div>
-        <div className="justify-center max-w-[1400px] flex flex-col sm:flex-row-reverse">
-          <aside className="m-4  bg-pink-400 ">
+        <div className="max-w-[1400px] flex flex-col sm:flex-row-reverse">
+          <aside className="flex-1 m-4 bg-pink-400 ">
             ff
           </aside>
-          <div className="flex-1 m-4 bg-black grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-1">
+          <div className="sm:w-3/5 m-4 lg:w-3/4 bg-black grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-1">
             {data.map((item) =>(
               <div key={item.id}>
               <SalonCard id={item.id} name={item.BarberShop} phoneNumber={item.phone_Number} address={item.address} rate={item.rate} background={item.background} logo={item.logo}/> 
