@@ -1,12 +1,13 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { StyledEngineProvider } from '@mui/material/styles';
-import Demo from './demo';
-
-ReactDOM.createRoot(document.querySelector("#root")).render(
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { ProSidebarProvider } from "react-pro-sidebar";
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <Demo />
-    </StyledEngineProvider>
+    <ProSidebarProvider>
+      <App />
+    </ProSidebarProvider>
   </React.StrictMode>
 );

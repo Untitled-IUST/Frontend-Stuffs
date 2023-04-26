@@ -1,7 +1,7 @@
-const BlankPage = () => {
+const Blank = () => {
     return <div>
-        Hello World!
+        Hello World!1
     </div>
 };
 
-export default BlankPage;
+export default Blank;
