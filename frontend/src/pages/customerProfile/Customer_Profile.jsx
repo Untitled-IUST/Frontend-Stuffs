@@ -20,7 +20,7 @@ import {
   MDBListGroup,
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
-import "mdb-react-ui-kit/dist/css/mdb.min.css";
+//import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import toast from "react-hot-toast";
 import { json } from 'react-router-dom';
 
