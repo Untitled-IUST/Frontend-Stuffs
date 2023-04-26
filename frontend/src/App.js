@@ -32,7 +32,14 @@ function App() {
       <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
         <Sidebar backgroundColor="#261B39"  style={{ height: "100vh" }} >
           <Menu rootStyles={{color: "#fecbca"}} >
-            
+            <MenuItem icon={<MenuOutlinedIcon />} onClick={() => { collapseSidebar(); }} style={{ textAlign: "center" }} >
+              {" "}
+              <h2>{userName}</h2>
+            </MenuItem>
+            <MenuItem icon={<HomeOutlinedIcon />} component={<Link to="/" />}>Home</MenuItem>
+            <MenuItem icon={<ReceiptOutlinedIcon />} component={<Link to="/profile" />}>Profile</MenuItem>
+            <MenuItem icon={<ContentCutIcon />} component={<Link to="/hairdresser" />}>Hairdresser</MenuItem>
+            <MenuItem icon={<LogoutIcon />} component={<Link to="/login" />}>Log Out</MenuItem>
           </Menu>
         </Sidebar>
         <Routes>
