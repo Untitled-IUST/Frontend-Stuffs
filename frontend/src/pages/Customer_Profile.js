@@ -55,7 +55,7 @@ export  default function ProfilePage() {
       setArea(res.data.area);
       setPhoneNumber(res.data.phone_Number);
       //setEmailAddress(res.data.user.email);
-      setpassword(res.data.user.password);
+      //setpassword(res.data.user.password);
 
       setImgFile("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic)
       console.log("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic);
@@ -80,8 +80,11 @@ export  default function ProfilePage() {
       username : UserName,
       area : Area,
       phone_Number : phoneNumber,
-      password : password,
-      profile_pic : imgFile,
+      //profile_pic : imgFile,
+      user:{
+        username : UserName,
+        password : password,
+      }
 
     }
     })
