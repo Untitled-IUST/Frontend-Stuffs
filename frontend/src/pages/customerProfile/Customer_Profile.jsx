@@ -23,6 +23,7 @@ import {
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import toast from "react-hot-toast";
 import { json } from 'react-router-dom';
+import { Avatar } from '@mui/material';
 
 export  default function ProfilePage() {
   
@@ -34,11 +35,11 @@ export  default function ProfilePage() {
   const[emailAddress , setEmailAddress] = useState(null);
   const [imgFile, setImgFile] = useState("");
   const [password, setpassword] = useState("");
-  //const [error, seterror] = useState("");
-  let access_token =localStorage.getItem('acctoken');
+  let access_token =localStorage.getItem('accessToken');
   const [UserName, setUserName] = useState("");
   const [Area, setArea] = useState("");
-  // console.log(JSON.parse(access_token).access)
+  //const firstchar = data?.Name?data.Name.charAt(0) : "UN";
+  //const firstchar ="";
 
   useEffect(() => {
     console.log(access_token);
@@ -54,11 +55,12 @@ export  default function ProfilePage() {
       setUserName(res.data.user.username);
       setArea(res.data.area);
       setPhoneNumber(res.data.phone_Number);
+      //firstchar = res.data.first_name.charAt(0);
       //setEmailAddress(res.data.user.email);
-      setpassword(res.data.user.password);
+      //setpassword(res.data.user.password);
 
       setImgFile("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic)
-      console.log("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic);
+      //console.log("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic);
     }).catch((err)=>{
       console.log(err)
     })},[])
@@ -81,7 +83,11 @@ export  default function ProfilePage() {
       area : Area,
       phone_Number : phoneNumber,
       password : password,
-      profile_pic : imgFile,
+      //profile_pic : imgFile,
+      user:{
+        username : UserName,
+        password : password,
+      }
 
     }
     })
@@ -100,7 +106,6 @@ export  default function ProfilePage() {
 
 
 
-
   return (
     <section style={{ backgroundColor: ''}} >
       <MDBContainer className="py-5" >
@@ -114,6 +119,9 @@ export  default function ProfilePage() {
                     </h3>
                   </div>
                 </MDBCard>
+                {/* <Avatar>
+                  {firstchar}
+                </Avatar> */}
                 <MDBCardImage
                   src={imgFile}
                   alt="avatar"
@@ -128,6 +136,7 @@ export  default function ProfilePage() {
                           onChange={(e) => {
                             setImgFile(e.target.files[0]);
                           }}/>
+                  
               </MDBCardBody>
             </MDBCard>
 
@@ -203,6 +212,7 @@ export  default function ProfilePage() {
                           className="personal-form-input"
                           value={password}
                           type="email"
+                          placeholder='*********'
                           onChange={(e) => setpassword(e.target.value)}
                         />
                   </MDBRow>
