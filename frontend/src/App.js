@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, BrowserRouter,  Routes , Route } from 'react-router-dom';
 import Blank from './Components/Blank';
+
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
@@ -44,6 +45,7 @@ function App() {
         </Sidebar>
         <Routes>
           <Route path="/" element={<Blank />} />
+          
         </Routes>
         {/* <main>
           <h1 style={{ color: "#261B39", marginLeft: "5rem" }}>
