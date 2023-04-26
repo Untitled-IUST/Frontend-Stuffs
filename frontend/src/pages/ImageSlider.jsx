@@ -37,6 +37,7 @@ import { Select, MenuItem } from '@mui/material';
 function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
+
   const theme = createTheme({
     typography: {
       fontFamily: 'Roboto',
@@ -70,18 +71,24 @@ const StyledMenuItem = styled(MenuItem)({
   const[data,setMydata]=useState('')
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
+  const[service, setService] = useState(0) 
   let { id } = useParams();
   useEffect(()=> {
-  // axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
-  axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1')
+  //axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
+  axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
     .then((response) => {
+    
         setMydata(response.data)
-        console.log(data.images[0].background)
+        //console.log(data.images[0].background)
+
         console.log("************** The id is **************** ", id)
         // setImg(data.images[0].logo)
         // setImg1(data.images[0].background)
+        // setService(data.services[0].service) 
+        // console.log(data.services[0].service)
     }).catch(err=> console.log(err))
-    },)
+    },[])
+
 
   const [selectedCards, setSelectedCards] = useState([]);
   const [error, setError] = useState(null);
@@ -168,7 +175,7 @@ const prevSlide = () => {
     
     <React.Fragment>
       <Tabs value={currentTabIndex} onChange={handleTabChange}  sx={{ p: 3,bgcolor:'rgba(248, 220, 220, 0.35)',fontFamily:'Roboto', color:'#120c1e' }}centered>
-        <Tab label='Hair'/>
+        <Tab label={data.services[0].category}/> 
         <Tab label='Makeup' />
         <Tab label='Skin' />
       </Tabs>
