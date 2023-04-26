@@ -20,7 +20,7 @@ section{
     left: 300px; */
 }
 
-.mb-3{
+.MDBCard{
     width: 700px !important;
     padding: auto;
     background-color: rgb(255, 238, 236, 0.6) !important;

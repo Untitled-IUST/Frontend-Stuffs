@@ -105,7 +105,7 @@ export  default function ProfilePage() {
     <section style={{ backgroundColor: ''}} >
       <MDBContainer className="py-5" >
         <MDBRow className='rowContainer'>
-            <MDBCard className="mb-3">
+            <MDBCard class="MDBCard" className="mb-3">
               <MDBCardBody className="text-center">
                 <MDBCard className='user'>
                   <div className='divpro'>
