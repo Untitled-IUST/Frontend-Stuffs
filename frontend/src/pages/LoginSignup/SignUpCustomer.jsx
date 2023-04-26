@@ -109,7 +109,6 @@ function SignUpCustomer(){
       })
       .then((res) => {
           alert('Your account registered succesfully'); 
-      
       })
       .catch(error => {
         setEmailAddressError(error.response.data["email"]);
@@ -130,7 +129,7 @@ function SignUpCustomer(){
             <div className="w-full h-auto bg-white hidden lg:block lg:w-5/12 bg-cover rounded-l-lg">
               <img className="mt-20" src={backGroundImageCustomerSignUp} alt="SignUp" />
             </div>
-            <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
+            <div className="mt-10 w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
               <h3 className="pt-4 text-2xl text-center">Sign Up</h3>
               <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                 <div className="mb-4">
@@ -274,7 +273,7 @@ function SignUpCustomer(){
                 
                 <div className="mb-6 text-center">
                   <button
-                    className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                    className="w-full px-4 py-2 font-bold text-white bg-purple-700 rounded-full hover:bg-purple-900 focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={handleSubmit}
                   >
@@ -286,7 +285,7 @@ function SignUpCustomer(){
                 <div className="text-center">
                   <Link
                     to="/LoginCustomer"
-                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    className="inline-block text-sm text-purple-700 align-baseline hover:text-purple-900"
                   >
                     Already have an account? Login!
                   </Link>

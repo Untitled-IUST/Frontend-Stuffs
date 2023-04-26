@@ -59,9 +59,9 @@ function LoginBarber(){
   return(
     <div className="container mx-auto">
 			<div className="flex justify-center px-6 my-12">
-				<div className="w-full xl:w-3/4 lg:w-11/12 flex">
+				<div className="w-full xl:w-3/4 lg:w-11/12 flex border rounded shadow appearance-none">
 					<div className="w-full h-auto bg-white hidden lg:block lg:w-1/2 bg-cover rounded-l-lg">
-            <img className="mt-10" src={backgroundImageLoginBarber} alt="Login"/>
+            <img className="mt-12" src={backgroundImageLoginBarber} alt="Login"/>
           </div>
 					<div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
 						<h3 className="pt-4 text-2xl text-center">Login To Your Salon</h3>
@@ -136,7 +136,7 @@ function LoginBarber(){
 							</div>
 							<div className="mb-6 text-center">
 								<button
-									className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+									className="w-full px-4 py-2 font-bold text-white bg-purple-700 rounded-full hover:bg-purple-900 focus:outline-none focus:shadow-outline"
 									type="button"
                   onClick={handleLogin}
 								>
@@ -146,7 +146,7 @@ function LoginBarber(){
 							</div>
 							<hr className="mb-6 border-t" />
 							<div className="text-center">
-								<Link to="/SignUpBarber" className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800">
+								<Link to="/SignUpBarber" className="inline-block text-sm text-purple-700 align-baseline hover:text-purple-900">
 									Create an Account!
 								</Link>
 							</div>

@@ -57,11 +57,11 @@ function LoginCustomer(){
   return(
     <div className="container mx-auto">
 			<div className="flex justify-center px-6 my-12">
-				<div className="w-full xl:w-3/4 lg:w-11/12 flex">
+				<div className="w-full xl:w-3/4 lg:w-11/12 flex border rounded shadow appearance-none">
 					<div className="w-full h-auto bg-white hidden lg:block lg:w-1/2 bg-cover rounded-l-lg">
             <img className="mt-10" src={backgroundImageLoginCustomer} alt="Login"/>
           </div>
-					<div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+					<div className="mt-12 w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
 						<h3 className="pt-4 text-2xl text-center">Login</h3>
 						<form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
 							<div className="mb-4">
