@@ -71,7 +71,7 @@ const StyledMenuItem = styled(MenuItem)({
   const[data,setMydata]=useState('')
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
-  const[servicefront, setServicefront] = useState('') 
+  const[servicefront, setServicefront] = useState([]) 
   //const[price, setPrice] = useState(0) 
   let { id } = useParams();
   useEffect(()=> {
@@ -82,12 +82,15 @@ const StyledMenuItem = styled(MenuItem)({
         setMydata(response.data)
         //console.log(response.data.images[0])
 
-        console.log("************** The id is **************** ", id)
-        setServicefront(response.data.services)
+        // console.log("************** The id is **************** ", id)
+        setServicefront(response.data.categories) 
         //setServicefront(response.data.services.map((item) => item) ) 
-        console.log(servicefront) 
+        // console.log(servicefront) 
     }).catch(err=> console.log(err))
     },[])
+    useEffect(() => {
+      console.log(servicefront)
+    },[servicefront])
 
 
   const [selectedCards, setSelectedCards] = useState([]);
@@ -152,12 +155,38 @@ const prevSlide = () => {
             );
           })}
         </section>
-        {/* <div>
+        <div>
         {servicefront.map((item) =>(
               <div key={item.category}>
-              <p name={item.service}/> 
+                {item.categoryServices.map((x) => (
+                  if(x.category === ){
+                    <Grid item xs={12} sm={2}>
+                  <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+                  <CardMedia
+                    sx={{ height: 140 }}
+                    image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
+                    title="Hair style"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                    {x.service}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    {x.price}$
+                    </Typography>
+            
+                  </CardContent>
+                  <CardActions>
+                  <Button onClick={() => handleCardSelection({ name: 'Chignon', price: 50 })}>Book</Button>
+                  </CardActions>
+                  
+                </Card>
+                  </Grid>
+                  }
+
+                ))}
               </div>))}
-              </div> */}
+              </div>
         <div className='count'>{selectedCards.length} </div> 
         <div> 
           <img style={{ width: 200, 
