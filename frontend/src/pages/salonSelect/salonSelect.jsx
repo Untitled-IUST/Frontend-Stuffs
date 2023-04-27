@@ -3,12 +3,14 @@ import SalonCard from "../../components/salonCard";
 import { Pagination } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
+import searchIcon from "./images/search-bar.png";
 
 const SalonSelect = () => {
   
   const [data , setData] = useState([]);
   const [howManyPages, setHowManyPages] = useState(0);
   const baseURL = "https://amirmohammadkomijani.pythonanywhere.com/barber/info/"
+  const [TotalAreas ,  setTotalAreas] = useState([]);
 
   useEffect(() => {
     async function fetchData(){
@@ -17,9 +19,14 @@ const SalonSelect = () => {
       const fetchedData = await response.json();
       setData(fetchedData.results);
       setHowManyPages(Math.ceil(fetchedData.count/9));
-      response = await fetch()
     }
     fetchData();
+    async function fetchAreas(){
+      const resp = await fetch("https://amirmohammadkomijani.pythonanywhere.com/barber/area/");
+      const areas = await resp.json();
+      setTotalAreas(areas);
+    }
+    fetchAreas();
   },[])
 
   
@@ -27,62 +34,67 @@ const SalonSelect = () => {
     
   }
 
-  const ContinueURLForFiltersTopRate = "&rate__lte=";
   const ContinueURLForFiltersArea = "?area=";
+  const ContinueURLForFiltersOrdering = "&ordering=";
   const ContinueURLForFiltersLowRate = "&rate__gte=";
+  const ContinueURLForFiltersTopRate = "&rate__lte=";
+  const ContinueURLForFiltersSearch = "&search=";
   const ContinueURLForFiltersPage = "&page=";
   
   const handleApplyFilters = (event) => {
-
     async function fetchData(){
-      if(page == 1){
-        try{
-          const response = await fetch(baseURL+ContinueURLForFiltersArea+area+ContinueURLForFiltersLowRate+rateValue[0]+ContinueURLForFiltersTopRate+rateValue[1]);
-          const fetchedData = await response.json();
-          setData(fetchedData.results);
-          setHowManyPages(Math.ceil(fetchedData.count/9));
-        } catch(error){
-          console.log(error);
-        }
-      }
-      else{
-        try{
-          const response = await fetch(baseURL+ContinueURLForFiltersArea+area+ContinueURLForFiltersPage+page+ContinueURLForFiltersTopRate+rateValue[0]+ContinueURLForFiltersLowRate+rateValue[1]);
-          const fetchedData = await response.json();
-          setData(fetchedData.results);
-          setHowManyPages(Math.ceil(fetchedData.count/9));
-        } catch(error){
-          console.log(error);
-        }
+      try{
+        const areaURL = ContinueURLForFiltersArea + area ;
+        const orederURL =  ContinueURLForFiltersOrdering + ordering ;
+        const pageURL = ContinueURLForFiltersPage + page;
+        const lowRateURL = ContinueURLForFiltersLowRate + rateValue[0];
+        const topRateURL = ContinueURLForFiltersTopRate + rateValue[1];
+        const searchURL = ContinueURLForFiltersSearch + query;
+        
+        const response = await fetch(baseURL+areaURL+orederURL+pageURL+lowRateURL+topRateURL+searchURL);
+        const fetchedData = await response.json();
+        setData(fetchedData.results);
+        setHowManyPages(Math.ceil(fetchedData.count/9));
+      } catch(error){
+        console.log(error);
       }
     }
     fetchData();
   }
 
-
+  const [ordering , setOrdering] = useState("");
   const [rateDropdown , setRateDropdown] = useState(false);
   const [areaDropdown , setAreaDropdown] = useState(false);
   const [area , setArea] = useState("");
   const [page , setPage] = useState(1);
   const [rateValue , setRateValue] = useState([0,5]);
+  const [query , setQuery] = useState("");
 
   function valueText(value) {
     return `${value}`;
   }
+  
+  const handleKeyDown = (event) => {
+    if(event.key === "Enter"){
+      handleApplyFilters();
+    }
+  }
+
+
+
 
     return(
       <div>
+        <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row gap-1 justify-between">
+          <div className="flex flex-row p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img onClick={handleApplyFilters} className="w-[40px] h-[40px]" src={searchIcon} alt="search icon" />
+            <input value={query} onKeyDown={handleKeyDown} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="h-full w-full" type="text"/>
+          </div>
+          <div className="h-[50px] flex-1 m-4 mb-0  bg-black ">
+            
+          </div>
+        </div>
         <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row-reverse">
-          {/* <div className="w-fit h-fit relative">
-            <button className="w-[50px] h-[50px] border-none text-base font-thin outline-none cursor-pointer border rounded-full absolute right-0 bg-black focus:">
-              <i>
-
-              </i>
-            </button>
-            <input>
-
-            </input>
-          </div> */}
           <aside className="flex-1 m-4">
             <div className="m-2 p-4 flex flex-col items-start justify-start bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <button onClick={() => {setRateDropdown(!rateDropdown)}} id="dropdowmButton" type="button" className="m-1 p-1 w-full flex justify-between" >
@@ -171,7 +183,7 @@ const SalonSelect = () => {
                   </div>
                 </div>
               }
-              <button onClick={() => {setAreaDropdown(!rateDropdown)}} id="dropdowmButton" type="button" className="m-1 p-1 w-full flex justify-between" >
+              <button onClick={() => {setAreaDropdown(!areaDropdown)}} id="dropdowmButton" type="button" className="m-1 p-1 w-full flex justify-between" >
                 Area
                 <svg className="w-4 h-4 ml-2 mt-1" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
@@ -180,12 +192,26 @@ const SalonSelect = () => {
               </button>
               {
                 areaDropdown && 
-                <div>
-                  
+                <div className="ml-2 flex flex-col">
+                  <hr className="mb-2" />
+                  {TotalAreas.map((item) => (
+                    <div className="m-0.5 flex flex-row">
+                      <input id="area" className="flex flex-row"type="radio" value={item.area} checked={(area === item.area)} onChange={() => {setArea(item.area)}}/>
+                      <p key={item.id} >{item.area}</p>
+                    </div>
+                  ))}
                 </div>
               }
-              <div>
-                <Button size="small" variant="contained" onClick={handleApplyFilters} >Apply</Button>
+              <div className="flex flex-row justify-between w-full">
+                <div className="mt-2">
+                  <Button size="small" variant="contained" onClick={handleApplyFilters} >Apply</Button>
+                </div>
+                <div className="mt-2">
+                  <Button size="small" variant="contained" onClick={() => {
+                    setRateValue([0,5]);
+                    setArea("");
+                  }} >Reset</Button>
+                </div>
               </div>
             </div>
           </aside>
