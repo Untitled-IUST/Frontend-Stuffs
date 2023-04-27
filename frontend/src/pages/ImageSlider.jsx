@@ -71,7 +71,8 @@ const StyledMenuItem = styled(MenuItem)({
   const[data,setMydata]=useState('')
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
-  const[service, setService] = useState(0) 
+  const[servicefront, setServicefront] = useState([]) 
+  //const[price, setPrice] = useState(0) 
   let { id } = useParams();
   useEffect(()=> {
   //axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
@@ -79,13 +80,12 @@ const StyledMenuItem = styled(MenuItem)({
     .then((response) => {
     
         setMydata(response.data)
-        //console.log(data.images[0].background)
+        //console.log(response.data.images[0])
 
         console.log("************** The id is **************** ", id)
-        // setImg(data.images[0].logo)
-        // setImg1(data.images[0].background)
-        // setService(data.services[0].service) 
-        // console.log(data.services[0].service)
+        setServicefront(response.data.services)
+        //setServicefront(response.data.services.map((item) => item) ) 
+        console.log(servicefront) 
     }).catch(err=> console.log(err))
     },[])
 
@@ -152,9 +152,15 @@ const prevSlide = () => {
             );
           })}
         </section>
-         <div className='count'>{selectedCards.length} </div> 
+        <div>
+        {servicefront.map((item) =>(
+              <div key={item.category}>
+              <p name={item.service}/> 
+              </div>))}
+              </div>
+        <div className='count'>{selectedCards.length} </div> 
         <div> 
-           <img style={{ width: 200, 
+          <img style={{ width: 200, 
                 height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
                 zIndex: '3',marginBottom:50,  marginTop:-400,
            borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
@@ -175,7 +181,7 @@ const prevSlide = () => {
     
     <React.Fragment>
       <Tabs value={currentTabIndex} onChange={handleTabChange}  sx={{ p: 3,bgcolor:'rgba(248, 220, 220, 0.35)',fontFamily:'Roboto', color:'#120c1e' }}centered>
-        <Tab label={data.services[0].category}/> 
+        <Tab label='hair'/> 
         <Tab label='Makeup' />
         <Tab label='Skin' />
       </Tabs>
@@ -194,7 +200,7 @@ const prevSlide = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Chignon
+        chignon 
         </Typography>
         <Typography variant="body2" color="text.secondary">
         Price: $50
@@ -515,10 +521,10 @@ const prevSlide = () => {
         </Grid>
       </Box>
     </Container>
+
   </div>
   </div>
   
-        
   
   );
 };
