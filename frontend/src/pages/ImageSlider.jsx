@@ -71,7 +71,7 @@ const StyledMenuItem = styled(MenuItem)({
   const[data,setMydata]=useState('')
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
-  const[servicefront, setServicefront] = useState([]) 
+  const[servicefront, setServicefront] = useState('') 
   //const[price, setPrice] = useState(0) 
   let { id } = useParams();
   useEffect(()=> {
@@ -152,12 +152,12 @@ const prevSlide = () => {
             );
           })}
         </section>
-        <div>
+        {/* <div>
         {servicefront.map((item) =>(
               <div key={item.category}>
               <p name={item.service}/> 
               </div>))}
-              </div>
+              </div> */}
         <div className='count'>{selectedCards.length} </div> 
         <div> 
           <img style={{ width: 200, 
