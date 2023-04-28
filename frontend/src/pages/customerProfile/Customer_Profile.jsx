@@ -46,15 +46,15 @@ export  default function ProfilePage() {
     axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
       headers:{
         "Content-Type": 'application/json',
-        Authorization: `JWT ${access_token}`
+        Authorization:  `JWT ${access_token}`
       }
     }).then((res)=>{
       // console.log(res.data)
-      setName(res.first_name);
-      setLastName(res.last_name);
-      setUserName(res.user.username);
-      setArea(res.area);
-      setPhoneNumber(res.phone_Number);
+      setName(res.data.first_name);
+      setLastName(res.data.last_name);
+      setUserName(res.data.user.username);
+      setArea(res.data.area);
+      setPhoneNumber(res.data.phone_Number);
       //firstchar = res.data.first_name.charAt(0);
       //setEmailAddress(res.data.user.email);
       //setpassword(res.data.user.password);
