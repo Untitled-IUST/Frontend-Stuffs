@@ -123,7 +123,6 @@ function SignUpCustomer(){
   }
 
   return(
-    <div>
       <div className="container mx-auto">
         <div className="flex justify-center px-6 my-12 ">
           <div className="w-full xl:w-3/4 lg:w-11/12 flex border rounded shadow appearance-none">
@@ -296,7 +295,6 @@ function SignUpCustomer(){
           </div>
         </div>
       </div>
-    </div>
 
   )
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
@@ -17,10 +17,11 @@ function LoginCustomer(){
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevState) => !prevState);
   }
-
+  useEffect(() => {
+    localStorage.removeItem('accesstokenCustomer')
+  },[])
   //tokens
   let accessToken = localStorage.getItem('accessTokenCustomer');
-  let refreshToken = localStorage.getItem('refreshTokenCustomer');
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -40,7 +41,7 @@ function LoginCustomer(){
     .then((res) => {
       alert('You are logged in'); 
       localStorage.setItem('accessTokenCustomer',res.data.access);
-      localStorage.setItem('refreshTokenCustomer',res.data.refresh);
+      window.location.href = "/ProfilePage";
     })
     .catch(error => {
       setError(error.response.data["detail"]);

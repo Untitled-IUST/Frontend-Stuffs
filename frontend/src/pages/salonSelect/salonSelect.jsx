@@ -86,7 +86,7 @@ const SalonSelect = () => {
   }
 
     return(
-      <div>
+      <div className="w-full">
         <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row gap-1 justify-between">
           <div className="flex p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <input value={query} onKeyDown={handleKeyDownSearch} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="h-full w-full" type="text"/>

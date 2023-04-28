@@ -11,18 +11,20 @@ import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
 import SalonSelect from './pages/salonSelect/salonSelect';
 import ImageSlider from './pages/salonPage/ImageSlider';
 import { SliderData } from './components/SliderData';
+import Sidebar from "./components/sideBarCustomer";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 function App() {
   return (
     <div className="App">
     <Router>
       <Routes>
-        <Route path="/LoginBarber" Component={LoginBarber} />
+        <Route path="/LoginBarber" Component={LoginBarber}/>
         <Route path="/SignUpBarber" Component={SignUpBarber} />
-        <Route path="/LoginCustomer" Component={LoginCustomer} />
-        <Route path="/SignUpCustomer" Component={SignUpCustomer} />
-        <Route path="/SalonSelect" Component={SalonSelect} />
-        <Route path="/SalonPage/:id" element={<ImageSlider slides={SliderData} />} />
+        <Route path="/LoginCustomer" element={<div className="flex flex-row"><Sidebar/> <LoginCustomer/></div>} />
+        <Route path="/SignUpCustomer" element={<div className="flex flex-row"><Sidebar/> <SignUpCustomer/></div>} />
+        <Route path="/SalonSelect" element={<div className="flex flex-row"><Sidebar/> <SalonSelect/></div>}/>
+        <Route path="/SalonPage/:id" element={ <ImageSlider slides={SliderData} />} />
       </Routes>
     </Router>
     </div>
