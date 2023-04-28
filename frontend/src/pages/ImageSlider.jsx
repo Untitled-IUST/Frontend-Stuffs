@@ -32,6 +32,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import { Select, MenuItem } from '@mui/material';
+import { Alert } from '@mui/material';
+import { Snackbar } from "@mui/material";
 
 
 function ImageSlider ({ slides }, props) {
@@ -73,13 +75,8 @@ const StyledMenuItem = styled(MenuItem)({
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
   const[servicefront, setServicefront] = useState([]) 
-  //const[price, setPrice] = useState(0) 
+
   let { id } = useParams();
-  //let mostservices = 6;
-  let hairarray = [];
-  let nailarray = [];
-  let makeuparray = [];
-  let skinarray = [];
   useEffect(()=> {
   //axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
   axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
@@ -90,25 +87,6 @@ const StyledMenuItem = styled(MenuItem)({
 
         // console.log("************** The id is **************** ", id)
         setServicefront(response.data.categories) 
-        for(let i = 0; i<servicefront.length; i++)
-        {
-          if(servicefront[i].category == 'skin')
-          {
-            skinarray.push.apply(skinarray, servicefront[i].categoryServices) 
-          }
-          if(servicefront[i].category == 'hair')
-          {
-            hairarray.push.apply(hairarray, servicefront[i].categoryServices) 
-          }
-          if(servicefront[i].category == 'makeup')
-          {
-            makeuparray.push.apply(makeuparray, servicefront[i].categoryServices) 
-          }
-          if(servicefront[i].category == 'nail')
-          {
-            nailarray.push.apply(nailarray, servicefront[i].categoryServices) 
-          }
-        } 
     }).catch(err=> console.log(err))
     },[])
     useEffect(() => {
@@ -179,6 +157,8 @@ const prevSlide = () => {
           })}
         </section>
         <div className='count'>{selectedCards.length} </div> 
+        {/* {error && <Alert className='er'> {error} </Alert>} */}
+        <Snackbar open={Boolean(error)} message={error} severity="error" />;
         <div> 
           <img style={{ width: 200, 
                 height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
@@ -192,14 +172,14 @@ const prevSlide = () => {
       <Typography component="div">
       <ThemeProvider theme={theme}>
       <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: 400,borderRadius:3,
-        height: 80,textAlign: 'center', ml: 48,mt:-20,fontSize: 30, mb:30, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
-        Name of salon {data.BarberShop}
+        height: 80,textAlign: 'center', ml: 48,mt:-20,fontSize: 30, mb:10, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
+        {data.BarberShop}
       </Box>
       </ThemeProvider>
     </Typography>
     </Container>
     <div>
-    <Tabs value={currentTabIndex} onChange={handleTabChange} centered>
+    <Tabs value={currentTabIndex}  onChange={handleTabChange} Sx={{p:3, backgroundcolor :'red'}} centered>
       {servicefront.map((item, index) => (
         <Tab key={item.category} label={item.category} />
       ))}
@@ -207,7 +187,9 @@ const prevSlide = () => {
     {servicefront.map((item, index) => (
       <div key={item.category} style={{ display: currentTabIndex === index ? 'block' : 'none' }}>
         {item.categoryServices.map((x) => (
-          <Grid item xs={12} sm={6} md={4} key={x.service}>
+          <Grid item md={9}>
+          <Grid >
+          <Grid item  xs={12} sm={6} md={4} key={x.service}>
             <Card sx={{ maxWidth: 345, bgcolor: '#ffecee', fontFamily: 'Roboto', color: '#120c1e', borderRadius: 3 }}>
               <CardMedia sx={{ height: 140 }} image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg" title="Hair style" />
               <CardContent>
@@ -223,45 +205,12 @@ const prevSlide = () => {
               </CardActions>
             </Card>
           </Grid>
+          </Grid>
+          </Grid>
         ))}
       </div>
     ))}
   </div>
-
-    {/* <div>
-        {servicefront.map((item) =>(
-              <div key={item.category}>
-                {item.categoryServices.map((x) => (
-                  
-
-
-                    <Grid item xs={12} sm={2}>
-                  <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-                  <CardMedia
-                    sx={{ height: 140 }}
-                    image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
-                    title="Hair style"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                    {x.service}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                    {x.price}$
-                    </Typography>
-            
-                  </CardContent>
-                  <CardActions>
-                  <Button onClick={() => handleCardSelection({ name: x.service, price: x.price })}>Book</Button>
-                  </CardActions>
-                  
-                </Card>
-                  </Grid>
-
-
-                ))}
-              </div>))}
-              </div> */}
 
           <div>
           <button className='bt' onClick={handleClickOpen}>Order</button>

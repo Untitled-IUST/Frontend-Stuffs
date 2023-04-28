@@ -18,10 +18,11 @@
   
   .image {
 
-    width: 1380px;
+    width: 1300px;
     height: 450px;
     border-radius: 0px;
-    margin-bottom: -90px;
+    margin-top: 1rem;
+    border-radius: 2rem;
   }
   
   .right-arrow {
@@ -149,6 +150,15 @@
   background: #ffecee !important;
   
 }
+
+.MuiCardContent-root{
+  display: flex !important;
+  flex:2 !important;
+  direction: 'row' !important;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
 .Mui-selected {
   color:  #ffecee!important;
   font-size: 25px !important;
@@ -157,16 +167,19 @@
   background:  #ffecee!important;
   font-size: 25px !important;
 }
+.MuiTabs-flexContainer{
+  background-color: rgb(248,220,220,0.35); 
+}
+.M
 .count{
   font-size: 15px;
-  width: 1%;
-  height: 1%;
+  width: 80%;
+  height: 50%;
   color: #120c1e;
-  background-color: #ffecee;
+  background-color: red;
   margin-left: 16%;
-  margin-top: -190;
+  color:red;
   margin-bottom: 7rem;
-  padding-left: 6px;
   padding-bottom: 3px;
   border:solid;
   border-color: #120c1e;
