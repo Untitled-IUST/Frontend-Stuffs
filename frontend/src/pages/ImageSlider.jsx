@@ -63,18 +63,19 @@ const StyledMenuItem = styled(MenuItem)({
   },
 });
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
-  const handleTabChange = (e, tabIndex) => {
-    console.log(tabIndex);
-    setCurrentTabIndex(tabIndex);
+  const handleTabChange = (event, newIndex) => {
+    setCurrentTabIndex(newIndex);
   };
-  
+
+
+
   const[data,setMydata]=useState('')
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
   const[servicefront, setServicefront] = useState([]) 
   //const[price, setPrice] = useState(0) 
   let { id } = useParams();
-  let mostservices = 6;
+  //let mostservices = 6;
   let hairarray = [];
   let nailarray = [];
   let makeuparray = [];
@@ -198,20 +199,42 @@ const prevSlide = () => {
     </Typography>
     </Container>
     <div>
-      {servicefront.map((item) => 
-        <React.Fragment>
-        <Tabs value={currentTabIndex} onChange={handleTabChange}  sx={{ p: 3,bgcolor:'rgba(248, 220, 220, 0.35)',fontFamily:'Roboto', color:'#120c1e' }}centered>
-        <Tab label={item.category}/> 
-      </Tabs>
-      </React.Fragment>
-      )}
-    </div>
+    <Tabs value={currentTabIndex} onChange={handleTabChange} centered>
+      {servicefront.map((item, index) => (
+        <Tab key={item.category} label={item.category} />
+      ))}
+    </Tabs>
+    {servicefront.map((item, index) => (
+      <div key={item.category} style={{ display: currentTabIndex === index ? 'block' : 'none' }}>
+        {item.categoryServices.map((x) => (
+          <Grid item xs={12} sm={6} md={4} key={x.service}>
+            <Card sx={{ maxWidth: 345, bgcolor: '#ffecee', fontFamily: 'Roboto', color: '#120c1e', borderRadius: 3 }}>
+              <CardMedia sx={{ height: 140 }} image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg" title="Hair style" />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {x.service}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {x.price}$
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button onClick={() => handleCardSelection({ name: x.service, price: x.price })}>Book</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </div>
+    ))}
+  </div>
 
-    <div>
+    {/* <div>
         {servicefront.map((item) =>(
               <div key={item.category}>
                 {item.categoryServices.map((x) => (
-                  // if(x.category === ){
+                  
+
+
                     <Grid item xs={12} sm={2}>
                   <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
                   <CardMedia
@@ -234,11 +257,11 @@ const prevSlide = () => {
                   
                 </Card>
                   </Grid>
-                  // }
+
 
                 ))}
               </div>))}
-              </div>
+              </div> */}
 
           <div>
           <button className='bt' onClick={handleClickOpen}>Order</button>
