@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { SliderData } from './SliderData';
+import { SliderData } from '../../components/SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import {
   BrowserRouter as Router,
@@ -10,7 +10,7 @@ import {
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
-import"../css/ImageSlider.css"
+import"./css/ImageSlider.css"
 import CallIcon from '@mui/icons-material/Call';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import GradeIcon from '@mui/icons-material/Grade';
@@ -35,8 +35,7 @@ import { Select, MenuItem } from '@mui/material';
 import { Alert } from '@mui/material';
 import { Snackbar } from "@mui/material";
 
-
-function ImageSlider ({ slides }, props) {
+function ImageSlider ({ slides },props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
 
@@ -77,9 +76,11 @@ const StyledMenuItem = styled(MenuItem)({
   const[servicefront, setServicefront] = useState([]) 
 
   let { id } = useParams();
+
+  
   useEffect(()=> {
-  //axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
-  axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
+    axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}`)
+  //axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
     .then((response) => {
     
         setMydata(response.data)
@@ -88,7 +89,7 @@ const StyledMenuItem = styled(MenuItem)({
         // console.log("************** The id is **************** ", id)
         setServicefront(response.data.categories) 
     }).catch(err=> console.log(err))
-    },[])
+    },[id])
     useEffect(() => {
       console.log(servicefront)
     },[servicefront])

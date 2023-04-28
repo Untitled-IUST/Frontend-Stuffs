@@ -9,8 +9,8 @@ import SignUpBarber from "./pages/LoginSignup/SignUpBarber"
 import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
 import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
 import SalonSelect from './pages/salonSelect/salonSelect';
-import ImageSlider from './pages/ImageSlider';
-import { SliderData } from './pages/SliderData';
+import ImageSlider from './pages/salonPage/ImageSlider';
+import { SliderData } from './components/SliderData';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/LoginCustomer" Component={LoginCustomer} />
         <Route path="/SignUpCustomer" Component={SignUpCustomer} />
         <Route path="/SalonSelect" Component={SalonSelect} />
-        <Route path="/images" element={<ImageSlider slides={SliderData} />} />
+        <Route path="/SalonPage/:id" element={<ImageSlider slides={SliderData} />} />
       </Routes>
     </Router>
     </div>

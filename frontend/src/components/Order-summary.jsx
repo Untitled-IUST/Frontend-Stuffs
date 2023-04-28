@@ -1,4 +1,4 @@
-import ImageSlider from './ImageSlider';
+import ImageSlider from '../pages/salonPage/ImageSlider';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 function Ordersummary({selectedCards},{totalPrice}){

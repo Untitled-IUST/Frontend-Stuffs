@@ -4,12 +4,11 @@ import { Link }from "react-router-dom";
 
 function SalonCard({id,name,address,phoneNumber,rate,background,logo}){
 
-  const path =  "https://amirmohammadkomijani.pythonanywhere.com/barber/info/"+id+"/";
   
   return(
     <div className="h-[370px] m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="relative">
-          <Link to={path}>
+          <Link to={`/SalonPage/${id}`}>
               <img className="w-full h-[155px] rounded-t-lg" src={background} alt="salon page" />
           </Link>
           <div className="justify-items-center -mt-11 grid grid-cols-3">
@@ -21,7 +20,7 @@ function SalonCard({id,name,address,phoneNumber,rate,background,logo}){
           </div>
         </div>
         <div className="p-3">
-            <Link to={path}>
+            <Link to={`/SalonPage/${id}`}>
                 <h5 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h5>
             </Link>
             <p className="text-left mb-3 font-normal text-gray-700 dark:text-gray-400">{address}</p>
