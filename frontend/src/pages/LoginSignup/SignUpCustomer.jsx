@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate , useNavigate } from "react-router-dom";
 import { useState} from "react";
 import axios from "axios";
 import backGroundImageCustomerSignUp from "./images/SignUpCustomer.png";
@@ -18,6 +18,7 @@ function SignUpCustomer(){
   const[passwordError , setPasswordError] = useState(true);
   const[confirmPasswordError , setConfirmPasswordError] = useState(true);
   const[submitError , setSubmitError] = useState(true);
+  const navigate = useNavigate();
   //token
 
   const validEmailAddress = new RegExp(
@@ -109,6 +110,7 @@ function SignUpCustomer(){
       })
       .then((res) => {
           alert('Your account registered succesfully'); 
+          navigate('/loginCustomer');
       
       })
       .catch(error => {

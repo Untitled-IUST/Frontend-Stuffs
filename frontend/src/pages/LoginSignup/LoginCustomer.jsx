@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate , useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { json } from "react-router-dom";
@@ -13,6 +13,7 @@ function LoginCustomer(){
   const [Error , setError] = useState("");
   const [password , setpassword] = useState("");
   const [isPasswordVisible , setIsPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevState) => !prevState);
@@ -41,6 +42,7 @@ function LoginCustomer(){
       alert('You are logged in'); 
       localStorage.setItem('accessToken',res.data.access);
       localStorage.setItem('refreshToken',res.data.refresh);
+      navigate('/profilepage');
     })
     .catch(error => {
       setError(error.response.data["detail"]);
@@ -55,7 +57,7 @@ function LoginCustomer(){
     setpassword(event.target.value);
   }
   return(
-    <div className="container mx-auto">
+    <div className="container mx-auto" >
 			<div className="flex justify-center px-6 my-12">
 				<div className="w-full xl:w-3/4 lg:w-11/12 flex">
 					<div className="w-full h-auto bg-white hidden lg:block lg:w-1/2 bg-cover rounded-l-lg">
