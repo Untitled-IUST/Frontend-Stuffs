@@ -104,6 +104,20 @@ const StyledMenuItem = styled(MenuItem)({
           setError('You can only book up to 3 times!');
         }
       };
+  const handleCardRemoval = (card) => {
+        setSelectedCards((prevSelectedCards) => {
+          const index = prevSelectedCards.findIndex(
+            (selectedCard) => selectedCard.name === card.name
+          );
+          if (index !== -1) {
+            return [
+              ...prevSelectedCards.slice(0, index),
+              ...prevSelectedCards.slice(index + 1),
+            ];
+          }
+          return prevSelectedCards;
+        });
+      };
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -202,6 +216,7 @@ const prevSlide = () => {
               </CardContent>
               <CardActions>
                 <Button onClick={() => handleCardSelection({ name: x.service, price: x.price })}>Book</Button>
+                <Button onClick={() => handleCardRemoval({ name: x.service, price: x.price })}>Remove</Button>
               </CardActions>
             </Card>
           </Grid>
