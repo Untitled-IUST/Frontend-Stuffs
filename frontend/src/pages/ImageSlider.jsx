@@ -74,6 +74,11 @@ const StyledMenuItem = styled(MenuItem)({
   const[servicefront, setServicefront] = useState([]) 
   //const[price, setPrice] = useState(0) 
   let { id } = useParams();
+  let mostservices = 6;
+  let hairarray = [];
+  let nailarray = [];
+  let makeuparray = [];
+  let skinarray = [];
   useEffect(()=> {
   //axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
   axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
@@ -84,8 +89,25 @@ const StyledMenuItem = styled(MenuItem)({
 
         // console.log("************** The id is **************** ", id)
         setServicefront(response.data.categories) 
-        //setServicefront(response.data.services.map((item) => item) ) 
-        // console.log(servicefront) 
+        for(let i = 0; i<servicefront.length; i++)
+        {
+          if(servicefront[i].category == 'skin')
+          {
+            skinarray.push.apply(skinarray, servicefront[i].categoryServices) 
+          }
+          if(servicefront[i].category == 'hair')
+          {
+            hairarray.push.apply(hairarray, servicefront[i].categoryServices) 
+          }
+          if(servicefront[i].category == 'makeup')
+          {
+            makeuparray.push.apply(makeuparray, servicefront[i].categoryServices) 
+          }
+          if(servicefront[i].category == 'nail')
+          {
+            nailarray.push.apply(nailarray, servicefront[i].categoryServices) 
+          }
+        } 
     }).catch(err=> console.log(err))
     },[])
     useEffect(() => {
@@ -155,38 +177,6 @@ const prevSlide = () => {
             );
           })}
         </section>
-        <div>
-        {servicefront.map((item) =>(
-              <div key={item.category}>
-                {item.categoryServices.map((x) => (
-                  if(x.category === ){
-                    <Grid item xs={12} sm={2}>
-                  <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-                  <CardMedia
-                    sx={{ height: 140 }}
-                    image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
-                    title="Hair style"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                    {x.service}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                    {x.price}$
-                    </Typography>
-            
-                  </CardContent>
-                  <CardActions>
-                  <Button onClick={() => handleCardSelection({ name: 'Chignon', price: 50 })}>Book</Button>
-                  </CardActions>
-                  
-                </Card>
-                  </Grid>
-                  }
-
-                ))}
-              </div>))}
-              </div>
         <div className='count'>{selectedCards.length} </div> 
         <div> 
           <img style={{ width: 200, 
@@ -207,256 +197,48 @@ const prevSlide = () => {
       </ThemeProvider>
     </Typography>
     </Container>
-    
-    <React.Fragment>
-      <Tabs value={currentTabIndex} onChange={handleTabChange}  sx={{ p: 3,bgcolor:'rgba(248, 220, 220, 0.35)',fontFamily:'Roboto', color:'#120c1e' }}centered>
-        <Tab label='hair'/> 
-        <Tab label='Makeup' />
-        <Tab label='Skin' />
+    <div>
+      {servicefront.map((item) => 
+        <React.Fragment>
+        <Tabs value={currentTabIndex} onChange={handleTabChange}  sx={{ p: 3,bgcolor:'rgba(248, 220, 220, 0.35)',fontFamily:'Roboto', color:'#120c1e' }}centered>
+        <Tab label={item.category}/> 
       </Tabs>
-      {error && <p className='er'>{error}</p>}  
-      {/* TAB 1 Contents */}
-      {currentTabIndex === 0 && (
-        <Box sx={{ p: 3 }}>
-    <Grid container spacing={2}>
-      {/* First card */}
-      <Grid item xs={12} sm={2}>
-      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
-        title="Hair style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        chignon 
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        Price: $50
-        </Typography>
-
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Chignon', price: 50 })}>Book</Button>
-      </CardActions>
-      
-    </Card>
-      </Grid>
-
-      {/* Second card */}
-      <Grid item xs={12} sm={2}>
-      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
-        title="Hair Style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Haircut
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-
-        Price: $40
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Haircut', price: 40 })}> Book </Button>
-      </CardActions>
-    </Card>
-      </Grid>
-            {/* Second card */}
-            <Grid item xs={12} sm={2}>
-            <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
-        title="Hair Style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Dye Hair
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-
-        Price: $20
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Dye Hair', price: 20 })}> Book </Button>
-      </CardActions>
-    </Card>
-      </Grid>
-
-      {/* Add more cards here as needed */}
-    </Grid>
-        </Box>
+      </React.Fragment>
       )}
+    </div>
 
-      {/* TAB 2 Contents */}
-      {currentTabIndex === 1 && (
-        <Box sx={{ p: 3 }}>
-    <Grid container spacing={2}>
-      {/* First card */}
-      <Grid item xs={12} sm={2}>
-      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/10a8fc806c5eaceb72877fa762e204e1_xg74.jpg"
-        title="Hair style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Face Makeup
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          
-        Price: $25
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Face Makeup', price: 25 })}> Book </Button>
+    <div>
+        {servicefront.map((item) =>(
+              <div key={item.category}>
+                {item.categoryServices.map((x) => (
+                  // if(x.category === ){
+                    <Grid item xs={12} sm={2}>
+                  <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
+                  <CardMedia
+                    sx={{ height: 140 }}
+                    image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"
+                    title="Hair style"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                    {x.service}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    {x.price}$
+                    </Typography>
+            
+                  </CardContent>
+                  <CardActions>
+                  <Button onClick={() => handleCardSelection({ name: x.service, price: x.price })}>Book</Button>
+                  </CardActions>
+                  
+                </Card>
+                  </Grid>
+                  // }
 
-      </CardActions>
-    </Card>
-      </Grid>
-
-      {/* Second card */}
-      <Grid item xs={12} sm={2}>
-      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/10a8fc806c5eaceb72877fa762e204e1_xg74.jpg"
-        title="Hair Style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Wedding Makeup
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-
-      Price: $60
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Wedding Makeup', price: 60 })}> Book </Button>
-      </CardActions>
-    </Card>
-      </Grid>
-            {/* Second card */}
-            <Grid item xs={12} sm={2}>
-            <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/10a8fc806c5eaceb72877fa762e204e1_xg74.jpg"
-        title="Hair Style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        IDK Makeup
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-
-        Price: $23
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'IDK Makeup', price: 23 })}> Book </Button>
-      </CardActions>
-    </Card>
-      </Grid>
-
-      {/* Add more cards here as needed */}
-    </Grid>
-        </Box>
-      )}
-
-      {/* TAB 3 Contents */}
-      {currentTabIndex === 2 && (
-        <Box sx={{ p: 3 }}>
-    <Grid container spacing={2}>
-      {/* First card */}
-      <Grid item xs={12} sm={2}>
-      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/664f5bc68654b7629090d294fc6b61b5_efq0.jpg"
-        title="Hair style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Skin Care
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-
-        Price: $21
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Skin care', price: 21 })}> Book </Button>
-      </CardActions>
-    </Card>
-      </Grid>
-
-      {/* Second card */}
-      <Grid item xs={12} sm={2}>
-      <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/664f5bc68654b7629090d294fc6b61b5_efq0.jpg"
-        title="Hair Style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Skin IDK
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-
-   
-        Price: $28
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Skin IDK', price: 28 })}> Book </Button>
-      </CardActions>
-    </Card>
-      </Grid>
-            {/* Second card */}
-            <Grid item xs={12} sm={2}>
-            <Card sx={{ maxWidth: 345,bgcolor: '#ffecee',fontFamily:'Roboto', color:'#120c1e',borderRadius:3 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://s2.uupload.ir/files/664f5bc68654b7629090d294fc6b61b5_efq0.jpg"
-        title="Hair Style"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-        Skin IDK
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-
-        Price: $29
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <Button onClick={() => handleCardSelection({ name: 'Skin IDK', price: 29 })}> Book </Button>
-
-      </CardActions>
-    </Card>
-      </Grid>
-
-      {/* Add more cards here as needed */}
-    </Grid>
-        </Box>
-      )}
-    </React.Fragment>
-
-
-    {/* {error && (
-        <Box sx={{ p: 3 }}>
-          <Typography color="error">{error}</Typography>
-        </Box>
-      )} */}
+                ))}
+              </div>))}
+              </div>
 
           <div>
           <button className='bt' onClick={handleClickOpen}>Order</button>
