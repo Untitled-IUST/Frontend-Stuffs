@@ -74,25 +74,33 @@ const SalonSelect = () => {
     return `${value}`;
   }
   
-  const handleKeyDown = (event) => {
+  const handleKeyDownSearch = (event) => {
     if(event.key === "Enter"){
       handleApplyFilters();
     }
   }
 
+  const handleOrdering = (event) => {
+    const newOrdering = event.target.value;
+    setOrdering(newOrdering);
+  }
 
-
+  useEffect(() => {
+    handleApplyFilters();
+  },[ordering])
 
     return(
       <div>
         <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row gap-1 justify-between">
-          <div className="flex flex-row p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="flex p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <input value={query} onKeyDown={handleKeyDownSearch} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="h-full w-full" type="text"/>
             <img onClick={handleApplyFilters} className="w-[40px] h-[40px]" src={searchIcon} alt="search icon" />
-            <input value={query} onKeyDown={handleKeyDown} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="h-full w-full" type="text"/>
           </div>
-          <div className="h-[50px] flex-1 m-4 mb-0  bg-black ">
-            
-          </div>
+          <select onChange={handleOrdering} className="h-[50px] m-4 mb-0 flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="">No ordering</option>
+            <option value="rate">rate: ascending</option>
+            <option value="-rate">rate: descending</option>
+          </select>
         </div>
         <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row-reverse">
           <aside className="flex-1 m-4">
