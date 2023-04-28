@@ -19,8 +19,8 @@ function LoginCustomer(){
   }
 
   //tokens
-  let accessToken = localStorage.getItem('accessToken');
-  let refreshToken = localStorage.getItem('refreshToken');
+  let accessToken = localStorage.getItem('accessTokenCustomer');
+  let refreshToken = localStorage.getItem('refreshTokenCustomer');
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -39,8 +39,8 @@ function LoginCustomer(){
     })
     .then((res) => {
       alert('You are logged in'); 
-      localStorage.setItem('accessToken',res.data.access);
-      localStorage.setItem('refreshToken',res.data.refresh);
+      localStorage.setItem('accessTokenCustomer',res.data.access);
+      localStorage.setItem('refreshTokenCustomer',res.data.refresh);
     })
     .catch(error => {
       setError(error.response.data["detail"]);

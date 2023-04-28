@@ -109,6 +109,7 @@ function SignUpCustomer(){
       })
       .then((res) => {
           alert('Your account registered succesfully'); 
+          window.location.href = "/LoginCustomer";
       })
       .catch(error => {
         setEmailAddressError(error.response.data["email"]);
