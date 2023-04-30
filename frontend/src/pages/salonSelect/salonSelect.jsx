@@ -1,6 +1,6 @@
 import React , { useState , useEffect} from "react";
 import SalonCard from "../../components/salonCard";
-import { Pagination } from "@mui/material";
+import { Pagination, colors } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import searchIcon from "./images/search-bar.png";
@@ -86,13 +86,13 @@ const SalonSelect = () => {
   }
 
     return(
-      <div className="w-full">
+      <div className="w-full bg-[#261B39]">
         <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row gap-1 justify-between">
-          <div className="flex p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <input value={query} onKeyDown={handleKeyDownSearch} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="h-full w-full" type="text"/>
+          <div className="flex p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-[#FFECEE] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <input value={query} onKeyDown={handleKeyDownSearch} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="bg-[#FFECEE] h-full w-full" type="text"/>
             <img onClick={handleApplyFilters} className="cursor-pointer w-[40px] h-[40px]" src={searchIcon} alt="search icon" />
           </div>
-          <select onChange={handleOrdering} className="h-[50px] m-4 mb-0 flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select onChange={handleOrdering} className="bg-[#FFECEE] h-[50px] m-4 mb-0 flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="">No ordering</option>
             <option value="rate">rate: ascending</option>
             <option value="-rate">rate: descending</option>
@@ -100,7 +100,7 @@ const SalonSelect = () => {
         </div>
         <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row-reverse">
           <aside className="flex-1 m-4 ">
-            <div className="m-2 p-4 flex flex-col items-start justify-start bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="bg-[#FFECEE] m-2 p-4 flex flex-col items-start justify-start border border-[#FFECEE] rounded-lg shadow ">
               <button onClick={() => {setRateDropdown(!rateDropdown)}} id="dropdowmButton" type="button" className="m-1 p-1 w-full flex justify-between" >
                   Rate min
                 <svg className="w-4 h-4 ml-2 mt-1" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -208,10 +208,10 @@ const SalonSelect = () => {
               }
               <div className="flex flex-row justify-between w-full">
                 <div className="mt-2">
-                  <Button size="small" variant="contained" onClick={handleApplyFilters} >Apply</Button>
+                  <Button sx={{backgroundColor:"#261B39"}} size="small" variant="contained" onClick={handleApplyFilters} >Apply</Button>
                 </div>
                 <div className="mt-2">
-                  <Button size="small" variant="contained" onClick={() => {
+                  <Button sx={{backgroundColor:"#261B39"}} size="small" variant="contained" onClick={() => {
                     setRateValue([0,5]);
                     setArea("");
                   }} >Reset</Button>
@@ -219,7 +219,7 @@ const SalonSelect = () => {
               </div>
             </div>
           </aside>
-          <div className="sm:w-3/5 m-4 lg:w-3/4 bg-black grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-1">
+          <div className="sm:w-3/5 m-4 lg:w-3/4 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-1">
             {data.map((item) =>(
               <div key={item.id}>
               <SalonCard id={item.id} name={item.BarberShop} phoneNumber={item.phone_Number} address={item.address} rate={item.rate} background={item.background} logo={item.logo}/> 
@@ -227,9 +227,9 @@ const SalonSelect = () => {
             ))}
           </div>
         </div>
-        {/* <div className="p-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 bg-pink-400	" style={{position: "fixed", bottom: "77px"}}>
+        <div className="p-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 bg-pink-400	" style={{position: "fixed", bottom: "77px"}}>
           <Pagination count={howManyPages} page={page} color="secondary" onChange={handleChange}/>
-        </div> */}
+        </div>
       </div>
   )}
 export default SalonSelect;

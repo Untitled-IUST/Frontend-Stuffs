@@ -13,6 +13,7 @@ import ImageSlider from './pages/salonPage/ImageSlider';
 import { SliderData } from './components/SliderData';
 import Sidebar from "./components/sideBarCustomer";
 import { ProSidebarProvider } from "react-pro-sidebar";
+import ProfilePage from "./pages/customerProfile/Customer_Profile";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/SignUpCustomer" element={<div className="flex flex-row"><Sidebar/> <SignUpCustomer/></div>} />
         <Route path="/SalonSelect" element={<div className="flex flex-row"><Sidebar/> <SalonSelect/></div>}/>
         <Route path="/SalonPage/:id" element={ <ImageSlider slides={SliderData} />} />
+        <Route path="/ProfilePage" element={<div className="flex flex-row"><Sidebar/> <ProfilePage/></div>} />
       </Routes>
     </Router>
     </div>

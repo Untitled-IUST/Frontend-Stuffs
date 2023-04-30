@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 //import { idCheck } from './contextAll';
 //import { useContext , createContext } from 'react';
-import "./css/CustomerProfile.css"
+import "./customerProfile.css"
 import axios from "axios";
 import {
   MDBCol,
@@ -35,7 +35,7 @@ export  default function ProfilePage() {
   const[emailAddress , setEmailAddress] = useState(null);
   const [imgFile, setImgFile] = useState("");
   const [password, setpassword] = useState("");
-  let access_token =localStorage.getItem('accessToken');
+  let access_token =localStorage.getItem('accesstokenCustomer');
   const [UserName, setUserName] = useState("");
   const [Area, setArea] = useState("");
   //const firstchar = data?.Name?data.Name.charAt(0) : "UN";

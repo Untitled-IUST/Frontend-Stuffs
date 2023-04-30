@@ -31,7 +31,6 @@ function LoginCustomer(){
       url: "https://amirmohammadkomijani.pythonanywhere.com/auth/jwt/create/",
       headers: {
           'Content-Type': 'application/json',
-          Authorization : `JWT ${accessToken}`
       },
       data: {
           email: emailAddress,
@@ -40,7 +39,7 @@ function LoginCustomer(){
     })
     .then((res) => {
       alert('You are logged in'); 
-      localStorage.setItem('accessTokenCustomer',res.data.access);
+      localStorage.setItem('accesstokenCustomer',res.data.access);
       window.location.href = "/ProfilePage";
     })
     .catch(error => {
