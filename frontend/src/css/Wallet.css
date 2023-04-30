@@ -6,16 +6,17 @@
     align-items: center;
     font-family: 'Roboto';
     height: 100vh;
+    background-color: #261B39;
   }
   .inner-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 20px;
-    background-color: #150b3e;
+    background-color: #ffecee;
     border-radius: 15px;
-    width: 400px;
-    height: 420px;
+    width: 45%;
+    height: 70%;
   }
   .heading-container {
     display: flex;
@@ -41,37 +42,38 @@
   .name-para {
     color: #c4c4c4;
     font-size: 20px;
+    padding: 5%;
+    margin-left: 15%;
   }
   .money-container {
     display: flex;
     flex-direction: row;
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right:15% ;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: -20px;
+    /* margin-bottom: -20px; */
   }
   .balance-name {
     color: #585076;
-    font-size: 18px;
-    align-self: center;
+    font-size: 25px;
+    align-self: left;
   }
   
   .amount {
     color: #c4c4c4;
     font-size: 28px;
+    
   }
-  .rupees {
-    color: #585076;
-    font-size: 12px;
-    align-self: flex-end;
-    margin-right: 10px;
-  }
+
   .withdraw {
     color: #c4c4c4;
     font-size: 20px;
   }
   .choose {
     color: #585076;
-    font-size: 12px;
+    font-size: 15px;
   }
   .items-holder {
     display: flex;
@@ -82,3 +84,11 @@
     margin-top: -5px;
     margin-left: -40px;
   }
+.pmr{
+    width: 30%;
+    height:100%;
+    border-radius: 150%;
+    
+    position: 'relative'
+
+}
