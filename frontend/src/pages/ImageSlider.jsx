@@ -94,7 +94,7 @@ const StyledMenuItem = styled(MenuItem)({
     },[servicefront])
     const submitCards = async (cardIds, barberId, selectedTime) => {
       try {
-        const response = await axios.post('/your-endpoint', { cardIds, barberId, selectedTime });
+        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', { cardIds, barberId, selectedTime });
         console.log('POST request successful:', response.data);
       } catch (error) {
         console.error('POST request failed:', error);
