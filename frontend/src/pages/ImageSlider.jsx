@@ -92,10 +92,9 @@ const StyledMenuItem = styled(MenuItem)({
     useEffect(() => {
       console.log(servicefront)
     },[servicefront])
-
-    const submitCards = async (cardIds, barberId) => {
+    const submitCards = async (cardIds, barberId, selectedTime) => {
       try {
-        const response = await axios.post('/your-endpoint', { cardIds, barberId });
+        const response = await axios.post('/your-endpoint', { cardIds, barberId, selectedTime });
         console.log('POST request successful:', response.data);
       } catch (error) {
         console.error('POST request failed:', error);
@@ -269,6 +268,7 @@ const prevSlide = () => {
               <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:300,padding:2 }}onClick={null}>BUY</Button>
               {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id))}>Submit Cards</Button> */}
               <Button onClick={() => submitCards(selectedCards.map(card => card.id), id)}>Submit Cards</Button>
+              {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id), id, selectedTime)}>Submit Cards</Button> */}
             </Box>
           </Dialog>
         </div>
