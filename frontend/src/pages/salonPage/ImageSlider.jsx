@@ -10,7 +10,7 @@ import {
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
-import"./css/ImageSlider.css"
+import"./css/ImageSlider.css";
 import CallIcon from '@mui/icons-material/Call';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import GradeIcon from '@mui/icons-material/Grade';
@@ -35,7 +35,8 @@ import { Select, MenuItem } from '@mui/material';
 import { Alert } from '@mui/material';
 import { Snackbar } from "@mui/material";
 
-function ImageSlider ({ slides },props) {
+
+function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
 
@@ -76,10 +77,8 @@ const StyledMenuItem = styled(MenuItem)({
   const[servicefront, setServicefront] = useState([]) 
 
   let { id } = useParams();
-
-  
   useEffect(()=> {
-    axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}`)
+  axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`)
   //axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
     .then((response) => {
     
@@ -89,12 +88,18 @@ const StyledMenuItem = styled(MenuItem)({
         // console.log("************** The id is **************** ", id)
         setServicefront(response.data.categories) 
     }).catch(err=> console.log(err))
-    },[id])
+    },[])
     useEffect(() => {
       console.log(servicefront)
     },[servicefront])
-
-
+    const submitCards = async (cardIds, barberId, selectedTime) => {
+      try {
+        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', { cardIds, barberId, selectedTime });
+        console.log('POST request successful:', response.data);
+      } catch (error) {
+        console.error('POST request failed:', error);
+      }
+    }
   const [selectedCards, setSelectedCards] = useState([]);
   const [error, setError] = useState(null);
     
@@ -104,6 +109,20 @@ const StyledMenuItem = styled(MenuItem)({
         } else {
           setError('You can only book up to 3 times!');
         }
+      };
+  const handleCardRemoval = (card) => {
+        setSelectedCards((prevSelectedCards) => {
+          const index = prevSelectedCards.findIndex(
+            (selectedCard) => selectedCard.name === card.name
+          );
+          if (index !== -1) {
+            return [
+              ...prevSelectedCards.slice(0, index),
+              ...prevSelectedCards.slice(index + 1),
+            ];
+          }
+          return prevSelectedCards;
+        });
       };
   const [open, setOpen] = React.useState(false);
 
@@ -163,7 +182,7 @@ const prevSlide = () => {
         <div> 
           <img style={{ width: 200, 
                 height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
-                zIndex: '3',marginBottom:50,  marginTop:-400,
+                zIndex: '3',marginBottom:10,  marginTop:-100,
            borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
            <LocalGroceryStoreIcon style={{color:'#ffecee', fontSize:45, marginTop:-300,marginBottom:95,marginLeft:5}} ></LocalGroceryStoreIcon> 
         <div/> 
@@ -173,7 +192,7 @@ const prevSlide = () => {
       <Typography component="div">
       <ThemeProvider theme={theme}>
       <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: 400,borderRadius:3,
-        height: 80,textAlign: 'center', ml: 48,mt:-20,fontSize: 30, mb:10, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
+        height: 80,textAlign: 'center', ml: 48,fontSize: 30, mb:10, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
         {data.BarberShop}
       </Box>
       </ThemeProvider>
@@ -203,6 +222,7 @@ const prevSlide = () => {
               </CardContent>
               <CardActions>
                 <Button onClick={() => handleCardSelection({ name: x.service, price: x.price })}>Book</Button>
+                <Button onClick={() => handleCardRemoval({ name: x.service, price: x.price })}>Remove</Button>
               </CardActions>
             </Card>
           </Grid>
@@ -246,6 +266,9 @@ const prevSlide = () => {
                 ))}
               </Select>
               <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:300,padding:2 }}onClick={null}>BUY</Button>
+              {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id))}>Submit Cards</Button> */}
+              <Button onClick={() => submitCards(selectedCards.map(card => card.id), id)}>Submit Cards</Button>
+              {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id), id, selectedTime)}>Submit Cards</Button> */}
             </Box>
           </Dialog>
         </div>
@@ -258,7 +281,7 @@ const prevSlide = () => {
     <Container fixed>
       <Typography component="div">
       <Box sx={{ bgcolor: '#ffecee', width: 500,
-        height: 50,textAlign: 'left', ml: 93 ,fontSize: 30, mt:20,mb:-25,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+        height: 50,textAlign: 'left', ml: 80 ,fontSize: 30, mt:20,mb:-25,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
     you are beautiful cause you care.
       </Box>
     </Typography>
@@ -266,7 +289,7 @@ const prevSlide = () => {
     <Container fixed>
       <div>
           <img style={{ width: 560,
-        height: 500, marginLeft:-150,
+        height: 500, marginLeft:-50,
         marginTop:100,
           borderRadius: 10,}} src= "https://s2.uupload.ir/files/studio_benicky_salon_design.jpeg_parj.jpg"alt="React lost" />
 

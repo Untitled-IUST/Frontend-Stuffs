@@ -33,11 +33,13 @@ export  default function ProfilePage() {
   const [LastName , setLastName] = useState("");
   const[phoneNumber , setPhoneNumber] = useState(null);
   const[emailAddress , setEmailAddress] = useState(null);
-  const [imgFile, setImgFile] = useState("");
+  //const [imgFile, setImgFile] = useState(null);
   const [password, setpassword] = useState("");
   let access_token =localStorage.getItem('accesstokenCustomer');
   const [UserName, setUserName] = useState("");
   const [Area, setArea] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   //const firstchar = data?.Name?data.Name.charAt(0) : "UN";
   //const firstchar ="";
 
@@ -55,15 +57,58 @@ export  default function ProfilePage() {
       setUserName(res.data.user.username);
       setArea(res.data.area);
       setPhoneNumber(res.data.phone_Number);
-      //firstchar = res.data.first_name.charAt(0);
-      //setEmailAddress(res.data.user.email);
-      //setpassword(res.data.user.password);
-
-      setImgFile("https://amirmohammadkomijani.pythonanywhere.com"+res.profile_pic)
-      //console.log("https://amirmohammadkomijani.pythonanywhere.com"+res.data.profile_pic);
     }).catch((err)=>{
       console.log(err)
     })},[])
+
+
+    useEffect(() => {
+      const fetchImage = async () => {
+        try {
+          const response = await axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', {
+            headers: {
+              'Authorization': `JWT ${access_token}`, 
+            },
+          });
+          setImagePreviewUrl(response.data.profile_pic);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchImage();
+    }, []);
+
+
+    //image
+
+    const handleFileInputChange = (event) => {
+      setSelectedFile(event.target.files[0]);
+      // Preview the image
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    };
+
+
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      try {
+        const response = await axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization' : `JWT ${access_token}`
+          },
+        });
+        console.log(response.data.imageUrl);
+        window.location.reload(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
   const handlesubmit = (event) =>
   {
     
@@ -119,24 +164,13 @@ export  default function ProfilePage() {
                     </h3>
                   </div>
                 </MDBCard>
-                {/* <Avatar>
-                  {firstchar}
-                </Avatar> */}
-                <MDBCardImage
-                  src={imgFile}
-                  alt="avatar"
-                  className="rounded-circle"
-                  style={{ width: '150px' }}
-                  fluid />
-
-                      <input
-                          type="file"
-                          id="imageUpload"
-                          accept=".png, .jpg, .jpeg"
-                          onChange={(e) => {
-                            setImgFile(e.target.files[0]);
-                          }}/>
-                  
+                  <div>
+                    <form className='axeprofile' onSubmit={handleSubmit}>
+                      <input type="file" onChange={handleFileInputChange} alt="avatar" style={{width: "150px"}}/>
+                        <button type="submit">Upload</button>
+                    </form>
+                    {imagePreviewUrl && <img src={imagePreviewUrl} alt="Preview"  style={{ borderRadius: '50%', width: '100px', height: '100px'}}/>}
+                  </div>
               </MDBCardBody>
             </MDBCard>
 
@@ -158,7 +192,6 @@ export  default function ProfilePage() {
                           type="text"
                           id="title"
                           onChange={(e) => setName(e.target.value)}
-                          //Name = {data.Name}  
                         />
                   </MDBRow>
                   <MDBRow>
@@ -197,15 +230,6 @@ export  default function ProfilePage() {
                           onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                   </MDBRow>
-                  {/* <MDBRow>
-                  <label>EmailAddress:</label>
-                      <input
-                          className="personal-form-input"
-                          value={emailAddress}
-                          type="email"
-                          onChange={(e) => setEmailAddress(e.target.value)}
-                        />
-                  </MDBRow> */}
                   <MDBRow>
                   <label>Password:</label>
                       <input
