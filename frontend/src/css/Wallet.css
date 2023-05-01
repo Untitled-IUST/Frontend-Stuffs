@@ -1,4 +1,5 @@
 /* Write your CSS here */
+/* import 'Roboto' */
 .main-container {
     display: flex;
     flex-direction: column;
@@ -6,6 +7,7 @@
     align-items: center;
     font-family: 'Roboto';
     height: 100vh;
+    /* width:100%; */
     background-color: #261B39;
   }
   .inner-container {
@@ -15,8 +17,8 @@
     padding: 20px;
     background-color: #ffecee;
     border-radius: 15px;
-    width: 45%;
-    height: 70%;
+    width: 450px;
+    /* height: 70%; */
   }
   .heading-container {
     display: flex;
@@ -88,7 +90,28 @@
     width: 30%;
     height:100%;
     border-radius: 150%;
+    border:1px dashed ;
     
     position: 'relative'
 
+}
+@media only screen and (max-width:500px){
+  .heading-container{
+    flex-direction: column;
+  }
+  .inner-container{
+    height: 70%;
+    width: 300px;
+    justify-content: space-evenly;
+  }
+  .name-para{
+    margin-right: 15%;
+  }
+  .balance-name{
+    font-size: 18px;
+  }
+  .amount{
+    font-size: 18px;
+  }
+  
 }
