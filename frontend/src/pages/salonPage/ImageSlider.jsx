@@ -173,7 +173,7 @@ const prevSlide = () => {
       <Container fixed>
       <Typography component="div">
       <ThemeProvider theme={theme}>
-      <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', borderRadius:3,
+      <Box className="mb-2 mt-2" sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', borderRadius:3,
         height: 80,textAlign: 'center', fontSize: 30, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
         {data.BarberShop}
       </Box>
@@ -181,15 +181,16 @@ const prevSlide = () => {
     </Typography>
     </Container>
     <div>
-    <Tabs value={currentTabIndex}  onChange={handleTabChange} Sx={{p:3, backgroundcolor :'red'}} centered>
+    <Tabs className='mb-2' value={currentTabIndex}  onChange={handleTabChange} Sx={{p:3, backgroundcolor :'red'}} centered>
       {servicefront.map((item, index) => (
         <Tab key={item.category} label={item.category} />
       ))}
     </Tabs>
     {servicefront.map((item, index) => (
-      <div key={item.category} style={{ display: currentTabIndex === index ? 'block' : 'none' }}>
+      <div className='m-2 p-2' key={item.category} style={{ display: currentTabIndex === index ? 'block' : 'none' }}>
         {item.categoryServices.map((x) => (
-          <Grid item md={9}>
+          <div className="mb-2 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-1">
+          <Grid  item md={9}>
           <Grid >
           <Grid item  xs={12} sm={6} md={4} key={x.service}>
             <Card sx={{ maxWidth: 345, bgcolor: '#ffecee', fontFamily: 'Roboto', color: '#120c1e', borderRadius: 3 }}>
@@ -209,6 +210,7 @@ const prevSlide = () => {
           </Grid>
           </Grid>
           </Grid>
+          </div>
         ))}
       </div>
     ))}
