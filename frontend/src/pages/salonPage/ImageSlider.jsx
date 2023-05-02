@@ -160,12 +160,14 @@ const prevSlide = () => {
         <div className='count'>{selectedCards.length} </div> 
         {/* {error && <Alert className='er'> {error} </Alert>} */}
         <Snackbar open={Boolean(error)} message={error} severity="error" />;
-        <div> 
+        <div>
+        <div className='flex flex-row'>
           <img style={{ width: 200, 
                 height: 200, marginLeft:3,border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
                 zIndex: '3',borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
            <LocalGroceryStoreIcon style={{color:'#ffecee', fontSize:45}} ></LocalGroceryStoreIcon> 
         <div/> 
+        </div> 
         
 
       <Container fixed>
