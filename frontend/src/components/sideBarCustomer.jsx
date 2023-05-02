@@ -15,7 +15,6 @@ function SideBar(){
   const [userName, setUserName] = useState("");
   let access_token =localStorage.getItem('accesstokenCustomer');
   useEffect(() => {
-    console.log(access_token);
     axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
       headers:{
         "Content-Type": 'application/json',

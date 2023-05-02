@@ -1,28 +1,27 @@
-
 @import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap";
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 .wholebarber{
-    background-color: #120c1e;
-    height: 100%;
-    margin-bottom: -50px;
+  background-color: #120c1e;
+  height: 100%;
+  /*margin-bottom: -50px;*/
 }
 .slider {
-
-    margin-top: -150px;
-    position: relative;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  /*margin-top: -150px;*/
+  /* position: relative; */
+  /* height: 100vh; */
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   
   .image {
 
-    width: 1300px;
-    height: 450px;
+    /*width: 1300px;*/
+    /*height: 450px;*/
     border-radius: 0px;
     margin-top: 1rem;
-    border-radius: 2rem;
+    /* border-radius: 2rem; */
   }
   
   .right-arrow {
@@ -63,21 +62,21 @@
     font-family:Georgia, 'Times New Roman', Times, serif;
     font-size: 35px;
     padding: 20px;
-    width: 350px;
+    /* width: 350px; */
     background-color: rgba(248, 220, 220, 0.35);
     border-radius: 5px;
-    margin-left: 550px;
+    /* margin-left: 550px;
     margin-top: -100px;
-    margin-bottom: 150px;
-    
-
+    margin-bottom: 150px; */
 }
+
+
 .barber1{
     color: #ffecee;
     text-align: center;
     font-size: 30px;
     text-decoration: overline;
-    margin-top: 30px;
+    /* margin-top: 30px; */
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 .selectmakeup{
@@ -85,7 +84,7 @@
     color: #ffecee;
     padding: 10px;
     border: none;
-    margin-left: 500px;
+    /* margin-left: 500px; */
 
 }
 .selecthair{
@@ -93,15 +92,14 @@
     color: #ffecee;
     padding: 10px;
     border: none;
-    margin-left: 60px;
-
+    /* margin-left: 60px; */
 }
 .selectskin{
     background-color:  #120c1e;
     color: #ffecee;
     padding: 10px;
     border: none;
-    margin-left: 60px;
+    /* margin-left: 60px; */
 
 }
 .info{
@@ -109,8 +107,8 @@
     color: #ffecee;
    
     border: none;
-    margin-left: 400px;
-    margin-top: -500px;
+    /* margin-left: 400px;
+    margin-top: -500px; */
     font-size: 35px;
     font-family:Georgia, 'Times New Roman', Times, serif;
 
@@ -121,7 +119,7 @@
     text-align: left;
     color: #ffecee;
     border: none;
-    margin-left: 720px;
+    /* margin-left: 720px; */
     font-size: 30px;
     font-family:Georgia, 'Times New Roman', Times, serif;
 
@@ -131,7 +129,7 @@
     text-align: left;
     color: #ffecee;
     border: none;
-    margin-left: 770px;
+    /* margin-left: 770px; */
     font-size: 30px;
     font-family:Georgia, 'Times New Roman', Times, serif;
 
@@ -141,7 +139,7 @@
     text-align: left;
     color: #ffecee;
     border: none;
-    margin-left: 800px;
+    /* margin-left: 800px; */
     font-size: 20px;
     font-family:Georgia, 'Times New Roman', Times, serif;
 
@@ -173,7 +171,7 @@
 .M
 .count{
   font-size: 15px;
-  width: 80%;
+  width: 80%; 
   height: 50%;
   color: #120c1e;
   background-color: red;
@@ -189,34 +187,31 @@
   position: relative;
 }
 .er{
-  font-size: 15px;
+  /* font-size: 15px;
   margin-left: -50%;
-margin-top: 3%;
-  
+  margin-top: 3%; */
 }
 .bt{
-  padding: 1.5rem;
-  width: 40rem;
+  /* padding: 1.5rem; */
+  /* width: 40rem; */
   color: #120c1e;
   background-color: #ffecee;
   text-align: center;
-  margin-top: 5%;
-  margin-left: 29%;
+  /* margin-top: 5%;
+  margin-left: 29%; */
   font-family: "Roboto",sans-serif;
   font-size: 20PX;
 
 
 }
 .bt2{
-  padding: 1.5rem;
-  width: 40rem;
+  /* padding: 1.5rem;
+  width: 40rem; */
   color: #ffecee;
   background-color: #120c1e;
   text-align: center;
-  margin-top: 5%;
-  margin-left: 29%;
+  /* margin-top: 5%;
+  margin-left: 29%; */
   font-family: "Roboto",sans-serif;
   font-size: 20PX;
-
-
 }

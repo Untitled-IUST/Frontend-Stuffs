@@ -162,18 +162,17 @@ const prevSlide = () => {
         <Snackbar open={Boolean(error)} message={error} severity="error" />;
         <div> 
           <img style={{ width: 200, 
-                height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
-                zIndex: '3',marginBottom:50,  marginTop:-400,
-           borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
-           <LocalGroceryStoreIcon style={{color:'#ffecee', fontSize:45, marginTop:-300,marginBottom:95,marginLeft:5}} ></LocalGroceryStoreIcon> 
+                height: 200, marginLeft:3,border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
+                zIndex: '3',borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
+           <LocalGroceryStoreIcon style={{color:'#ffecee', fontSize:45}} ></LocalGroceryStoreIcon> 
         <div/> 
         
 
       <Container fixed>
       <Typography component="div">
       <ThemeProvider theme={theme}>
-      <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: 400,borderRadius:3,
-        height: 80,textAlign: 'center', ml: 48,mt:-20,fontSize: 30, mb:10, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
+      <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', borderRadius:3,
+        height: 80,textAlign: 'center', fontSize: 30, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
         {data.BarberShop}
       </Box>
       </ThemeProvider>
@@ -255,15 +254,15 @@ const prevSlide = () => {
 
 
 
-    <Container fixed>
+    {/* <Container fixed>
       <Typography component="div">
       <Box sx={{ bgcolor: '#ffecee', width: 500,
         height: 50,textAlign: 'left', ml: 93 ,fontSize: 30, mt:20,mb:-25,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
     you are beautiful cause you care.
       </Box>
     </Typography>
-    </Container>
-    <Container fixed>
+    </Container> */}
+    {/* <Container fixed>
       <div>
           <img style={{ width: 560,
         height: 500, marginLeft:-150,
@@ -281,9 +280,9 @@ const prevSlide = () => {
         enjoy your time
       </Box>
     </Typography>
-    </Container>
+    </Container> */}
 
-    <Container fixed>
+    {/* <Container fixed>
       <Box sx={{ width: '125%',ml:-18,pb:3}}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 40 }}>
           <Grid item xs={6}>
@@ -304,7 +303,7 @@ const prevSlide = () => {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </Container> */}
 
   </div>
   </div>
