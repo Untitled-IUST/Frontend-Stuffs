@@ -34,6 +34,13 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import { Select, MenuItem } from '@mui/material';
 import { Alert } from '@mui/material';
 import { Snackbar } from "@mui/material";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
+
 
 
 function ImageSlider ({ slides }, props) {
@@ -176,44 +183,51 @@ const prevSlide = () => {
             );
           })}
         </section>
-        <div className='count'>{selectedCards.length} </div> 
+
         {/* {error && <Alert className='er'> {error} </Alert>} */}
-        <Snackbar open={Boolean(error)} message={error} severity="error" />;
+        <Snackbar open={Boolean(error)} message={error} severity="error" />
         <div> 
-          <img style={{ width: 200, 
-                height: 200, marginLeft:3,position: 'relative',border:"dotted"   ,borderColor: "#120c1e", borderWidth:3,
-                zIndex: '3',marginBottom:10,  marginTop:-100,
+          <img  className='lg' style={{ width: 200, 
+                height: 200, marginLeft:'1%' ,position: 'relative' ,borderColor:'#ffecee' ,border:"dotted", borderWidth:3,
+                zIndex: '3',  marginTop:'-50%',marginBottom:'5%',
            borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
-           <LocalGroceryStoreIcon style={{color:'#ffecee', fontSize:45, marginTop:-300,marginBottom:95,marginLeft:5}} ></LocalGroceryStoreIcon> 
+           <LocalGroceryStoreIcon  style={{color:'#ffecee', fontSize:45, marginTop:'-30%',marginBottom:'10%',marginLeft:5}} ></LocalGroceryStoreIcon> 
         <div/> 
         
 
       <Container fixed>
       <Typography component="div">
       <ThemeProvider theme={theme}>
-      <Box sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: 400,borderRadius:3,
-        height: 80,textAlign: 'center', ml: 48,fontSize: 30, mb:10, fontFamily: 'Roboto, ' ,pt:4, color:'#ffecee'}}>
+      <div className='ti'>
+      <Box  className='ti1' sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: '40%',borderRadius:3,
+        height: 80,fontSize: 30,textAlign:'center', mb:'10%',pt:'3%', fontFamily: 'Roboto, ' , color:'#ffecee'}}>
         {data.BarberShop}
       </Box>
+      </div>
       </ThemeProvider>
     </Typography>
     </Container>
+
     <div>
-    <Tabs value={currentTabIndex}  onChange={handleTabChange} Sx={{p:3, backgroundcolor :'red'}} centered>
+    <Tabs value={currentTabIndex}  onChange={handleTabChange}  centered>
       {servicefront.map((item, index) => (
         <Tab key={item.category} label={item.category} />
       ))}
     </Tabs>
     {servicefront.map((item, index) => (
-      <div key={item.category} style={{ display: currentTabIndex === index ? 'block' : 'none' }}>
+      // <div  className='asghar'  key={item.category} style={{ display: currentTabIndex === index ? 'flex' : 'none' }}>
+      <div
+      key={item.category}
+      className={currentTabIndex === index ? 'asghar' : ''}
+      style={{ display: currentTabIndex === index ? 'flex' : 'none' }}
+    >
         {item.categoryServices.map((x) => (
-          <Grid item md={9}>
-          <Grid >
-          <Grid item  xs={12} sm={6} md={4} key={x.service}>
-            <Card sx={{ maxWidth: 345, bgcolor: '#ffecee', fontFamily: 'Roboto', color: '#120c1e', borderRadius: 3 }}>
+
+          <div  className="card"  key={x.service}>
+            <Card   sx={{ maxWidth: 345, bgcolor: '#ffecee', fontFamily: 'Roboto', color: '#120c1e', borderRadius: 3 }}>
               <CardMedia sx={{ height: 140 }} image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg" title="Hair style" />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography className='c1' gutterBottom variant="h5" component="div">
                   {x.service}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -225,18 +239,19 @@ const prevSlide = () => {
                 <Button onClick={() => handleCardRemoval({ name: x.service, price: x.price })}>Remove</Button>
               </CardActions>
             </Card>
-          </Grid>
-          </Grid>
-          </Grid>
+          </div>
+  
+
         ))}
       </div>
     ))}
   </div>
 
-          <div>
+
+          <div className='bt1984'>
           <button className='bt' onClick={handleClickOpen}>Order</button>
-          <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': { borderRadius: '16px' } }}>
-            <Box sx={{ p: 7,bgcolor: '#ffecee',width: 300,height:400 }}>
+          <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': { borderRadius: '16px' ,width:'30%' } }}>
+            <Box sx={{ p: 5,bgcolor: '#ffecee',width: '80%' }}>
               <Typography variant="h6" color='#120c1e' padding={2} border={5} borderColor={'#120c1e'} borderRadius={2} marginBottom={3}>Selected Cards: </Typography>
               {selectedCards.map((card) => (
                 <Typography  color='#120c1e'  key={card.name} >{card.name} {card.price}</Typography>
@@ -245,8 +260,8 @@ const prevSlide = () => {
               <Typography variant="h6"color='#120c1e' padding={2} marginTop={2}  marginBottom={2}  border={5} borderColor={'#120c1e'} borderRadius={2}>
                 Total Price: ${totalPrice}</Typography>
               <Select        sx={{
-        width: 300,
-        height: 40,
+        width: '100%',
+
         backgroundColor:'#120c1e',
         border: "1px solid darkgrey",
         color: "#ffecee",
@@ -263,9 +278,13 @@ const prevSlide = () => {
                   }}}>
                     {time}
                   </MenuItem>
+
                 ))}
               </Select>
-              <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:300,padding:2 }}onClick={null}>BUY</Button>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker minDate={dayjs()}/>
+              </LocalizationProvider>
+              <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:'50%',padding:2 }}onClick={null}>BUY</Button>
               {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id))}>Submit Cards</Button> */}
               <Button onClick={() => submitCards(selectedCards.map(card => card.id), id)}>Submit Cards</Button>
               {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id), id, selectedTime)}>Submit Cards</Button> */}
@@ -280,26 +299,26 @@ const prevSlide = () => {
 
     <Container fixed>
       <Typography component="div">
-      <Box sx={{ bgcolor: '#ffecee', width: 500,
-        height: 50,textAlign: 'left', ml: 80 ,fontSize: 30, mt:20,mb:-25,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+      <Box  className='dis' sx={{ bgcolor: '#ffecee', width: '40%',
+        height: 50,textAlign: 'left', ml: '55%',fontSize: 30, mt:'15%' ,mb:-19.5,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
     you are beautiful cause you care.
       </Box>
     </Typography>
     </Container>
     <Container fixed>
       <div>
-          <img style={{ width: 560,
-        height: 500, marginLeft:-50,
-        marginTop:100,
+          <img className='imdis' style={{ width: '44%',
+        height: 450, marginLeft:'1%',
+        marginTop:'5%',
           borderRadius: 10,}} src= "https://s2.uupload.ir/files/studio_benicky_salon_design.jpeg_parj.jpg"alt="React lost" />
 
         </div>
 
     <Typography component="div">
       
-      <Box sx={{ bgcolor: '#ffecee', width: 500,
-        height: 255,textAlign: 'left', ml: 93 ,mt:-40,fontSize: 30, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
-      our salon beauty is a calm and nice plase
+      <Box  className='dis1' sx={{ bgcolor: '#ffecee', width:'40%',
+        height: 255,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 30, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+        our salon beauty is a calm and nice plase
         which will give you the best experince of a beauty salon you ever try. We have perfetional artists and good services
         enjoy your time
       </Box>
@@ -307,22 +326,22 @@ const prevSlide = () => {
     </Container>
 
     <Container fixed>
-      <Box sx={{ width: '125%',ml:-18,pb:3}}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 40 }}>
+      <Box sx={{ width: '100%',pb:3}}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 15 }}>
           <Grid item xs={6}>
-            <Item ><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#120c1e' ,fontSize:35,
+            <Item className='bx'><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#120c1e' ,fontSize:35,
       }}></BrushIcon> Owner: {data.Owner}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item><FmdGoodIcon style={{ marginLeft:0,marginBottom:-3,color:'#120c1e',fontSize:35,
+            <Item className='bx'><FmdGoodIcon style={{ marginLeft:0,marginBottom:-3,color:'#120c1e',fontSize:35,
       }} ></FmdGoodIcon> Address: {data.address} </Item>
           </Grid>
           <Grid item xs={6}>
-            <Item><CallIcon style={{ marginLeft:0,marginBottom:-5,color:'#120c1e',fontSize:35,
+            <Item className='bx'><CallIcon style={{ marginLeft:0,marginBottom:-5,color:'#120c1e',fontSize:35,
       }}></CallIcon> Phone Number: {data.phone_Number} </Item>
           </Grid>
           <Grid item xs={6}>
-            <Item><GradeIcon style={{ marginLeft:0,marginBottom:-6,color:'#120c1e',fontSize:35,
+            <Item className='bx'><GradeIcon style={{ marginLeft:0,marginBottom:-6,color:'#120c1e',fontSize:35,
       }}></GradeIcon>Rate: {data.rate}</Item>
           </Grid>
         </Grid>
