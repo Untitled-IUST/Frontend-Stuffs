@@ -39,6 +39,7 @@ import { Snackbar } from "@mui/material";
 function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
+  let access_token =localStorage.getItem('accesstokenCustomer');
 
   const theme = createTheme({
     typography: {
@@ -94,7 +95,12 @@ const StyledMenuItem = styled(MenuItem)({
     },[servicefront])
     const submitCards = async (cardIds, barberId, selectedTime) => {
       try {
-        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', { cardIds, barberId, selectedTime });
+        const cardId = cardIds[0];
+        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', { service: cardId , barber:barberId, time:selectedTime }, {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          },});
         console.log('POST request successful:', response.data);
       } catch (error) {
         console.error('POST request failed:', error);
@@ -136,7 +142,7 @@ const StyledMenuItem = styled(MenuItem)({
   const totalPrice = selectedCards.reduce((total, card) => total + card.price, 0);
   const times = [];
   for (let i = 9; i <= 21; i += 2) {
-    times.push(`${i}:00`);
+    times.push(`${i}:00:00`);
   }
   const [selectedTime, setSelectedTime] = React.useState('');
 
@@ -267,8 +273,8 @@ const prevSlide = () => {
               </Select>
               <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:300,padding:2 }}onClick={null}>BUY</Button>
               {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id))}>Submit Cards</Button> */}
-              <Button onClick={() => submitCards(selectedCards.map(card => card.id), id)}>Submit Cards</Button>
-              {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id), id, selectedTime)}>Submit Cards</Button> */}
+              {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id), id)}>Submit Cards</Button> */}
+              <Button onClick={() => submitCards(selectedCards.map(card => card.id ), id, selectedTime)}>Submit Cards</Button>
             </Box>
           </Dialog>
         </div>

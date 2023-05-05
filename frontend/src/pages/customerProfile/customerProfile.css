@@ -4,7 +4,7 @@
   height: 790px;
   justify-content: center;
 }
-section{
+.backgroundprofile{
   background-image: url("./makeup-artist-vlogging-elements.jpg");
   background-size: cover;
   display: flex;

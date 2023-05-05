@@ -152,7 +152,7 @@ export  default function ProfilePage() {
 
 
   return (
-    <section style={{ backgroundColor: ''}} >
+    <section className='backgroundprofile' style={{ backgroundColor: ''}} >
       <MDBContainer className="py-5" >
         <MDBRow className='rowContainer'>
             <MDBCard class="MDBCard" className="mb-3">

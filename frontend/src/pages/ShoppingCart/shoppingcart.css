@@ -1,0 +1,13 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #382b49 !important;
+    }
+
+
+.shopcartcolor{
+    background-color: #ffecee;
+}
+
+.shopcartbutton{
+    background-color: rgb(56,43,73,0.6);
+}
