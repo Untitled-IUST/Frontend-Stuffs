@@ -96,7 +96,7 @@ const StyledMenuItem = styled(MenuItem)({
     const submitCards = async (cardIds, barberId, selectedTime) => {
       try {
         const cardId = cardIds[0];
-        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', { service: cardId , barber:barberId, time:selectedTime }, {
+        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', { service:cardId , barber:barberId, time:selectedTime }, {
           headers: {
             'Authorization': `JWT ${access_token}`,
             'Content-Type': 'application/json',
@@ -105,6 +105,7 @@ const StyledMenuItem = styled(MenuItem)({
       } catch (error) {
         console.error('POST request failed:', error);
       }
+      window.location.href = "/shoppingcart";
     }
   const [selectedCards, setSelectedCards] = useState([]);
   const [error, setError] = useState(null);
