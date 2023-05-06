@@ -38,6 +38,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+let access_token =localStorage.getItem('accesstokenCustomer');
 
 
 
@@ -68,7 +69,7 @@ const StyledMenuItem = styled(MenuItem)({
   backgroundColor: 'red',
   color: 'white',
   '&:hover': {
-    backgroundColor: 'blue',
+    backgroundColor: 'red',
   },
 });
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -82,6 +83,16 @@ const StyledMenuItem = styled(MenuItem)({
   const[img,setImg]=useState(0)
   const[img1,setImg1]=useState(0)
   const[servicefront, setServicefront] = useState([]) 
+  const times = [];
+  for (let i = 9; i <= 21; i += 2) {
+    times.push(`${i}:00:00`);
+  }
+  const [selectedTime, setSelectedTime] = React.useState('');
+const [selectedDate, setSelectedDate] = useState(null);
+
+const handleDateChange = (date) => {
+  setSelectedDate(date);
+};
 
   let { id } = useParams();
   useEffect(()=> {
@@ -99,9 +110,14 @@ const StyledMenuItem = styled(MenuItem)({
     useEffect(() => {
       console.log(servicefront)
     },[servicefront])
-    const submitCards = async (cardIds, barberId, selectedTime) => {
+    const submitCards = async ( selectedTime,selectedDate) => {
       try {
-        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', { cardIds, barberId, selectedTime });
+        // const cardId = cardIds[0];
+        const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/order/', {  time:selectedTime , date: selectedDate }, {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          },});
         console.log('POST request successful:', response.data);
       } catch (error) {
         console.error('POST request failed:', error);
@@ -117,6 +133,7 @@ const StyledMenuItem = styled(MenuItem)({
           setError('You can only book up to 3 times!');
         }
       };
+
   const handleCardRemoval = (card) => {
         setSelectedCards((prevSelectedCards) => {
           const index = prevSelectedCards.findIndex(
@@ -141,11 +158,7 @@ const StyledMenuItem = styled(MenuItem)({
         setOpen(false);
       };    
   const totalPrice = selectedCards.reduce((total, card) => total + card.price, 0);
-  const times = [];
-  for (let i = 9; i <= 21; i += 2) {
-    times.push(`${i}:00`);
-  }
-  const [selectedTime, setSelectedTime] = React.useState('');
+
 
   const handleTimeChange = (event) => {
     setSelectedTime(event.target.value);
@@ -211,7 +224,7 @@ const prevSlide = () => {
     <div>
     <Tabs value={currentTabIndex}  onChange={handleTabChange}  centered>
       {servicefront.map((item, index) => (
-        <Tab key={item.category} label={item.category} />
+        <Tab  key={item.category} label={item.category} />
       ))}
     </Tabs>
     {servicefront.map((item, index) => (
@@ -225,7 +238,11 @@ const prevSlide = () => {
 
           <div  className="card"  key={x.service}>
             <Card   sx={{ maxWidth: 345, bgcolor: '#ffecee', fontFamily: 'Roboto', color: '#120c1e', borderRadius: 3 }}>
-              <CardMedia sx={{ height: 140 }} image="https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg" title="Hair style" />
+            <CardMedia
+  sx={{ height: 140 }}
+  image={x.servicePic ? x.servicePic : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"}
+  title="Hair style"
+/>
               <CardContent>
                 <Typography className='c1' gutterBottom variant="h5" component="div">
                   {x.service}
@@ -250,44 +267,55 @@ const prevSlide = () => {
 
           <div className='bt1984'>
           <button className='bt' onClick={handleClickOpen}>Order</button>
-          <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': { borderRadius: '16px' ,width:'30%' } }}>
-            <Box sx={{ p: 5,bgcolor: '#ffecee',width: '80%' }}>
-              <Typography variant="h6" color='#120c1e' padding={2} border={5} borderColor={'#120c1e'} borderRadius={2} marginBottom={3}>Selected Cards: </Typography>
+          <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': { borderRadius: '16px'  } }}>
+            <Box sx={{ p: 5,bgcolor: '#ffecee' }}>
+              {/* <Typography variant="h6" color='#120c1e' padding={2} border={5} borderColor={'#120c1e'} borderRadius={2} marginBottom={3}>Selected Cards: </Typography>
               {selectedCards.map((card) => (
                 <Typography  color='#120c1e'  key={card.name} >{card.name} {card.price}</Typography>
                 
               ))}
               <Typography variant="h6"color='#120c1e' padding={2} marginTop={2}  marginBottom={2}  border={5} borderColor={'#120c1e'} borderRadius={2}>
-                Total Price: ${totalPrice}</Typography>
-              <Select        sx={{
-        width: '100%',
-
-        backgroundColor:'#120c1e',
-        border: "1px solid darkgrey",
-        color: "#ffecee",
-        "& .MuiSvgIcon-root": {
-          color: "white",
-        },
-
-      }}           value={selectedTime} onChange={handleTimeChange}>
+                Total Price: ${totalPrice}</Typography> */}
+              <Select
+                displayEmpty
+                sx={{
+                  width: "50%",
+                  backgroundColor: "#120c1e",
+                  border: "1px solid darkgrey",
+                  color: "#ffecee",
+                  "& .MuiSvgIcon-root": {
+                    color: "white",
+                  },
+                }}
+                value={selectedTime}
+                onChange={handleTimeChange}
+              >
+                <MenuItem style={{backgroundColor:"black"}} value="">
+                  <em >Choose a time</em>
+                </MenuItem>
                 {times.map((time) => (
-                  <MenuItem key={time} value={time}sx={{  backgroundColor: '#120c1e',
-                  color: '#382b49',
-                  '&:hover': {
-                    backgroundColor: '#fdccc8',
-                  }}}>
+                  <MenuItem
+                    key={time}
+                    value={time}
+                    sx={{
+                      backgroundColor: time === selectedTime ? "#fdccc8" : "#120c1e",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "#fdccc8",
+                      },
+                    }}
+                  >
                     {time}
                   </MenuItem>
-
                 ))}
               </Select>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker minDate={dayjs()}/>
+                <DatePicker minDate={dayjs()} onChange={handleDateChange} />
               </LocalizationProvider>
               <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:'50%',padding:2 }}onClick={null}>BUY</Button>
               {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id))}>Submit Cards</Button> */}
-              <Button onClick={() => submitCards(selectedCards.map(card => card.id), id)}>Submit Cards</Button>
-              {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id), id, selectedTime)}>Submit Cards</Button> */}
+              {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id), id)}>Submit Cards</Button> */}
+              <Button onClick={() => submitCards( selectedTime, selectedDate)}>Submit Cards</Button>
             </Box>
           </Dialog>
         </div>
@@ -300,7 +328,7 @@ const prevSlide = () => {
     <Container fixed>
       <Typography component="div">
       <Box  className='dis' sx={{ bgcolor: '#ffecee', width: '40%',
-        height: 50,textAlign: 'left', ml: '55%',fontSize: 30, mt:'15%' ,mb:-19.5,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+        height: 50,textAlign: 'left', ml: '55%',fontSize: 25, mt:'15%' ,mb:-19.5,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
     you are beautiful cause you care.
       </Box>
     </Typography>
@@ -317,7 +345,7 @@ const prevSlide = () => {
     <Typography component="div">
       
       <Box  className='dis1' sx={{ bgcolor: '#ffecee', width:'40%',
-        height: 255,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 30, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+        height: 255,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 25, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
         our salon beauty is a calm and nice plase
         which will give you the best experince of a beauty salon you ever try. We have perfetional artists and good services
         enjoy your time
@@ -329,19 +357,19 @@ const prevSlide = () => {
       <Box sx={{ width: '100%',pb:3}}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 15 }}>
           <Grid item xs={6}>
-            <Item className='bx'><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#120c1e' ,fontSize:35,
+            <Item className='bx'><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#6495ed' ,fontSize:25,
       }}></BrushIcon> Owner: {data.Owner}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item className='bx'><FmdGoodIcon style={{ marginLeft:0,marginBottom:-3,color:'#120c1e',fontSize:35,
+            <Item className='bx'><FmdGoodIcon style={{ marginLeft:0,marginBottom:-3,color:'#800000',fontSize:25,
       }} ></FmdGoodIcon> Address: {data.address} </Item>
           </Grid>
           <Grid item xs={6}>
-            <Item className='bx'><CallIcon style={{ marginLeft:0,marginBottom:-5,color:'#120c1e',fontSize:35,
+            <Item className='bx'><CallIcon style={{ marginLeft:0,marginBottom:-5,color:'#004600',fontSize:25,
       }}></CallIcon> Phone Number: {data.phone_Number} </Item>
           </Grid>
           <Grid item xs={6}>
-            <Item className='bx'><GradeIcon style={{ marginLeft:0,marginBottom:-6,color:'#120c1e',fontSize:35,
+            <Item className='bx'><GradeIcon style={{ marginLeft:0,marginBottom:-6,color:'#fec20c',fontSize:25,
       }}></GradeIcon>Rate: {data.rate}</Item>
           </Grid>
         </Grid>
