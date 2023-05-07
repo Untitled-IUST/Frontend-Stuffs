@@ -9,7 +9,7 @@
 }
 
 .shopcartbutton{
-    background-color: rgb(56,43,73,0.6);
+    background-color: rgb(56,43,73,0.7);
 }
 .shopcartbutton:hover{
     background-color: rgb(56,43,73,0.8); 
@@ -17,4 +17,10 @@
 .shopcartbutton:focus,
 .shopcartbutton:active {
     background-color: rgb(56,43,73,0.8);
+}
+
+.shopcarticon{
+    font-size: 1.75em !important;
+    size : 1.75em !important;
+    color :#382b49;
 }

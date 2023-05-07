@@ -18,9 +18,19 @@ import {
     import React, { useEffect, useState } from "react";
     import "./shoppingcart.css"
     import axios from "axios";
+    import { Link } from 'react-router-dom';
     
     export default function PaymentMethods() {
         const [orders,setOrders] = useState([]) 
+        const [quantity, setQuantity] = useState(1);
+
+        function handleIncreaseQuantity() {
+          setQuantity(quantity + 1);
+        }
+        function handleDecreaseQuantity() {
+          setQuantity(quantity - 1);
+        }
+
         useEffect(() => {
             axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/order/')
             .then((res) => {
@@ -28,6 +38,10 @@ import {
             }).catch(err=> console.log(err))
 
         },[])
+        const handleClick = (event) =>
+        {
+          event.preventDefault();
+        }
         const handleSubmit = (event) =>
         {
             event.preventDefault();
@@ -58,26 +72,22 @@ import {
                       </a>
                     </MDBRipple>
                   </MDBCol>
-    
                   <MDBCol lg="5" md="6" className=" mb-4 mb-lg-0 ">
                     <p>
                       <strong>Blue denim shirt</strong>
                     </p>
-                    <p>Color: blue</p>
-                    <p>Size: M</p>
-    
 
                   </MDBCol>
                   <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
                     <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
-                      <MDBBtn className="px-3 me-2 shopcartbutton">
-                        <MDBIcon fas icon="minus" />
+                      <MDBBtn className="px-3 me-2 shopcartbutton" onClick={handleDecreaseQuantity}>
+                      <span class="material-icons"  style={{justifyContent: 'center', display: 'flex'}}>remove_circle_outline</span>
                       </MDBBtn>
     
-                      <MDBInput defaultValue={1} min={0} type="number" label="Quantity" />
+                      <MDBInput value={quantity} min={0} type="number" label="Quantity" />
     
-                      <MDBBtn className="px-3 ms-2 shopcartbutton">
-                        <MDBIcon fas icon="plus" />
+                      <MDBBtn className="px-3 ms-2 shopcartbutton" onClick={handleIncreaseQuantity}> 
+                      <span class="material-icons" style={{justifyContent: 'center', display: 'flex'}}>add_circle_outline</span>
                       </MDBBtn>
                     </div>
     
@@ -94,10 +104,15 @@ import {
     
             <MDBCard className="mb-4 shopcartcolor">
               <MDBCardBody>
+              <p>
+                  <strong>Name of Salon</strong>
+                </p>
+                <p className="mb-0">barber1</p>
                 <p>
                   <strong>Reserved Day & Time</strong>
                 </p>
                 <p className="mb-0">12.10.2020 - 14.10.2020</p>
+                
               </MDBCardBody>
             </MDBCard>
     
@@ -106,11 +121,14 @@ import {
                 <p>
                   <strong>We accept</strong>
                 </p>
-                <MDBCardImage className="me-2" width="45px"
+                <button onClick={handleClick} style={{ fontSize: '2em' }}>
+                <i className="material-icons shopcarticon">account_balance_wallet</i>
+              </button>
+                {/* <MDBCardImage className="me-2" width="45px"
                   src="https://www.uplooder.net/img/image/10/7718108b13ad843b0d203d5cf657f016/856500019482-F.jpg"
-                  alt="wallet" />
-            
-                <MDBCardImage className="me-2" width="45px"
+                  alt="wallet" /> */}
+                {/* <Link to="/safheye fargol"></Link> */}
+                <MDBCardImage className="me-2 shopcarticon" 
                   src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
                   alt="PayPal acceptance mark" />
               </MDBCardBody>
