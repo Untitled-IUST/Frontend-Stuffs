@@ -3,6 +3,8 @@ import '../css/Wallet.css';
 import DenominationItem from './DenominationItem';
 import { dList } from './DList';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 function CashWithdrawal (){
   const [money, setMoney] = useState(2000);
@@ -16,10 +18,22 @@ function CashWithdrawal (){
   const handleButtonClick = (value) => {
     navigate('/payment', { state: { value: value, stateChange: stateChange } });
   }
-
+  const [alert, setAlert] = useState(null);
   const handleCustomValueChange = (event) => {
-    setCustomValue(event.target.value);
+    let value = event.target.value;
+    if (value < 0) {
+      value = 0;
+      setAlert(
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity="error">This is an error alert — check it out!</Alert>
+        </Stack>
+      );
+    } else {
+      setAlert(null);
+    }
+    setCustomValue(value);
   }
+  
   const handleCustomValueSubmit = () => {
     if (customValue) {
       navigate('/payment', { state: { value: parseInt(customValue), stateChange: stateChange } });
@@ -30,6 +44,7 @@ function CashWithdrawal (){
   return (
     <div className="main-container">
       <div className="inner-container">
+            
             <div className='prp'>
             <div className="heading-container">
               <img src={"https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg"} alt='user image' className='pmr' />
@@ -56,9 +71,10 @@ function CashWithdrawal (){
               />
             ))}
         </ul>
-
-        <input
+        {alert}
+        <input className='inp'
           type="number"
+          min="0"
           value={customValue}
           onChange={handleCustomValueChange}
           placeholder="Enter custom value"
