@@ -9,7 +9,7 @@
     font-family: 'Roboto';
     height: 100vh;
     /* width:100%; */
-    background-color: #261B39;
+    background: linear-gradient( #261b39, rgba(140, 115, 230, 0.411))
   }
   .inner-container {
     display: flex;
@@ -49,14 +49,14 @@
     color: #261B39;
     font-size: 20px;
     padding: 5%;
-    margin-left: 15%;
+    margin-left: 25%;
   }
   .money-container {
     display: flex;
     flex-direction: row;
     margin-top: 5%;
-    margin-left: 15%;
-    margin-right:15% ;
+    margin-left: 5%;
+    margin-right:7% ;
     justify-content: space-between;
     align-items: flex-start;
     /* margin-bottom: -20px; */
@@ -114,7 +114,8 @@
   /* border:1px solid rgba(64, 54, 99, 0.603); */
   border-radius: 3%;
   margin-bottom: 10%;
-  background-color: rgba(140, 115, 230, 0.411)
+  background-color: rgba(140, 115, 230, 0.411);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 
 }
 .inp{

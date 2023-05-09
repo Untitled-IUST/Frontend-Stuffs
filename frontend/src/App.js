@@ -12,7 +12,7 @@ import ChangePages from './pages/changePages'
 import ImageSlider from './pages/ImageSlider';
 import { SliderData } from './pages/SliderData';
 import CashWithdrawal from './pages/Wallet';
-
+import SelectedPlan from './pages/Content';
 import { dList } from './pages/DList';
 
 function App() {
@@ -22,6 +22,7 @@ return (
           <Routes>
           <Route path="/images" element={<ImageSlider slides={SliderData} />} />
           <Route path="/wallet" element={<CashWithdrawal dList={dList} />} /> 
+          <Route path="/payment"  Component={SelectedPlan} />
           
           
           </Routes>

@@ -5,19 +5,34 @@ import { dList } from './DList';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import axios from 'axios';
 
 function CashWithdrawal (){
   const [money, setMoney] = useState(2000);
   const [customValue, setCustomValue] = useState('');
   const navigate = useNavigate();
 
-  const stateChange = (value) => {
-    setMoney((prevState) => prevState + value);
-  };
-
+  // const stateChange = (value) => {
+  //   setMoney((prevState) => prevState + value);
+  // };
+  const stateChange = (newValue) => {
+    setMoney(newValue);
+  }  
   const handleButtonClick = (value) => {
-    navigate('/payment', { state: { value: value, stateChange: stateChange } });
+    axios.post('/addBalance', { value: value })
+      .then(response => {
+        // handle successful POST request
+        // navigate to payment page
+        navigate('/payment');
+        axios.get('/getNewValue')
+          .then(response => {
+            // handle successful GET request
+            // update state with new value
+            stateChange(response.data.newValue);
+          })
+      })
   }
+
   const [alert, setAlert] = useState(null);
   const handleCustomValueChange = (event) => {
     let value = event.target.value;
@@ -36,7 +51,18 @@ function CashWithdrawal (){
   
   const handleCustomValueSubmit = () => {
     if (customValue) {
-      navigate('/payment', { state: { value: parseInt(customValue), stateChange: stateChange } });
+      axios.post('/addBalance', { value: parseInt(customValue) })
+        .then(response => {
+          // handle successful POST request
+          // navigate to payment page
+          navigate('/payment');
+          axios.get('/getNewValue')
+            .then(response => {
+              // handle successful GET request
+              // update state with new value
+              stateChange(response.data.newValue);
+            })
+        })
       setCustomValue('');
     }
   }
