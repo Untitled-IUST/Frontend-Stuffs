@@ -21,23 +21,61 @@ import {
     import { Link } from 'react-router-dom';
     
     export default function PaymentMethods() {
+
         const [orders,setOrders] = useState([]) 
         const [quantity, setQuantity] = useState(1);
-
+        const [data, setData] = useState("");
+        const [time, setTime] = useState("");
+        const [price, setPrice] = useState(""); 
+        let access_token =localStorage.getItem('accesstokenCustomer');
+        const [flag , setFlag] = useState()
+        const [temp, setTemp] = useState("");
+        const[date, setDate] = useState("");
+        const[address, setAddresse] = useState("");
         function handleIncreaseQuantity() {
-          setQuantity(quantity + 1);
+          console.log(temp);
+          console.log(price);
+          setQuantity(quantity + 1); 
+          setPrice(temp + price);
         }
         function handleDecreaseQuantity() {
+          if (quantity > 1) { 
           setQuantity(quantity - 1);
+          setPrice(price - temp);
+        }
         }
 
         useEffect(() => {
-            axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/order/')
+            axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/basket/' , {
+              headers: {
+                'Authorization': `JWT ${access_token}` 
+              },
+            })
             .then((res) => {
                 setOrders(res.data.results) 
+                setPrice(res.data.results[0].service.price)  
+                setTemp(res.data.results[0].service.price)
+                setTime(res.data.results[0].time)
+                setDate(res.data.results[0].date)
+                setAddresse(res.data.results[0].barber.area)
+                setFlag(() => !flag)
+                console.log("hi1")
+                setData(res.data.results[0].barber.BarberShop)
+
+                console.log(typeof res.data.results[0].barber.BarberShop)
+
             }).catch(err=> console.log(err))
 
         },[])
+
+        useEffect(() => {
+          //console.log(orders[0])
+          //barberShopName=JSON.stringify(orders[0].barber.BarberShop)
+          //setData(orders[0].barber.BarberShop)
+          // setTime(order.time) 
+        }, [flag])
+
+
         const handleClick = (event) =>
         {
           event.preventDefault();
@@ -57,9 +95,12 @@ import {
                   Cart 
                 </MDBTypography>
               </MDBCardHeader>
-            <div></div>
-              <MDBCardBody>
-                <MDBRow>
+            
+            {/* shoro style={{height: "18rem"}} style={{height: "10rem"}} */}
+            <div>
+              {orders.map((item) => (
+                <MDBCardBody style={{height: "15rem"}} >
+                <MDBRow> 
                   <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
                     <MDBRipple rippleTag="div" rippleColor="light"
                       className="bg-image rounded hover-zoom hover-overlay">
@@ -74,12 +115,15 @@ import {
                   </MDBCol>
                   <MDBCol lg="5" md="6" className=" mb-4 mb-lg-0 ">
                     <p>
-                      <strong>Blue denim shirt</strong>
+                      <strong>{item.service.service}</strong>
                     </p>
 
                   </MDBCol>
                   <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
-                    <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
+                  <p className="text-start text-md-center">
+                      <strong>Price: {item.service.price}$</strong>
+                    </p>
+                    {/* <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
                       <MDBBtn className="px-3 me-2 shopcartbutton" onClick={handleDecreaseQuantity}>
                       <span class="material-icons"  style={{justifyContent: 'center', display: 'flex'}}>remove_circle_outline</span>
                       </MDBBtn>
@@ -92,13 +136,17 @@ import {
                     </div>
     
                     <p className="text-start text-md-center">
-                      <strong>$17.99</strong>
-                    </p>
+                      <strong>{item.service.price}</strong>
+                    </p> */}
                   </MDBCol>
                 </MDBRow>
     
                 <hr className="my-4" />
               </MDBCardBody>
+              ))}
+            </div>
+
+              {/* payan */}
             </MDBCard>
 
     
@@ -107,11 +155,11 @@ import {
               <p>
                   <strong>Name of Salon</strong>
                 </p>
-                <p className="mb-0">barber1</p>
+                <p className="mb-0">{data} - {address}</p>
                 <p>
                   <strong>Reserved Day & Time</strong>
                 </p>
-                <p className="mb-0">12.10.2020 - 14.10.2020</p>
+                <p className="mb-0">{date} - {time} </p>
                 
               </MDBCardBody>
             </MDBCard>
@@ -137,27 +185,27 @@ import {
           <MDBCol md="4">
             <MDBCard className="mb-4 shopcartcolor">
               <MDBCardHeader>
-                <MDBTypography tag="h5" className="mb-0">
+                <MDBTypography tag="h5" className="mb-0 ">
                   Summary
                 </MDBTypography>
               </MDBCardHeader>
               <MDBCardBody>
                 <MDBListGroup flush>
-                  <MDBListGroupItem
-                    className="d-flex justify-content-between align-items-center border-0 px-0 pb-0 ">
+                  {/* <MDBListGroupItem
+                    className="d-flex justify-content-between align-items-center border-0 px-0 pb-0 shopcartcolor">
                     Products
                     <span>$53.98</span>
-                  </MDBListGroupItem>
+                  </MDBListGroupItem> */}
                   <MDBListGroupItem
-                    className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                    className="d-flex justify-content-between align-items-center border-0 px-0 mb-3 shopcartcolor">
                     <div>
                       <strong>Total amount</strong>
                       <strong>
-                        <p className="mb-0">(including VAT)</p>
+                        <p className="mb-0"></p>
                       </strong>
                     </div>
                     <span>
-                      <strong>$53.98</strong>
+                      <strong>{orders.reduce((partialSum , o) => partialSum+o.service.price,0)}</strong>
                     </span>
                   </MDBListGroupItem>
                 </MDBListGroup>
