@@ -176,7 +176,7 @@ const StyledMenuItem = styled(MenuItem)({
         } else {
           setError('You can only book up to 3 times!');
         }
-      };
+      };  
 
   const handleCardRemoval = (card) => {
         setSelectedCards((prevSelectedCards) => {
