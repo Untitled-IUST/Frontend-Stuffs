@@ -31,7 +31,8 @@ import {
         const [flag , setFlag] = useState()
         const [temp, setTemp] = useState("");
         const[date, setDate] = useState("");
-        const[address, setAddresse] = useState("");
+        const[area, setArea] = useState("");
+        const [addresse, setAddresse] = useState("");
         function handleIncreaseQuantity() {
           console.log(temp);
           console.log(price);
@@ -57,7 +58,8 @@ import {
                 setTemp(res.data.results[0].service.price)
                 setTime(res.data.results[0].time)
                 setDate(res.data.results[0].date)
-                setAddresse(res.data.results[0].barber.area)
+                setArea(res.data.results[0].barber.area)
+                setAddresse(res.data.results[0].barber.address)
                 setFlag(() => !flag)
                 console.log("hi1")
                 setData(res.data.results[0].barber.BarberShop)
@@ -99,13 +101,13 @@ import {
             {/* shoro style={{height: "18rem"}} style={{height: "10rem"}} */}
             <div>
               {orders.map((item) => (
-                <MDBCardBody style={{height: "15rem"}} >
+                <MDBCardBody >
                 <MDBRow> 
                   <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
                     <MDBRipple rippleTag="div" rippleColor="light"
                       className="bg-image rounded hover-zoom hover-overlay">
                       <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp"
+                        src = {item.service.servicePic}
                         className="w-100" />
                       <a href="#!">
                         <div className="mask">
@@ -117,13 +119,17 @@ import {
                     <p>
                       <strong>{item.service.service}</strong>
                     </p>
+                    <p>
+                  <strong>Reserved Day & Time</strong>
+                  </p>
+                  <p className="mb-0">{item.date} - {item.time} </p>
 
                   </MDBCol>
                   <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
-                  <p className="text-start text-md-center">
+                  {/* <p className="text-start text-md-center">
                       <strong>Price: {item.service.price}$</strong>
-                    </p>
-                    {/* <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
+                    </p> */}
+                    <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
                       <MDBBtn className="px-3 me-2 shopcartbutton" onClick={handleDecreaseQuantity}>
                       <span class="material-icons"  style={{justifyContent: 'center', display: 'flex'}}>remove_circle_outline</span>
                       </MDBBtn>
@@ -137,7 +143,7 @@ import {
     
                     <p className="text-start text-md-center">
                       <strong>{item.service.price}</strong>
-                    </p> */}
+                    </p>
                   </MDBCol>
                 </MDBRow>
     
@@ -155,11 +161,11 @@ import {
               <p>
                   <strong>Name of Salon</strong>
                 </p>
-                <p className="mb-0">{data} - {address}</p>
-                <p>
+                <p className="mb-0">{data} - {area} - {addresse}</p>
+                {/* <p>
                   <strong>Reserved Day & Time</strong>
                 </p>
-                <p className="mb-0">{date} - {time} </p>
+                <p className="mb-0">{date} - {time} </p> */}
                 
               </MDBCardBody>
             </MDBCard>
