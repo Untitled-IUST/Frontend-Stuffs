@@ -33,11 +33,22 @@ import {
         const[date, setDate] = useState("");
         const[area, setArea] = useState("");
         const [addresse, setAddresse] = useState("");
-        function handleIncreaseQuantity() {
-          console.log(temp);
-          console.log(price);
-          setQuantity(quantity + 1); 
-          setPrice(temp + price);
+        const [servicelist, setServicelist] = useState(orders);
+        
+        function handleIncreaseQuantity(id) {
+          const updatelist = servicelist.map((item) => {
+            if(item.id === id){
+              return{
+                ...item,
+                count : item.count+1,
+                price : (item.price * (item.count + 1)).toFixed(2),
+              };
+            }
+            return item;
+          });
+          setServicelist(updatelist);
+          setQuantity(quantity + 1);  
+          // setPrice(temp + price);
         }
         function handleDecreaseQuantity() {
           if (quantity > 1) { 
@@ -101,7 +112,7 @@ import {
             {/* shoro style={{height: "18rem"}} style={{height: "10rem"}} */}
             <div>
               {orders.map((item) => (
-                <MDBCardBody >
+                <MDBCardBody key={item.id}>
                 <MDBRow> 
                   <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
                     <MDBRipple rippleTag="div" rippleColor="light"
@@ -130,7 +141,7 @@ import {
                       <strong>Price: {item.service.price}$</strong>
                     </p> */}
                     <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
-                      <MDBBtn className="px-3 me-2 shopcartbutton" onClick={handleDecreaseQuantity}>
+                      <MDBBtn className="px-3 me-2 shopcartbutton" onClick={handleDecreaseQuantity(item.id)}>
                       <span class="material-icons"  style={{justifyContent: 'center', display: 'flex'}}>remove_circle_outline</span>
                       </MDBBtn>
     
