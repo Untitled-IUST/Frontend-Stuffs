@@ -200,7 +200,7 @@ function SignUpBarber(){
                         type={isPasswordVisible ? "text" : "password"}
                         onChange={handlePassword}
                       />
-                      <p className="text-xs italic text-red-500"><p>{passwordError}</p></p>
+                      <p className="m-1 text-xs italic text-red-500"><p>{passwordError}</p></p>
                     </div>
                     <button
                       type="button"
