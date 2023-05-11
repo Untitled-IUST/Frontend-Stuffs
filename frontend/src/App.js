@@ -22,8 +22,8 @@ function App() {
       <Routes>
         <Route path="/LoginBarber" Component={LoginBarber}/>
         <Route path="/SignUpBarber" Component={SignUpBarber} />
-        <Route path="/LoginCustomer" element={<div className="flex flex-row"><Sidebar/> <LoginCustomer/></div>} />
-        <Route path="/SignUpCustomer" element={<div className="flex flex-row"><Sidebar/> <SignUpCustomer/></div>} />
+        <Route path="/LoginCustomer" Component={LoginCustomer}/>
+        <Route path="/SignUpCustomer" Component={SignUpCustomer} />
         <Route path="/SalonSelect" element={<div className="flex flex-row"><Sidebar/> <SalonSelect/></div>}/>
         <Route path="/SalonPage/:id" element={ <ImageSlider slides={SliderData} />} />
         <Route path="/ProfilePage" element={<div className="flex flex-row"><Sidebar/> <ProfilePage/></div>} />
