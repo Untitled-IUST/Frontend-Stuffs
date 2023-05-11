@@ -98,6 +98,7 @@ function LoginBarber(){
                       type={isPasswordVisible ? "text" : "password"}
                       onChange={handlePassword}
                     />
+                    <p className="text-xs italic text-red-500">{passwordError}</p>
                   </div>
                   <button
                       type="button"
@@ -141,7 +142,6 @@ function LoginBarber(){
                         </svg>
                       )}
                     </button>
-                  <p className="text-xs italic text-red-500">{passwordError}</p>
                 </div>
                 <div className="mb-4 text-center">
                   <button
