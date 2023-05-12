@@ -36,13 +36,13 @@ export const Receipt = () =>{
         <div className='ReceiptCard'>
           <div className='ReceiptTop'>
           <p className='ReceiptResponse'>
-            Your order has succesfully completed!
+            Your order has succesfully received!
           </p>
           </div>
 
           <div className='ReceiptDetails'>
             <div className='ReceiptList'>
-              <p>Restaurant name</p> 
+              <p>Salon name</p> 
               <p className='answer'>: {rest.name}</p>
             </div>
             <div className='ReceiptList'>
