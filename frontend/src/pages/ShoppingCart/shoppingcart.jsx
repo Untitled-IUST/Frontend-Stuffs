@@ -15,7 +15,7 @@ import {
     MDBTooltip,
     MDBTypography,
     } from "mdb-react-ui-kit";
-    import React, { useEffect, useState } from "react";
+    import React, { useEffect, useState, useCallback  } from "react";
     import "./shoppingcart.css"
     import axios from "axios";
     import { Link } from 'react-router-dom';
@@ -30,32 +30,44 @@ import {
         let access_token =localStorage.getItem('accesstokenCustomer');
         const [flag , setFlag] = useState()
         const [temp, setTemp] = useState("");
-        const[date, setDate] = useState("");
+        //const[date, setDate] = useState("");
         const[area, setArea] = useState("");
         const [addresse, setAddresse] = useState("");
-        const [servicelist, setServicelist] = useState(orders);
+        //const [servicelist, setServicelist] = useState(orders);
         
         function handleIncreaseQuantity(id) {
-          const updatelist = servicelist.map((item) => {
+          const updatelist = orders.map((item) => {
             if(item.id === id){
+              const newQuantity = item.quantity + 1; 
+              const newPrice = (item.totalCost + item.service.price);
               return{
                 ...item,
-                count : item.count+1,
-                price : (item.price * (item.count + 1)).toFixed(2),
+                quantity : newQuantity,
+                totalCost : newPrice
               };
+
             }
             return item;
           });
-          setServicelist(updatelist);
-          setQuantity(quantity + 1);  
+          setOrders(updatelist);
+          //setQuantity(quantity + 1);  
           // setPrice(temp + price);
         }
-        function handleDecreaseQuantity() {
-          if (quantity > 1) { 
-          setQuantity(quantity - 1);
-          setPrice(price - temp);
-        }
-        }
+        const handleDecreaseQuantity = useCallback((id) => {
+          setOrders((prevOrders) => {
+            const updatedList = prevOrders.map((item) => {
+              if (item.id === id) {
+                return {
+                  ...item,
+                  quantity: Math.max(item.quantity - 1, 0),
+                  totalCost: item.service.price * Math.max(item.quantity - 1, 0),
+                };
+              }
+              return item;
+            });
+            return updatedList;
+          });
+        },[]);
 
         useEffect(() => {
             axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/basket/' , {
@@ -68,7 +80,7 @@ import {
                 setPrice(res.data.results[0].service.price)  
                 setTemp(res.data.results[0].service.price)
                 setTime(res.data.results[0].time)
-                setDate(res.data.results[0].date)
+                //setDate(res.data.results[0].date)
                 setArea(res.data.results[0].barber.area)
                 setAddresse(res.data.results[0].barber.address)
                 setFlag(() => !flag)
@@ -140,21 +152,23 @@ import {
                   {/* <p className="text-start text-md-center">
                       <strong>Price: {item.service.price}$</strong>
                     </p> */}
+                    
                     <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
-                      <MDBBtn className="px-3 me-2 shopcartbutton" onClick={handleDecreaseQuantity(item.id)}>
+                      <MDBBtn className="px-3 me-2 shopcartbutton" onClick={() => handleDecreaseQuantity(item.id)}>
                       <span class="material-icons"  style={{justifyContent: 'center', display: 'flex'}}>remove_circle_outline</span>
                       </MDBBtn>
     
-                      <MDBInput value={quantity} min={0} type="number" label="Quantity" />
+                      <MDBInput value={item.quantity} min={0} type="number" label="Quantity" />
     
-                      <MDBBtn className="px-3 ms-2 shopcartbutton" onClick={handleIncreaseQuantity}> 
+                      <MDBBtn className="px-3 ms-2 shopcartbutton" onClick={() => handleIncreaseQuantity(item.id)}> 
                       <span class="material-icons" style={{justifyContent: 'center', display: 'flex'}}>add_circle_outline</span>
                       </MDBBtn>
                     </div>
     
                     <p className="text-start text-md-center">
-                      <strong>{item.service.price}</strong>
+                      <strong>{item.totalCost}</strong>
                     </p>
+
                   </MDBCol>
                 </MDBRow>
     
@@ -222,7 +236,7 @@ import {
                       </strong>
                     </div>
                     <span>
-                      <strong>{orders.reduce((partialSum , o) => partialSum+o.service.price,0)}</strong>
+                      <strong>{orders.reduce((partialSum , o) => partialSum+o.totalCost,0)}</strong>
                     </span>
                   </MDBListGroupItem>
                 </MDBListGroup>
