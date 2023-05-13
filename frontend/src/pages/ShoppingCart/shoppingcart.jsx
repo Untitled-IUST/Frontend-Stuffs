@@ -34,7 +34,10 @@ import {
         const[area, setArea] = useState("");
         const [addresse, setAddresse] = useState("");
         //const [servicelist, setServicelist] = useState(orders);
-        
+        function handleDelete(id) {
+          const updatedList = orders.filter(item => item.id !== id);
+          setOrders(updatedList);
+        }
         function handleIncreaseQuantity(id) {
           const updatelist = orders.map((item) => {
             if(item.id === id){
@@ -68,6 +71,7 @@ import {
             return updatedList;
           });
         },[]);
+
 
         useEffect(() => {
             axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/basket/' , {
@@ -146,6 +150,12 @@ import {
                   <strong>Reserved Day & Time</strong>
                   </p>
                   <p className="mb-0">{item.date} - {item.time} </p>
+                  <button onClick={() => handleDelete(item.id)}>
+                  <span className="material-icons" style={{ justifyContent: 'left', display: 'flex' }}>
+                    delete_outline
+                  </span>
+                  </button>
+                  
 
                   </MDBCol>
                   <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
