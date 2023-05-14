@@ -80,8 +80,8 @@ function LoginCustomer(){
                       type="email"
                       onChange={handleEmail}
                     />
-                    <p className="m-1 text-xs italic text-red-500">{emailAddressError}</p>
                   </div>
+                  <p className="m-1 text-xs italic text-red-500">{emailAddressError}</p>
                 </div>
                 <div className="relative mb-4">
                   <label className="text-Mauve-700 block mb-2 text-sm font-bold" for="Password">
@@ -97,8 +97,8 @@ function LoginCustomer(){
                       type={isPasswordVisible ? "text" : "password"}
                       onChange={handlePassword}
                     />
-                    <p className="text-xs italic text-red-500">{passwordError}</p>
                   </div>
+                  <p className="text-xs italic text-red-500">{passwordError}</p>
                   <button
                       type="button"
                       className="text-gray-400 absolute inset-y-12 right-0 flex items-center px-2"
@@ -144,7 +144,7 @@ function LoginCustomer(){
                 </div>
                 <div className="mb-4 text-center">
                   <button
-                    className="w-full py-2 font-bold text-backGround-500 bg-Mauve-700 rounded focus:outline-none focus:shadow-outline"
+                    className="w-full py-2 font-bold text-white bg-Mauve-700 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={handleLogin}
                   >
