@@ -317,14 +317,9 @@ function SignUpBarber(){
                   <p className="m-1 text-xs italic text-red-500">{submitError}</p>
                 </div>
                 <hr className="mb-3 border-t text-gray-400" />
-                <div className="py-2 w-full rounded bg-gray-600 text-center">
-                  <Link
-                    to="/LoginBarber"
-                    className="inline-block text-sm text-white align-baseline"
-                  >
-                    Already have an account? Login!
-                  </Link>
-                </div>
+                <Link to="/LoginBarber" className="inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-gray-600 text-center">
+                  Already have an account? Login!
+                </Link>
               </form>
             </div>
           </div>

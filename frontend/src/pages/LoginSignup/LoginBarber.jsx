@@ -155,11 +155,9 @@ function LoginBarber(){
                 </div>
                 <p className="m-1 text-xs italic text-red-500">{Error}</p>
                 <hr className="mb-3 border-t text-gray-400" />
-                <div className="bg-gray-600 py-2 rounded w-full text-center">
-                  <Link to="/SignUpBarber" className="text-white inline-block text-sm align-baseline">
-                    Create an Account!
-                  </Link>
-                </div>
+                <Link to="/SignUpBarber" className="bg-gray-600 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
+                  Create an Account!
+                </Link>
               </form>
             </div>
           </div>

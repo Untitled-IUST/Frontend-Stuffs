@@ -153,11 +153,9 @@ function LoginCustomer(){
                   <p className="m-1 text-xs italic text-red-500">{Error}</p>
                 </div>
                 <hr className="mb-3 border-t text-gray-400" />
-                <div className="bg-gray-600 py-2 rounded w-full text-center">
-                  <Link to="/SignUpCustomer" className="text-white inline-block text-sm align-baseline">
+                <Link to="/SignUpCustomer" className="text-white inline-block text-sm align-baseline bg-gray-600 py-2.5 rounded w-full text-center">
                     Create an Account!
-                  </Link>
-                </div>
+                </Link>
               </form>
             </div>
           </div>
