@@ -1,0 +1,32 @@
+
+.btn {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    width: 100px;
+    background-color:  rgba(140, 115, 230, 0.411);
+      border-color: #c4c4c4;
+      border-width: 1px;
+      border-radius: 5px;
+      color: #261b39;
+      font-size: 20px;
+      padding: 5%;
+      margin-bottom: 10px;
+      margin-top: 10px;
+  
+      /* width: 150px; */
+      display: flex;
+      justify-content: center;
+      /* margin-right: 80px;
+      margin-left: 50%;
+      margin-bottom: 20px; */
+    }
+    .btn:hover{
+      background-color:rgb(252, 203, 199) !important;
+    }
+    .item-holder{
+      display: flex;
+      justify-content: center;
+      ;
+      flex:34%;
+    }

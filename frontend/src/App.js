@@ -15,6 +15,8 @@ import Sidebar from "./components/sideBarCustomer";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import ProfilePage from "./pages/customerProfile/Customer_Profile";
 import PaymentMethods from "./pages/ShoppingCart/shoppingcart.jsx"
+import CashWithdrawal from "./pages/Wallet/Wallet";
+import { Receipt } from "./pages/Wallet/Receipt";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/SalonPage/:id" element={ <ImageSlider slides={SliderData} />} />
         <Route path="/ProfilePage" element={<div className="flex flex-row"><Sidebar/> <ProfilePage/></div>} />
         <Route path="/ShoppingCart" Component={PaymentMethods}/>
+        <Route path="/wallet" Component={CashWithdrawal}/>
+        <Route path="/payment" element={<Receipt />} />
       </Routes>
     </Router>
     </div>
