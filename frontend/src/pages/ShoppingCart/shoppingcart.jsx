@@ -20,8 +20,7 @@ import {
     import axios from "axios";
     import { Link } from 'react-router-dom';
     
-    export default function PaymentMethods() {
-
+    export default function PaymentMethods(props) {
         const [orders,setOrders] = useState([]) 
         const [quantity, setQuantity] = useState(1);
         const [data, setData] = useState("");
@@ -34,6 +33,11 @@ import {
         const[area, setArea] = useState("");
         const [addresse, setAddresse] = useState("");
         //const [servicelist, setServicelist] = useState(orders);
+        const totalCosts = orders.reduce((partialSum, o) => partialSum + o.totalCost, 0);
+        const [stateorder, setStateorde] = useState([]) 
+
+
+
         function handleDelete(id) {
           const updatedList = orders.filter(item => item.id !== id);
           setOrders(updatedList);
@@ -53,8 +57,6 @@ import {
             return item;
           });
           setOrders(updatelist);
-          //setQuantity(quantity + 1);  
-          // setPrice(temp + price);
         }
         const handleDecreaseQuantity = useCallback((id) => {
           setOrders((prevOrders) => {
@@ -90,6 +92,7 @@ import {
                 setFlag(() => !flag)
                 console.log("hi1")
                 setData(res.data.results[0].barber.BarberShop)
+
 
                 console.log(typeof res.data.results[0].barber.BarberShop)
 
@@ -197,11 +200,6 @@ import {
                   <strong>Name of Salon</strong>
                 </p>
                 <p className="mb-0">{data} - {area} - {addresse}</p>
-                {/* <p>
-                  <strong>Reserved Day & Time</strong>
-                </p>
-                <p className="mb-0">{date} - {time} </p> */}
-                
               </MDBCardBody>
             </MDBCard>
     
@@ -232,11 +230,6 @@ import {
               </MDBCardHeader>
               <MDBCardBody>
                 <MDBListGroup flush>
-                  {/* <MDBListGroupItem
-                    className="d-flex justify-content-between align-items-center border-0 px-0 pb-0 shopcartcolor">
-                    Products
-                    <span>$53.98</span>
-                  </MDBListGroupItem> */}
                   <MDBListGroupItem
                     className="d-flex justify-content-between align-items-center border-0 px-0 mb-3 shopcartcolor">
                     <div>
@@ -246,7 +239,7 @@ import {
                       </strong>
                     </div>
                     <span>
-                      <strong>{orders.reduce((partialSum , o) => partialSum+o.totalCost,0)}</strong>
+                      <strong>{totalCosts}</strong>
                     </span>
                   </MDBListGroupItem>
                 </MDBListGroup>
