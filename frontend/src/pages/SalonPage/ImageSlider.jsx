@@ -46,11 +46,11 @@ let access_token =localStorage.getItem('accessTokenCustomer');
 
 
 
-function ImageSlider ({ slides }, props) {
+function ImageSlider ({ slides }) {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-
+console.log(access_token)
   const theme = createTheme({
     typography: {
       fontFamily: 'Roboto',
@@ -247,9 +247,9 @@ const prevSlide = () => {
         <div> 
           <img  className='lg' style={{ width: 200, 
                 height: 200, marginLeft:'1%' ,position: 'relative' ,borderColor:'#ffecee' ,border:"dotted", borderWidth:3,
-                zIndex: '3',  marginTop:'-50%',marginBottom:'5%',
+                zIndex: '3',  marginTop:'-20%',marginBottom:'5%',
            borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
-           <LocalGroceryStoreIcon  style={{color:'#ffecee', fontSize:45, marginTop:'-30%',marginBottom:'10%',marginLeft:5}} ></LocalGroceryStoreIcon> 
+           {/* <LocalGroceryStoreIcon  style={{color:'#ffecee', fontSize:45, marginTop:'-30%',marginBottom:'10%',marginLeft:5}} ></LocalGroceryStoreIcon>  */}
         <div/> 
         
 
@@ -258,7 +258,7 @@ const prevSlide = () => {
       <ThemeProvider theme={theme}>
       <div className='ti'>
       <Box  className='ti1' sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: '40%',borderRadius:3,
-        height: 80,fontSize: 30,textAlign:'center', mb:'10%',pt:'3%', fontFamily: 'Roboto, ' , color:'#ffecee'}}>
+        height: 80,fontSize: 30,textAlign:'center',mt:'-5%', mb:'10%',pt:'1%', fontFamily: 'Roboto, ' , color:'#ffecee'}}>
         {data.BarberShop}
       </Box>
       </div>
@@ -372,16 +372,16 @@ const prevSlide = () => {
 
     <Container fixed>
       <Typography component="div">
-      <Box  className='dis' sx={{ bgcolor: '#ffecee', width: '40%',
-        height: 50,textAlign: 'left', ml: '55%',fontSize: 25, mt:'15%' ,mb:-19.5,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
-    you are beautiful cause you care.
+      <Box  className='dis' sx={{ bgcolor: '#ffecee', width: '45%',
+        height: 70,textAlign: 'left', ml: '55%',fontSize: 25, mt:'15%' ,mb:-15.7,fontFamily:'Roboto',pt:1,pr:3,pl:3 , color:'#120c1e',borderRadius:3}}>
+        you are beautiful cause you care.
       </Box>
     </Typography>
     </Container>
     <Container fixed>
       <div>
           <img className='imdis' style={{ width: '44%',
-        height: 450, marginLeft:'1%',
+        height: 450, marginLeft:'-.5%',
         marginTop:'5%',
           borderRadius: 10,}} src= "https://s2.uupload.ir/files/studio_benicky_salon_design.jpeg_parj.jpg"alt="React lost" />
 
@@ -389,8 +389,8 @@ const prevSlide = () => {
 
     <Typography component="div">
       
-      <Box  className='dis1' sx={{ bgcolor: '#ffecee', width:'40%',
-        height: 255,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 25, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+      <Box  className='dis1' sx={{ bgcolor: '#ffecee', width:'45%',
+        height: 317,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 25, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
         our salon beauty is a calm and nice plase
         which will give you the best experince of a beauty salon you ever try. We have perfetional artists and good services
         enjoy your time
