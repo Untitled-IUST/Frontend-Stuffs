@@ -32,7 +32,7 @@ import { toast } from "react-hot-toast";
         const [data, setData] = useState("");
         const [time, setTime] = useState("");
         const [price, setPrice] = useState(""); 
-        let access_token =localStorage.getItem('accesstokenCustomer');
+        let access_token =localStorage.getItem('accessTokenCustomer');
         const [flag , setFlag] = useState()
         const [temp, setTemp] = useState("");
         //const[date, setDate] = useState("");
@@ -132,7 +132,7 @@ import { toast } from "react-hot-toast";
 
         },[])
         useEffect(() => {
-          let access_token = localStorage.getItem('accesstokenCustomer');
+          let access_token = localStorage.getItem('accessTokenCustomer');
           console.log(access_token);
           axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
             headers: {
@@ -160,7 +160,7 @@ import { toast } from "react-hot-toast";
             // User can pay by wallet
             // Deduct totalCost from credit and update the credit in the backend 
             const newCredit = -total;
-            let access_token = localStorage.getItem('accesstokenCustomer');
+            let access_token = localStorage.getItem('accessTokenCustomer');
             console.log(newCredit);
             axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : newCredit }, {
               headers: {
@@ -199,7 +199,7 @@ import { toast } from "react-hot-toast";
             const value1= -money
             // Update the credit in the backend to zero using an API call
             // Update the total cost in the backend using an API call
-            let access_token = localStorage.getItem('accesstokenCustomer');
+            let access_token = localStorage.getItem('accessTokenCustomer');
             axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : value1}, {
               headers: {
                 'Authorization': `JWT ${access_token}`,

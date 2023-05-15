@@ -35,7 +35,7 @@ export  default function ProfilePage() {
   const[emailAddress , setEmailAddress] = useState(null);
   //const [imgFile, setImgFile] = useState(null);
   const [password, setpassword] = useState("");
-  let access_token =localStorage.getItem('accesstokenCustomer');
+  let access_token =localStorage.getItem('accessTokenCustomer');
   const [UserName, setUserName] = useState("");
   const [Area, setArea] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);

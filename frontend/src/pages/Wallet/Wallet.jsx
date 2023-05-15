@@ -33,7 +33,7 @@ function CashWithdrawal (){
   // }
 
   useEffect(() => {
-    let access_token = localStorage.getItem('accesstokenCustomer');
+    let access_token = localStorage.getItem('accessTokenCustomer');
     console.log(access_token);
     axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
       headers: {
@@ -53,7 +53,7 @@ function CashWithdrawal (){
 
 
   const handleButtonClick = (value) => {
-    let access_token = localStorage.getItem('accesstokenCustomer');
+    let access_token = localStorage.getItem('accessTokenCustomer');
     console.log(access_token);
     axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : value }, {
       headers: {
@@ -101,7 +101,7 @@ function CashWithdrawal (){
   
   const handleCustomValueSubmit = () => {
     if (customValue) {
-      let access_token = localStorage.getItem('accesstokenCustomer');
+      let access_token = localStorage.getItem('accessTokenCustomer');
       console.log(access_token);
       const value=parseInt(customValue)
       axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit: value }, {
