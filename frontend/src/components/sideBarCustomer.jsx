@@ -8,6 +8,7 @@ import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import LogoutIcon from '@mui/icons-material/Logout';
+//import AccountBalanceWalletOutlinedIcon from '@material-ui/icons/AccountBalanceWalletOutlined';
 import axios from "axios";
 
 function SideBar(){
@@ -37,6 +38,7 @@ function SideBar(){
               </MenuItem>
               <MenuItem icon={<HomeOutlinedIcon />} component={<Link to="/SalonSelect" />}>Book</MenuItem>
               <MenuItem icon={<ReceiptOutlinedIcon />} component={<Link to="/ProfilePage" />}>Profile</MenuItem>
+              <MenuItem icon={<ReceiptOutlinedIcon/>} component={<Link to="/wallet" />}>Wallet</MenuItem>
               <MenuItem onClick={() => {
                 localStorage.removeItem('accesstokenCustomer')
                 window.location.href = "/LoginCustomer";
