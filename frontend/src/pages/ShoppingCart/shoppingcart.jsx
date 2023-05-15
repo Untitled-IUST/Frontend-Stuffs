@@ -16,13 +16,18 @@ import {
     MDBTypography,
     } from "mdb-react-ui-kit";
     import React, { useEffect, useState, useCallback  } from "react";
+    import { useNavigate } from 'react-router-dom';
     import "./shoppingcart.css"
     import axios from "axios";
     import { Link } from 'react-router-dom';
     
-    export default function PaymentMethods(props) {
+    export default function PaymentMethods() {
+      const navigate = useNavigate();
+        const [money, setMoney] = useState('');
+
         const [orders,setOrders] = useState([]) 
         const [quantity, setQuantity] = useState(1);
+        const total= orders.reduce((partialSum , o) => partialSum+o.totalCost,0);
         const [data, setData] = useState("");
         const [time, setTime] = useState("");
         const [price, setPrice] = useState(""); 
@@ -42,11 +47,13 @@ import {
           const updatedList = orders.filter(item => item.id !== id);
           setOrders(updatedList);
         }
+        
         function handleIncreaseQuantity(id) {
           const updatelist = orders.map((item) => {
             if(item.id === id){
               const newQuantity = item.quantity + 1; 
               const newPrice = (item.totalCost + item.service.price);
+              
               return{
                 ...item,
                 quantity : newQuantity,
@@ -99,6 +106,21 @@ import {
             }).catch(err=> console.log(err))
 
         },[])
+        useEffect(() => {
+          let access_token = localStorage.getItem('accesstokenCustomer');
+          console.log(access_token);
+          axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+            headers: {
+              'Authorization': `JWT ${access_token}`,
+              'Content-Type': 'application/json',
+            }
+          })
+          .then((response) => {
+            setMoney(response.data.credit);
+            console.log("got it darling", money)
+          })
+          .catch(err => console.log(err))
+        }, [])
 
         useEffect(() => {
           //console.log(orders[0])
@@ -107,15 +129,88 @@ import {
           // setTime(order.time) 
         }, [flag])
 
-
-        const handleClick = (event) =>
-        {
-          event.preventDefault();
+        console.log("damn money",total)
+        const handleClick = () => {
+          if (total<= money) {
+            // User can pay by wallet
+            // Deduct totalCost from credit and update the credit in the backend 
+            const newCredit = -total;
+            let access_token = localStorage.getItem('accesstokenCustomer');
+            console.log(newCredit);
+            axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', { credit : newCredit }, {
+              headers: {
+                'Authorization': `JWT ${access_token}`,
+                'Content-Type': 'application/json',
+              }
+            })
+              .then(response => {
+                // handle success
+                console.log(response);
+                // axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+                //     headers: {
+                //       'Authorization': `JWT ${access_token}`,
+                //       'Content-Type': 'application/json',
+                //     }
+                //   })
+                //   .then((response) => {
+                //     setMoney(response.data.credit);
+                //     console.log("got it darling", money)
+                //   })
+                //   .catch(err => console.log(err))
+              })
+              .catch(error => {
+                // handle error
+                console.log(error);
+              });
+              
+            // Update the credit in the backend using an API call
+          }  else if (money > 0) {
+            // User pays by wallet and pays the rest of the money with payment page
+            // Deduct credit from totalCost and redirect user to payment page with the remaining amount
+            const remainingAmount = total - money;
+            const value1= -money
+            // Update the credit in the backend to zero using an API call
+            // Update the total cost in the backend using an API call
+            let access_token = localStorage.getItem('accesstokenCustomer');
+            axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', { credit : value1}, {
+              headers: {
+                'Authorization': `JWT ${access_token}`,
+                'Content-Type': 'application/json',
+              }
+            })
+              .then(response => {
+                navigate(`/payment?value=${remainingAmount}`);
+                // handle success
+                console.log(response);
+                axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+                    headers: {
+                      'Authorization': `JWT ${access_token}`,
+                      'Content-Type': 'application/json',
+                    }
+                  })
+                  .then((response) => {
+                    setMoney(response.data.credit);
+                    console.log("got it darling", money)
+                  })
+                  .catch(err => console.log(err))
+              })
+              .catch(error => {
+                // handle error
+                console.log(error);
+              });
+              
+          } else {
+            // Credit is zero, give an error to user
+            // Display an error message to the user
+            alert("Insufficient credit. Please add more credit to your wallet or choose another payment method.");
+          }
         }
         const handleSubmit = (event) =>
         {
             event.preventDefault();
+
         }
+      console.log(money)
     return (
     <section className="h-100 gradient-custom">
       <MDBContainer className="py-5 h-100">
