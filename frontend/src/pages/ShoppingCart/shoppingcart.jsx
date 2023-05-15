@@ -20,6 +20,7 @@ import {
     import "./shoppingcart.css"
     import axios from "axios";
     import { Link } from 'react-router-dom';
+import { toast } from "react-hot-toast";
     
     export default function PaymentMethods() {
       const navigate = useNavigate();
@@ -39,7 +40,19 @@ import {
         const [addresse, setAddresse] = useState("");
         //const [servicelist, setServicelist] = useState(orders);
         const totalCosts = orders.reduce((partialSum, o) => partialSum + o.totalCost, 0);
-        const [stateorder, setStateorde] = useState([]) 
+        const [stateorder, setStateorde] = useState([]) ;
+        const orderIds = orders.map((order) => order.id);
+        const quantities = orders.map((order) => order.quantity);
+        const statuses = ['paid']; 
+
+        const orderData = {};
+        orderIds.forEach((id, index) => {
+          orderData[id] = {
+            quantity: quantities[index],
+            status: statuses[index]
+  };
+});
+
 
 
 
@@ -109,7 +122,7 @@ import {
         useEffect(() => {
           let access_token = localStorage.getItem('accesstokenCustomer');
           console.log(access_token);
-          axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+          axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
             headers: {
               'Authorization': `JWT ${access_token}`,
               'Content-Type': 'application/json',
@@ -137,7 +150,7 @@ import {
             const newCredit = -total;
             let access_token = localStorage.getItem('accesstokenCustomer');
             console.log(newCredit);
-            axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', { credit : newCredit }, {
+            axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : newCredit }, {
               headers: {
                 'Authorization': `JWT ${access_token}`,
                 'Content-Type': 'application/json',
@@ -146,17 +159,19 @@ import {
               .then(response => {
                 // handle success
                 console.log(response);
-                // axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
-                //     headers: {
-                //       'Authorization': `JWT ${access_token}`,
-                //       'Content-Type': 'application/json',
-                //     }
-                //   })
-                //   .then((response) => {
-                //     setMoney(response.data.credit);
-                //     console.log("got it darling", money)
-                //   })
-                //   .catch(err => console.log(err))
+                alert("You Payment was succsessful!");
+                setOrders([]);
+                axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+                    headers: {
+                      'Authorization': `JWT ${access_token}`,
+                      'Content-Type': 'application/json',
+                    }
+                  })
+                  .then((response) => {
+                    setMoney(response.data.credit);
+                    console.log("got it darling", money)
+                  })
+                  .catch(err => console.log(err))
               })
               .catch(error => {
                 // handle error
@@ -172,7 +187,7 @@ import {
             // Update the credit in the backend to zero using an API call
             // Update the total cost in the backend using an API call
             let access_token = localStorage.getItem('accesstokenCustomer');
-            axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', { credit : value1}, {
+            axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : value1}, {
               headers: {
                 'Authorization': `JWT ${access_token}`,
                 'Content-Type': 'application/json',
@@ -182,7 +197,7 @@ import {
                 navigate(`/payment?value=${remainingAmount}`);
                 // handle success
                 console.log(response);
-                axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+                axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
                     headers: {
                       'Authorization': `JWT ${access_token}`,
                       'Content-Type': 'application/json',
@@ -205,12 +220,28 @@ import {
             alert("Insufficient credit. Please add more credit to your wallet or choose another payment method.");
           }
         }
-        const handleSubmit = (event) =>
-        {
-            event.preventDefault();
 
-        }
       console.log(money)
+      const  handlePay =  async () => {
+        // navigate(`/payment?value=${totalCosts}`);
+        try {
+          for (const id of orderIds) {
+            const { quantity, status } = orderData[id];
+            const response = await axios.put(`https://amirmohammadkomijani.pythonanywhere.com/barber/basket/${id}/`, {
+              quantity: quantity,
+              status: status
+            }, {
+              headers: {
+                'Authorization': `JWT ${access_token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            console.log(response.data); // Output: the updated order object
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
     return (
     <section className="h-100 gradient-custom">
       <MDBContainer className="py-5 h-100">
@@ -263,13 +294,13 @@ import {
                     
                     <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
                       <MDBBtn className="px-3 me-2 shopcartbutton" onClick={() => handleDecreaseQuantity(item.id)}>
-                      <span class="material-icons"  style={{justifyContent: 'center', display: 'flex'}}>remove_circle_outline</span>
+                      <span className="material-icons"  style={{justifyContent: 'center', display: 'flex'}}>remove_circle_outline</span>
                       </MDBBtn>
     
                       <MDBInput value={item.quantity} min={0} type="number" label="Quantity" />
     
                       <MDBBtn className="px-3 ms-2 shopcartbutton" onClick={() => handleIncreaseQuantity(item.id)}> 
-                      <span class="material-icons" style={{justifyContent: 'center', display: 'flex'}}>add_circle_outline</span>
+                      <span className="material-icons" style={{justifyContent: 'center', display: 'flex'}}>add_circle_outline</span>
                       </MDBBtn>
                     </div>
     
@@ -305,14 +336,12 @@ import {
                 </p>
                 <button onClick={handleClick} style={{ fontSize: '2em' }}>
                 <i className="material-icons shopcarticon">account_balance_wallet</i>
-              </button>
-                {/* <MDBCardImage className="me-2" width="45px"
-                  src="https://www.uplooder.net/img/image/10/7718108b13ad843b0d203d5cf657f016/856500019482-F.jpg"
-                  alt="wallet" /> */}
-                {/* <Link to="/safheye fargol"></Link> */}
+              </button><br></br>
+              <button onClick={handlePay}>
                 <MDBCardImage className="me-2 shopcarticon" 
                   src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
                   alt="PayPal acceptance mark" />
+                </button> 
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
@@ -328,20 +357,19 @@ import {
                   <MDBListGroupItem
                     className="d-flex justify-content-between align-items-center border-0 px-0 mb-3 shopcartcolor">
                     <div>
-                      <strong>Total amount</strong>
+                      <strong>Total amount</strong><br></br>
+                      <strong>Your Wallet's Balance</strong><br></br>
                       <strong>
                         <p className="mb-0"></p>
                       </strong>
                     </div>
                     <span>
-                      <strong>{totalCosts}</strong>
+                      
+                      <strong>{totalCosts}</strong><br></br>
+                      <strong>{money}</strong><br></br>
                     </span>
                   </MDBListGroupItem>
                 </MDBListGroup>
-    
-                <MDBBtn block size="lg" className="shopcartbutton" onClick={handleSubmit}>
-                  Go to checkout
-                </MDBBtn>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>

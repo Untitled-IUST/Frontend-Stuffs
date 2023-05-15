@@ -35,7 +35,7 @@ function CashWithdrawal (){
   useEffect(() => {
     let access_token = localStorage.getItem('accesstokenCustomer');
     console.log(access_token);
-    axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+    axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
       headers: {
         'Authorization': `JWT ${access_token}`,
         'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function CashWithdrawal (){
   const handleButtonClick = (value) => {
     let access_token = localStorage.getItem('accesstokenCustomer');
     console.log(access_token);
-    axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', { credit : value }, {
+    axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : value }, {
       headers: {
         'Authorization': `JWT ${access_token}`,
         'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function CashWithdrawal (){
         // handle success
         navigate(`/payment?value=${value}`);
         console.log(response);
-        axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+        axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
             headers: {
               'Authorization': `JWT ${access_token}`,
               'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ function CashWithdrawal (){
       let access_token = localStorage.getItem('accesstokenCustomer');
       console.log(access_token);
       const value=parseInt(customValue)
-      axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', { credit: value }, {
+      axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit: value }, {
         headers: {
           'Authorization': `JWT ${access_token}`,
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function CashWithdrawal (){
         // handle success
         navigate(`/payment?value=${value}`);
         console.log(response);
-        axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+        axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
             headers: {
               'Authorization': `JWT ${access_token}`,
               'Content-Type': 'application/json',
