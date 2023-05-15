@@ -54,9 +54,6 @@ const SalonSelect = () => {
         const areaURL = ContinueURLForFiltersArea + area ;
         const orederURL =  ContinueURLForFiltersOrdering + ordering ;
         let pageURL = "" ;
-        if(Page !== 1){
-          pageURL = ContinueURLForFiltersPage +  Page;
-        }
         const lowRateURL = ContinueURLForFiltersLowRate + rateValue[0];
         const topRateURL = ContinueURLForFiltersTopRate + rateValue[1];
         const searchURL = ContinueURLForFiltersSearch + query;
@@ -84,9 +81,7 @@ const SalonSelect = () => {
 
   
 
-  const handlePage = (event,value) => {
-    setPage(value)
-  }
+  
   
   const handleOrdering = (event) => {
     setOrdering(event.target.value);
@@ -233,7 +228,7 @@ const SalonSelect = () => {
             </div>
           </div>
           <div className="flex justify-center p-2 rounded-lg bg-[#FFECEE]">
-            <Pagination  size="large" count={howManyPages} page={Page} color="secondary" onChange={handlePage}/>
+            <Pagination  size="large" count={howManyPages} page={Page} color="secondary"/>
           </div>
         </div>
       </div>

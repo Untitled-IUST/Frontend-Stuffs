@@ -29,26 +29,29 @@ function App() {
           </div>
         }/>
         <Route path="/SalonPage/:id" element ={
-            <ImageSlider slides={SliderData}/>
+          <ImageSlider slides={SliderData}/>
         } />
-        <Route path="/ProfilePage" element ={
+        {/* <Route path="/ProfilePage" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <ProfilePage/>
           </div>
-        } />
-        <Route path="/wallet" element ={
+        } /> */}
+        <Route path="/ProfilePage" Component={ProfilePage} />
+        <Route path="/wallet" Component={CashWithdrawal} />
+        {/* <Route path="/wallet" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <CashWithdrawal/>
           </div>
-        } />
-        <Route path="/payment" element ={
+        } /> */}
+        {/* <Route path="/payment" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <Receipt/>
           </div>
-        } />
+        } /> */}
+        <Route path="/payment" Component={Receipt} />
         <Route path="/ShoppingCart" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
