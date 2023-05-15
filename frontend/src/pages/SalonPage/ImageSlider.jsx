@@ -144,7 +144,7 @@ const StyledMenuItem = styled(MenuItem)({
         });
         console.log('POST request successful:', response.data);
         timeIndex++;
-        navigate('/ShoppingCard');
+        navigate('/ShoppingCart');
       }
       } catch (error) {
         console.error('POST request failed:', error);

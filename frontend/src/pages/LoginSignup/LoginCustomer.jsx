@@ -43,6 +43,7 @@ function LoginBarber(){
     .then((res) => {
       alert('You are logged in'); 
       localStorage.setItem('accessTokenCustomer',res.data.access);
+      console.log(localStorage.getItem('accessTokenCustomer'));
       localStorage.setItem('refreshTokenCustomer',res.data.refresh);
       navigate('/SalonSelect');
     })
