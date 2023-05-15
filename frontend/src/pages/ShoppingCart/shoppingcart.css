@@ -1,6 +1,8 @@
 .gradient-custom {
     /* fallback for old browsers */
     background: #382b49 !important;
+    width: 100%;
+
     }
 
 

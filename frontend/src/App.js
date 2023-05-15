@@ -30,9 +30,11 @@ function App() {
         <Route path="/SalonSelect" element={<div className="flex flex-row"><Sidebar/> <SalonSelect/></div>}/>
         <Route path="/SalonPage/:id" element={ <ImageSlider slides={SliderData} />} />
         <Route path="/ProfilePage" element={<div className="flex flex-row"><Sidebar/> <ProfilePage/></div>} />
-        <Route path="/ShoppingCart" Component={PaymentMethods}/>
+        {/* <Route path="/ShoppingCart" Component={PaymentMethods}/> */}
         <Route path="/wallet" Component={CashWithdrawal}/>
         <Route path="/payment" element={<Receipt />} />
+        <Route path="/ShoppingCart" element={<div className="flex flex-row"><Sidebar/> <PaymentMethods/></div>}/>
+      
       </Routes>
     </Router>
     </div>

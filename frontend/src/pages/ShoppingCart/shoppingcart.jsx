@@ -44,6 +44,7 @@ import { toast } from "react-hot-toast";
         const orderIds = orders.map((order) => order.id);
         const quantities = orders.map((order) => order.quantity);
         const statuses = ['paid']; 
+        const [paymentSuccessful, setPaymentSuccessful] = useState(false);
 
         const orderData = {};
         orderIds.forEach((id, index) => {
@@ -57,8 +58,18 @@ import { toast } from "react-hot-toast";
 
 
         function handleDelete(id) {
-          const updatedList = orders.filter(item => item.id !== id);
-          setOrders(updatedList);
+          axios.delete(`https://amirmohammadkomijani.pythonanywhere.com/barber/basket/${id}`, {
+            headers: {
+              'Authorization': `JWT ${access_token}`,
+              'Content-Type': 'application/json'
+            }
+          }).then(response => {
+            // Remove the item from the orders list
+            const updatedList = orders.filter(item => item.id !== id);
+            setOrders(updatedList);
+          }).catch(error => {
+            console.error(error);
+          });
         }
         
         function handleIncreaseQuantity(id) {
@@ -98,7 +109,8 @@ import { toast } from "react-hot-toast";
         useEffect(() => {
             axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/basket/' , {
               headers: {
-                'Authorization': `JWT ${access_token}` 
+                'Authorization': `JWT ${access_token}`,
+                'Content-Type': 'application/json', 
               },
             })
             .then((res) => {
@@ -159,9 +171,10 @@ import { toast } from "react-hot-toast";
               .then(response => {
                 // handle success
                 console.log(response);
+                handlePay();
+                setPaymentSuccessful(true); 
                 alert("You Payment was succsessful!");
-                setOrders([]);
-                axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/add_credits/', {
+                axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
                     headers: {
                       'Authorization': `JWT ${access_token}`,
                       'Content-Type': 'application/json',
@@ -195,6 +208,8 @@ import { toast } from "react-hot-toast";
             })
               .then(response => {
                 navigate(`/payment?value=${remainingAmount}`);
+                handlePay();
+                setPaymentSuccessful(true); 
                 // handle success
                 console.log(response);
                 axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
@@ -222,8 +237,11 @@ import { toast } from "react-hot-toast";
         }
 
       console.log(money)
+      const handlePay1 = async () => {
+        navigate(`/payment?value=${totalCosts}`);
+        handlePay();
+      }
       const  handlePay =  async () => {
-        // navigate(`/payment?value=${totalCosts}`);
         try {
           for (const id of orderIds) {
             const { quantity, status } = orderData[id];
@@ -236,8 +254,10 @@ import { toast } from "react-hot-toast";
                 'Content-Type': 'application/json'
               }
             });
+            console.log('request succsessful')
             console.log(response.data); // Output: the updated order object
           }
+          setPaymentSuccessful(true); 
         } catch (error) {
           console.error(error);
         }
@@ -256,7 +276,7 @@ import { toast } from "react-hot-toast";
             
             {/* shoro style={{height: "18rem"}} style={{height: "10rem"}} */}
             <div>
-              {orders.map((item) => (
+              {orders.filter((item) => item.quantity > 0).map((item) => (
                 <MDBCardBody key={item.id}>
                 <MDBRow> 
                   <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
@@ -334,10 +354,10 @@ import { toast } from "react-hot-toast";
                 <p>
                   <strong>We accept</strong>
                 </p>
-                <button onClick={handleClick} style={{ fontSize: '2em' }}>
+                <button onClick={handleClick} disabled={paymentSuccessful} style={{ fontSize: '2em' }}>
                 <i className="material-icons shopcarticon">account_balance_wallet</i>
               </button><br></br>
-              <button onClick={handlePay}>
+              <button onClick={handlePay1} disabled={paymentSuccessful}>
                 <MDBCardImage className="me-2 shopcarticon" 
                   src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
                   alt="PayPal acceptance mark" />
@@ -366,7 +386,7 @@ import { toast } from "react-hot-toast";
                     <span>
                       
                       <strong>{totalCosts}</strong><br></br>
-                      <strong>{money}</strong><br></br>
+                      <strong>{money < 0 ? 0 : money}</strong><br></br>
                     </span>
                   </MDBListGroupItem>
                 </MDBListGroup>

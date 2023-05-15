@@ -1,5 +1,6 @@
 
 import React, { useState,useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { SliderData } from '../../components/SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import {
@@ -48,7 +49,7 @@ let access_token =localStorage.getItem('accesstokenCustomer');
 function ImageSlider ({ slides }, props) {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-
+  const navigate = useNavigate();
   const theme = createTheme({
     typography: {
       fontFamily: 'Roboto',
@@ -142,8 +143,9 @@ const StyledMenuItem = styled(MenuItem)({
         });
         console.log('POST request successful:', response.data);
         timeIndex++;
-   
+        
       }
+      navigate('/ShoppingCart');
 
       } catch (error) {
         console.error('POST request failed:', error);
@@ -294,7 +296,6 @@ const prevSlide = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {x.price}$
-                  {x.id}
                 </Typography>
               </CardContent>
               <CardActions>
