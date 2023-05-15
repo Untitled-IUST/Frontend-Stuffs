@@ -6,10 +6,10 @@ import {
 
 import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
 import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
-import SalonSelect from "./pages/salonSelect/salonSelect";
+import SalonSelect from "./pages/SalonSelect/salonSelect";
 import SideBar from "./Components/SideBar/SideBar";
 import ImageSlider from "./pages/SalonPage/ImageSlider";
-import { SliderData } from "./components/SliderData";
+import  SliderData  from "./Components/SliderData";
 
 function App() {
   return (

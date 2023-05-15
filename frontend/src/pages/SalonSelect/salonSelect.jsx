@@ -3,7 +3,7 @@ import SalonCard from "../../Components/salonCard";
 import { Pagination, colors } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
-import searchIcon from "./images/search-bar.png";
+import searchIcon from "./Images/search-bar.png";
 
 const SalonSelect = () => {
   
