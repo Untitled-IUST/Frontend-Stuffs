@@ -8,6 +8,8 @@ import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
 import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
 import SalonSelect from "./pages/salonSelect/salonSelect";
 import SideBar from "./Components/SideBar/SideBar";
+import ImageSlider from "./pages/SalonPage/ImageSlider";
+import { SliderData } from "./components/SliderData";
 
 function App() {
   return (
@@ -22,13 +24,13 @@ function App() {
             <SalonSelect/>
           </div>
         }/>
-        {/* <Route path="/SalonPage/:id" element ={
+        <Route path="/SalonPage/:id" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <ImageSlider slides={SliderData}/>
           </div>
         } />
-        <Route path="Profile" element ={
+        {/* <Route path="Profile" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <ProfilePage/>
