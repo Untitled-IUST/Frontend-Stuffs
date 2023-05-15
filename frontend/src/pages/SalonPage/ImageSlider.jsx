@@ -6,7 +6,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Link,
+  useNavigate
 }from "react-router-dom";
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
@@ -39,13 +40,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import { Navigate } from 'react-router-dom';
 let access_token =localStorage.getItem('accessTokenCustomer');
 
 
 
 
-
 function ImageSlider ({ slides }, props) {
+  const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const length = slides.length;
 
@@ -142,13 +144,11 @@ const StyledMenuItem = styled(MenuItem)({
         });
         console.log('POST request successful:', response.data);
         timeIndex++;
-   
+        navigate('/ShoppingCard');
       }
-
       } catch (error) {
         console.error('POST request failed:', error);
       }
-
     }
   
     // const submitCards = async (cardIds, barberId, selectedTime, selectedDate) => {
@@ -294,7 +294,6 @@ const prevSlide = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {x.price}$
-                  {x.id}
                 </Typography>
               </CardContent>
               <CardActions>
