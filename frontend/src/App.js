@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" Component={LoginCustomer}/>
         <Route path="/SignUpCustomer" Component={SignUpCustomer} />
-        <Route path="/SalonSelect" element={
+        {/* <Route path="/SalonSelect" element={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <SalonSelect/>
@@ -31,7 +31,7 @@ function App() {
             <SideBar/>
             <ProfilePage/>
           </div>
-        }/>
+        }/> */}
       </Routes>
     </Router>
     </div>
