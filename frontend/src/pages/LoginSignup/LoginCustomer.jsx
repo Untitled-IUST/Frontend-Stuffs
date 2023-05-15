@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState , useEffect } from "react";
 import { json } from "react-router-dom";
 
-import backgroundImageLoginBarber from "./images/LoginCustomer.png";
+import backgroundImageLoginBarber from "./Images/LoginCustomer.png";
 
 function LoginBarber(){
 

@@ -4,7 +4,7 @@ import { useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import backGroundImageBarberSignUp from "./images/SignUpCustomer.png";
+import backGroundImageBarberSignUp from "./Images/SignUpCustomer.png";
 
 function SignUpBarber(){
   //states
