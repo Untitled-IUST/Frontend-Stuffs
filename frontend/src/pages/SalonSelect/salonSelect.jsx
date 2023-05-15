@@ -1,5 +1,5 @@
 import React , { useState , useEffect} from "react";
-import SalonCard from "../../components/salonCard";
+import SalonCard from "../../Components/salonCard";
 import { Pagination, colors } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
@@ -11,6 +11,24 @@ const SalonSelect = () => {
   const [howManyPages, setHowManyPages] = useState(0);
   const baseURL = "https://amirmohammadkomijani.pythonanywhere.com/barber/info/"
   const [TotalAreas ,  setTotalAreas] = useState([]);
+
+ 
+
+  const [ordering , setOrdering] = useState("");
+  const [rateDropdown , setRateDropdown] = useState(false);
+  const [areaDropdown , setAreaDropdown] = useState(false);
+  const [area , setArea] = useState("");
+  const [Page , setPage] = useState("");
+  const [rateValue , setRateValue] = useState([0,5]);
+  const [query , setQuery] = useState("");
+
+
+  const ContinueURLForFiltersArea = "?area=";
+  const ContinueURLForFiltersOrdering = "&ordering=";
+  const ContinueURLForFiltersLowRate = "&rate__gte=";
+  const ContinueURLForFiltersTopRate = "&rate__lte=";
+  const ContinueURLForFiltersSearch = "&search=";
+  const ContinueURLForFiltersPage = "&page=";
 
   useEffect(() => {
     async function fetchData(){
@@ -28,26 +46,17 @@ const SalonSelect = () => {
     }
     fetchAreas();
   },[])
-
   
-  const handleChange = (event) => {
-    setPage(event.target.value);
-    handleApplyFilters();
-  }
-
-  const ContinueURLForFiltersArea = "?area=";
-  const ContinueURLForFiltersOrdering = "&ordering=";
-  const ContinueURLForFiltersLowRate = "&rate__gte=";
-  const ContinueURLForFiltersTopRate = "&rate__lte=";
-  const ContinueURLForFiltersSearch = "&search=";
-  const ContinueURLForFiltersPage = "&page=";
-  
-  const handleApplyFilters = (event) => {
+  useEffect(() => {
+    
     async function fetchData(){
       try{
         const areaURL = ContinueURLForFiltersArea + area ;
         const orederURL =  ContinueURLForFiltersOrdering + ordering ;
-        const pageURL = ContinueURLForFiltersPage + page;
+        let pageURL = "" ;
+        if(!Page === 1){
+          pageURL = ContinueURLForFiltersPage +  Page;
+        }
         const lowRateURL = ContinueURLForFiltersLowRate + rateValue[0];
         const topRateURL = ContinueURLForFiltersTopRate + rateValue[1];
         const searchURL = ContinueURLForFiltersSearch + query;
@@ -61,39 +70,35 @@ const SalonSelect = () => {
       }
     }
     fetchData();
-  }
+  },[area,ordering,rateValue,query,Page])
+ 
 
-  const [ordering , setOrdering] = useState("");
-  const [rateDropdown , setRateDropdown] = useState(false);
-  const [areaDropdown , setAreaDropdown] = useState(false);
-  const [area , setArea] = useState("");
-  const [page , setPage] = useState("");
-  const [rateValue , setRateValue] = useState([0,5]);
-  const [query , setQuery] = useState("");
-
+  
   function valueText(value) {
     return `${value}`;
   }
   
-  const handleKeyDownSearch = (event) => {
-    if(event.key === "Enter"){
-      handleApplyFilters();
-    }
-  }
+  useEffect(() => {
+    console.log(ordering)
+  },[ordering])
 
+  
+
+  const handlePage = (event) => {
+    setPage(event.target.value)
+  }
+  
   const handleOrdering = (event) => {
-    const newOrdering = event.target.value;
-    setOrdering(newOrdering);
+    setOrdering(event.target.value);
   }
-
     return(
       <div className="w-full bg-[#261B39]">
         <div className="mx-auto w-full max-w-[1400px] flex flex-col sm:flex-row gap-1 justify-between">
-          <div className="flex p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-[#FFECEE] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <input value={query} onKeyDown={handleKeyDownSearch} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="bg-[#FFECEE] h-full w-full" type="text"/>
-            <img onClick={handleApplyFilters} className="cursor-pointer w-[40px] h-[40px]" src={searchIcon} alt="search icon" />
+          <div className="flex p-2 h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-[#FFECEE] border border-gray-200 rounded-lg shadow">
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Type to search..." className="pl-1 bg-[#FFECEE] h-full w-full focus:outline-none" type="text"/>
+            <img className="cursor-pointer w-[40px] h-[40px]" src={searchIcon} alt="search icon" />
           </div>
-          <select onChange={handleOrdering} className="bg-[#FFECEE] h-[50px] m-4 mb-0 flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <select onChange={handleOrdering} className="bg-[#FFECEE] h-[50px] m-4 mb-0 flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
             <option value="">No ordering</option>
             <option value="rate">rate: ascending</option>
             <option value="-rate">rate: descending</option>
@@ -211,9 +216,6 @@ const SalonSelect = () => {
                 }
                 <div className="flex flex-row justify-between w-full">
                   <div className="mt-2">
-                    <Button sx={{backgroundColor:"#261B39"}} size="small" variant="contained" onClick={handleApplyFilters} >Apply</Button>
-                  </div>
-                  <div className="mt-2">
                     <Button sx={{backgroundColor:"#261B39"}} size="small" variant="contained" onClick={() => {
                       setRateValue([0,5]);
                       setArea("");
@@ -231,7 +233,7 @@ const SalonSelect = () => {
             </div>
           </div>
           <div className="flex justify-center p-2 rounded-lg bg-[#FFECEE]">
-            <Pagination  size="large" count={howManyPages} page={page} color="secondary" onChange={handleChange}/>
+            <Pagination  size="large" count={howManyPages} page={Page} color="secondary" onChange={handlePage}/>
           </div>
         </div>
       </div>

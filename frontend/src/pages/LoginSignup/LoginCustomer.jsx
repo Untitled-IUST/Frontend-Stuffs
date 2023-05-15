@@ -44,7 +44,7 @@ function LoginBarber(){
       alert('You are logged in'); 
       localStorage.setItem('accessTokenCustomer',res.data.access);
       localStorage.setItem('refreshTokenCustomer',res.data.refresh);
-      navigate('/');
+      navigate('/SalonSelect');
     })
     .catch(error => {
       setError(error.response.data["detail"]);

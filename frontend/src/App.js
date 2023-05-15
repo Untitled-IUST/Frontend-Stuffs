@@ -6,6 +6,8 @@ import {
 
 import LoginCustomer from "./pages/LoginSignup/LoginCustomer";
 import SignUpCustomer from "./pages/LoginSignup/SignUpCustomer";
+import SalonSelect from "./pages/salonSelect/salonSelect";
+import SideBar from "./Components/SideBar/SideBar";
 
 function App() {
   return (
@@ -14,13 +16,13 @@ function App() {
       <Routes>
         <Route path="/" Component={LoginCustomer}/>
         <Route path="/SignUpCustomer" Component={SignUpCustomer} />
-        {/* <Route path="/SalonSelect" element={
+        <Route path="/SalonSelect" element={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <SalonSelect/>
           </div>
         }/>
-        <Route path="/SalonPage/:id" element ={
+        {/* <Route path="/SalonPage/:id" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <ImageSlider slides={SliderData}/>
