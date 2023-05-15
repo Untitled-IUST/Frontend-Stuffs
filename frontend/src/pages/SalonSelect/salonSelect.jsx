@@ -54,7 +54,7 @@ const SalonSelect = () => {
         const areaURL = ContinueURLForFiltersArea + area ;
         const orederURL =  ContinueURLForFiltersOrdering + ordering ;
         let pageURL = "" ;
-        if(!Page === 1){
+        if(Page !== 1){
           pageURL = ContinueURLForFiltersPage +  Page;
         }
         const lowRateURL = ContinueURLForFiltersLowRate + rateValue[0];
@@ -84,8 +84,8 @@ const SalonSelect = () => {
 
   
 
-  const handlePage = (event) => {
-    setPage(event.target.value)
+  const handlePage = (event,value) => {
+    setPage(value)
   }
   
   const handleOrdering = (event) => {

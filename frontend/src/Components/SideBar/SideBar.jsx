@@ -33,7 +33,10 @@ function SideBar(){
               <h2>{userName}</h2>
             </MenuItem>
             <MenuItem icon={<RecentActorsIcon/>} component={<Link to="/SalonSelect" />}>SalonSelect</MenuItem>
+            <MenuItem icon={<LogoutIcon />}  component={<Link to="/ProfilePage" />}>Profile</MenuItem>
+            <MenuItem icon={<LogoutIcon />}  component={<Link to="/wallet" />}>Wallet</MenuItem>
             <MenuItem icon={<LogoutIcon />} onClick={() => {localStorage.removeItem('accessTokenCustomer')}} component={<Link to="/" />}>Log Out</MenuItem>
+            
           </Menu>
         </Sidebar>
     )

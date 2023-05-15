@@ -71,7 +71,7 @@ function LoginBarber(){
               <img src={backgroundImageLoginBarber} alt="Login"/>
             </div>
             <div className="w-full lg:w-1/2 rounded-lg lg:rounded-l-none flex flex-col justify-center">
-              <h3 className="text-cherryBlossomPink-500 mt-12 text-2xl text-center">Login To Your Salon</h3>
+              <h3 className="text-cherryBlossomPink-500 mt-12 text-2xl text-center">Login</h3>
               <form className="mx-8 mt-6 mb-4 rounded">
                 <div className="mb-4">
                   <label className="text-cherryBlossomPink-500 block mb-2 text-sm font-bold" for="Email">
@@ -160,7 +160,7 @@ function LoginBarber(){
                 </div>
                 <p className="m-1 text-xs italic text-red-500">{Error}</p>
                 <hr className="mb-3 border-t text-gray-400" />
-                <Link to="/SignUpBarber" className="bg-gray-600 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
+                <Link to="/SignUpCustomer" className="bg-gray-600 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
                   Create an Account!
                 </Link>
               </form>
