@@ -41,8 +41,15 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { Navigate } from 'react-router-dom';
-let access_token =localStorage.getItem('accessTokenCustomer');
+import Badge from '@mui/material/Badge';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import MailIcon from '@mui/icons-material/Mail';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+
+let access_token =localStorage.getItem('accessTokenCustomer');
 
 
 
@@ -50,6 +57,7 @@ function ImageSlider ({ slides }) {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const length = slides.length;
+  const [count, setCount] = React.useState(0);
 console.log(access_token)
   const theme = createTheme({
     typography: {
@@ -193,6 +201,13 @@ const StyledMenuItem = styled(MenuItem)({
         });
       };
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
+  const handleClickOpen1 = () => {
+    setOpen1(true);
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
+  };  
 
   const handleClickOpen = () => {
         setOpen(true);
@@ -250,7 +265,41 @@ const prevSlide = () => {
                 zIndex: '3',  marginTop:'-20%',marginBottom:'5%',
            borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
            {/* <LocalGroceryStoreIcon  style={{color:'#ffecee', fontSize:45, marginTop:'-30%',marginBottom:'10%',marginLeft:5}} ></LocalGroceryStoreIcon>  */}
-        <div/> 
+        <div/>
+        <div>
+        <Box       sx={{
+        color: 'action.active',
+        display: 'flex',
+        flexDirection: 'column',
+        '& > *': {
+          marginBottom: 2,
+        },
+        '& .MuiBadge-root': {
+          marginRight: 4,
+        },}}>
+
+              <div>
+              <Button className='ac' onClick={handleClickOpen1}>
+                <Badge color="secondary" badgeContent={count}>
+                <ShoppingCartIcon sx={{fontSize:45,color:"#ac3b61"}} />
+                </Badge>
+                </Button>
+                <Dialog open={open1} onClose={handleClose1} sx={{ '& .MuiPaper-root': { borderRadius: '16px' } }}>
+              <Box sx={{ p: 4,bgcolor: '#edc7b7',width: 300 }}>
+              <Typography variant="h6" color='#123c69' padding={2} border={5 } borderColor={'#123c69'} borderRadius={2} border={'dashed'} marginBottom={3}>Selected Cards: </Typography>
+              {selectedCards.map((card) => (
+                <Typography  color='#123c69'  key={card.name} >{card.name} {card.price}$</Typography>
+                
+              ))}
+              <Typography variant="h6"color='#ac3b61' padding={2} marginTop={2}  marginBottom={2}  border={5} borderColor={'#ac3b61'} border={'dashed'}  borderRadius={2}>
+                Total Price: ${totalPrice}</Typography>
+                </Box>
+                </Dialog>
+                
+
+              </div>
+      </Box>
+      </div>
         
 
       <Container fixed>
@@ -297,8 +346,26 @@ const prevSlide = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button className='ab'  onClick={() => handleCardSelection({id: x.id, name: x.service, price: x.price })}>Book</Button>
-                <Button  className='ab'onClick={() => handleCardRemoval({id: x.id, name: x.service, price: x.price })}>Remove</Button>
+              <ButtonGroup>
+                  <Button
+                    aria-label="reduce"
+                    onClick={() => {  handleCardRemoval({id: x.id, name: x.service, price: x.price })
+                      setCount(Math.max(count - 1, 0));
+                    }}
+                  >
+                    <RemoveIcon fontSize="small" />
+                  </Button>
+                  <Button
+                    aria-label="increase"
+                    onClick={() => { handleCardSelection({id: x.id, name: x.service, price: x.price })
+                      setCount(Math.min(count + 1, 3));
+                    }}
+                  >
+                    <AddIcon fontSize="small" />
+                  </Button>
+                </ButtonGroup>
+                {/* <Button className='ab'  onClick={() => handleCardSelection({id: x.id, name: x.service, price: x.price })}>Book</Button>
+                <Button  className='ab'onClick={() => handleCardRemoval({id: x.id, name: x.service, price: x.price })}>Remove</Button> */}
               </CardActions>
             </Card>
           </div>
@@ -335,7 +402,7 @@ const prevSlide = () => {
                 value={selectedTime}
                 onChange={handleTimeChange}
               >
-                <MenuItem style={{backgroundColor:"black"}} value="">
+                <MenuItem style={{backgroundColor:"#ac3b61"}} value="">
                   <em >Choose a time</em>
                 </MenuItem>
                 {times.map((time) => (

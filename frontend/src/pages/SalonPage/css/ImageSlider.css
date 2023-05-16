@@ -114,6 +114,15 @@
   font-size: 24px !important;
   /* background-color: #ac3b6118 !important; */
   }
+.ac{
+  background-color: none !important;
+  margin-left: 15% !important;
+  margin-top: -15% !important;
+}
+
+.css-jcn4dz-MuiBadge-badge {
+  background-color: #edc7b7 !important;
+}
   
 button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
   cursor: pointer;
@@ -150,7 +159,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
   } */
   .er{
   font-size: 15px;
-  margin-left: -50%;
+  /* margin-left: -50%; */
   margin-top: 3%;
   
   }
