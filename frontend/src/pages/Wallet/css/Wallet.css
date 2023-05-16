@@ -7,16 +7,16 @@
     justify-content: center;
     align-items: center;
     font-family: 'Roboto';
-    height: 100vh;
+    height: 100%;
     /* width:100%; */
-    background: linear-gradient( #261b39, rgba(140, 115, 230, 0.411))
+    background: linear-gradient( #edc7b7,  #123c69d3)
   }
   .inner-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 20px;
-    background-color: #ffecee;
+    background-color: #eee2dc;
     border-radius: 15px;
     width: 450px;
     /* height: 70%; */
@@ -46,7 +46,7 @@
     font-size: large;
   }
   .name-para {
-    color: #261B39;
+    color: #edc7b7;
     font-size: 20px;
     padding: 5%;
     margin-left: 25%;
@@ -62,21 +62,23 @@
     /* margin-bottom: -20px; */
   }
   .balance-name {
-    color: #261B39;
+    color: #edc7b7;
     font-size: 25px;
     align-self: left;
   }
   
   .amount {
-    color: #261B39;
+    color: #edc7b7;
     font-size: 28px;
     
   }
 
   .withdraw {
-    color: #261B39;
+    color: #ac3b61;
     text-shadow: 70px 4px 6px 10px #261B39;
     font-size: 20px;
+    text-align: center;
+    margin-bottom: 5%;
   
 
   }
@@ -87,7 +89,7 @@
     list-style-type: none;
     flex-wrap: wrap;
     /* margin-top: -5px; */
-    margin-left: -40px;
+    margin-left: -5px;
   }
 .pmr{
     width: 30%;
@@ -102,30 +104,34 @@
 .pmr1{
   width: 200px;
   padding: 3%;
-  background-color:  rgba(140, 115, 230, 0.411) ;
+  background-color:  #ac3b61;
   display: flex;
   justify-content: center;
   margin: auto;
+  color: #edc7b7;
+  border-radius: 7px;
 }
 .pmr1:hover{
-  background-color: rgb(252, 203, 199)  !important;
+  background-color:#ac3b61a4;
 }
 .prp{
   /* border:1px solid rgba(64, 54, 99, 0.603); */
   border-radius: 3%;
-  margin-bottom: 10%;
-  background-color: rgba(140, 115, 230, 0.411);
+  margin-bottom: 5%;
+  background-color: #123c69de;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 
 }
 .inp{
-  width: 300px;
+  width: 310px;
+  border-radius: 7px;
   padding: 3%;
-  background-color:  rgba(140, 115, 230, 0.411) ;
+  background-color: #edc7b7;
   display: flex;
   justify-content: center;
   margin: auto;
   margin-bottom: 5%;
+  margin-top: 3%;
 }
 
 

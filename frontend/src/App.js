@@ -14,6 +14,7 @@ import ProfilePage from "./pages/customerProfile/Customer_Profile";
 import CashWithdrawal from "./pages/Wallet/Wallet";
 import { Receipt } from "./pages/Wallet/Receipt";
 import PaymentMethods from "./pages/ShoppingCart/shoppingcart";
+import SelectedPlan from "./pages/Wallet/Content";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
             <PaymentMethods/>
           </div>
         } />
+        <Route path="/paymentcard"  Component={SelectedPlan} />
       </Routes>
     </Router>
     </div>

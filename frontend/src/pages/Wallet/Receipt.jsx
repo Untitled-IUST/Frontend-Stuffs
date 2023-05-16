@@ -31,13 +31,12 @@ export const Receipt = () => {
 //   },[]);
 
   function handleSubmit () {
-    navigate('/user/orders')
+    navigate('/SalonSelect')
   }
 
   return (
     <div className='ReceiptMain'>
       <div className='ReceiptContainer'>
-        <img className="ReceiptRestLogo" src={rest.logoImg}></img>
         <div className='ReceiptCard'>
           <div className='ReceiptTop'>
           <p className='ReceiptResponse'>
@@ -46,14 +45,6 @@ export const Receipt = () => {
           </div>
 
           <div className='ReceiptDetails'>
-            <div className='ReceiptList'>
-              <p>Salon name</p> 
-              <p className='answer'>: {rest.name}</p>
-            </div>
-            <div className='ReceiptList'>
-              <p>Order number</p> 
-              {/* <p className='answer'>: {orderId}</p> */}
-            </div>
             <div className='ReceiptList'>
               <p>Date</p> 
               <p className='answer'>: {date}</p>
@@ -65,8 +56,8 @@ export const Receipt = () => {
           </div>
 
           <div className='ReceiptBottom'>
-            <p>You can follow up your order from here:</p>
-            <button className='ReceiptButton' onClick={()=>handleSubmit()}>Order status</button>
+            <p>Back to being beauty!</p>
+            <button className='ReceiptButton' onClick={()=>handleSubmit()}>salons</button>
           </div>
         </div> 
       </div>

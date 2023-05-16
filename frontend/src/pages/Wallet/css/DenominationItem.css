@@ -1,14 +1,13 @@
 
-.btn {
+.btnm {
     /* display: flex;
     flex-direction: column;
     justify-content: center; */
-    width: 100px;
-    background-color:  rgba(140, 115, 230, 0.411);
-      border-color: #c4c4c4;
-      border-width: 1px;
+      width: 100px;
+      background-color:#edc7b7    !important;
+
       border-radius: 5px;
-      color: #261b39;
+      color: #ac3b61;
       font-size: 20px;
       padding: 5%;
       margin-bottom: 10px;
@@ -17,12 +16,13 @@
       /* width: 150px; */
       display: flex;
       justify-content: center;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.507);
       /* margin-right: 80px;
       margin-left: 50%;
       margin-bottom: 20px; */
     }
-    .btn:hover{
-      background-color:rgb(252, 203, 199) !important;
+    .btnm:hover{
+      background-color:#ac3b61a4 !important;
     }
     .item-holder{
       display: flex;

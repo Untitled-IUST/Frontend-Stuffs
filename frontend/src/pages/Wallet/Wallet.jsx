@@ -63,7 +63,7 @@ function CashWithdrawal (){
     })
       .then(response => {
         // handle success
-        navigate(`/payment?value=${value}`);
+        navigate(`/paymentcard?value=${value}`);
         console.log(response);
         axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
             headers: {
@@ -112,7 +112,7 @@ function CashWithdrawal (){
       })
       .then(response => {
         // handle success
-        navigate(`/payment?value=${value}`);
+        navigate(`/paymentcard?value=${value}`);
         console.log(response);
         axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', {
             headers: {
@@ -151,7 +151,7 @@ console.log(fname)
               </div>
               </div>
         </div>
-        <p className="withdraw">Add Money</p>
+        <p className="withdraw">Charge Money</p>
 
 
         <ul className="items-holder">
