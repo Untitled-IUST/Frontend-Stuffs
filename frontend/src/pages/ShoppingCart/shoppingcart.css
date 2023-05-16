@@ -1,20 +1,22 @@
 .gradient-custom {
     /* fallback for old browsers */
-    background: #382b49 !important;
+    background: #EEE2DC !important;
     width: 100%;
+    color: #ac3b61;
 
     }
 
 
 .shopcartcolor{
-    background-color: #ffecee;
+    background-color: #edc7b7;
 }
 
 .shopcartbutton{
-    background-color: rgb(56,43,73,0.7);
+    background-color: #123c69 ;
 }
 .shopcartbutton:hover{
-    background-color: rgb(56,43,73,0.8); 
+    background-color: #123c69c7 ;
+     
 }
 .shopcartbutton:focus,
 .shopcartbutton:active {
