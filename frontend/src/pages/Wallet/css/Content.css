@@ -18,7 +18,7 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient( #261b39, rgba(140, 115, 230, 0.411));
+    background: linear-gradient( #edc7b7,  #123c69d3);
     height: 100vh;
     user-select: none;
   }
@@ -36,7 +36,7 @@
     height: 232px;
     background: #fdccc8;
     border-radius: 8px;
-    box-shadow: 0 2px 12px 0 #382B49;
+    box-shadow: 0 2px 12px 0 #000000;
   }
   .content {
     opacity: 1;

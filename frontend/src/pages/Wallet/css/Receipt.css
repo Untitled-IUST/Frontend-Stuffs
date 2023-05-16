@@ -2,8 +2,9 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    color: #ffecee;
-    background: linear-gradient( #261b39, rgba(140, 115, 230, 0.411)) 
+    color: #ac3b61;
+    
+    background: linear-gradient( #edc7b7,  #123c69d3);
     /* background-color: aqua; */
 
     
@@ -31,13 +32,13 @@
 .ReceiptCard {
     overflow: hidden;
     border-radius: 20px;
-    background-color: #ffecee;
+    background-color: #eee2dc;
     box-shadow: 2px 2px 20px 1px #000000;
 }
 
 .ReceiptTop {
     height: 100px;
-    background-color: rgb(140, 115, 230, 0.411);
+    background-color: #123c69de;;
     display: flex;
     align-items: center;
     padding-top: 30px;
@@ -79,22 +80,22 @@
 }
 
 .ReceiptButton {
-    background-color: rgb(140, 115, 230, 0.411);
+    background-color: #ac3b61;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
     border: none;
     border-radius: 10px;
-    color: black;
-    font-weight: bolder;
+    color: #edc7b7;
+
     font-size:larger;
     outline:none;
 }
 
 .ReceiptButton:hover {
     color: #ffecee;
-    background-color: #382b49;
+    background-color: #ac3b61d3;
     cursor: pointer;
     transition-duration: 0.4s;
 }

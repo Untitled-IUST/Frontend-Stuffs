@@ -6,7 +6,7 @@ const DenominationItem = props => {
   }
   return (
     <li className="item-holder">
-      <button type="button" className="btn" onClick={() => onButtonClick(value)}>
+      <button type="button" className="btnm" onClick={() => onButtonClick(value)}>
         {value}
       </button>
     </li>

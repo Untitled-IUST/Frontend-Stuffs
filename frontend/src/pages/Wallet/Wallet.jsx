@@ -151,7 +151,7 @@ console.log(fname)
               </div>
               </div>
         </div>
-        <p className="withdraw">Add Money</p>
+        <p className="withdraw">Charge Money</p>
 
 
         <ul className="items-holder">
