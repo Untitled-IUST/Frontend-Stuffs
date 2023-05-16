@@ -5,6 +5,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import axios from "axios";
 import {Link} from 'react-router-dom';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AddHomeIcon from '@mui/icons-material/AddHome';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
+
 
 function SideBar(){
   
@@ -32,9 +37,10 @@ function SideBar(){
               {" "}
               <h2>{userName}</h2>
             </MenuItem>
-            <MenuItem icon={<RecentActorsIcon/>} component={<Link to="/SalonSelect" />}>SalonSelect</MenuItem>
-            <MenuItem icon={<LogoutIcon />}  component={<Link to="/ProfilePage" />}>Profile</MenuItem>
-            <MenuItem icon={<LogoutIcon />}  component={<Link to="/wallet" />}>Wallet</MenuItem>
+            <MenuItem icon={<AddHomeIcon/>} component={<Link to="/SalonSelect" />}>SalonSelect</MenuItem>
+            <MenuItem icon={<AccountBoxRoundedIcon />}  component={<Link to="/ProfilePage" />}>Profile</MenuItem>
+            <MenuItem icon={<ShoppingCartCheckoutIcon/>}  component={<Link to="/ShoppingCart" />}>Basket</MenuItem>
+            <MenuItem icon={<AccountBalanceWalletIcon/>}  component={<Link to="/wallet" />}>Wallet</MenuItem>
             <MenuItem icon={<LogoutIcon />} onClick={() => {localStorage.removeItem('accessTokenCustomer')}} component={<Link to="/" />}>Log Out</MenuItem>
             
           </Menu>
