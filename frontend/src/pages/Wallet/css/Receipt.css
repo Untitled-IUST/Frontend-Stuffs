@@ -3,7 +3,7 @@
     flex-direction: column;
     min-height: 100vh;
     color: #ffecee;
-    background-image: url("../receiptImg.jpg"); 
+    background: linear-gradient( #261b39, rgba(140, 115, 230, 0.411)) 
     /* background-color: aqua; */
 
     
@@ -31,13 +31,13 @@
 .ReceiptCard {
     overflow: hidden;
     border-radius: 20px;
-    background-color: #261B39;
+    background-color: #ffecee;
     box-shadow: 2px 2px 20px 1px #000000;
 }
 
 .ReceiptTop {
     height: 100px;
-    background-color: #fdccc8;
+    background-color: rgb(140, 115, 230, 0.411);
     display: flex;
     align-items: center;
     padding-top: 30px;
@@ -48,7 +48,7 @@
     font-weight: bolder;
     margin-left: 40px;
     margin-right: 40px;
-    text-shadow: 1px 1px 2px  #000000;
+    /* text-shadow: 1px 1px 2px  #000000; */
     margin-top: 30px;
     color: #261B39;
 }
@@ -59,17 +59,18 @@
 }
 
 .ReceiptList {
-    border-bottom: 0.5px solid #fdccc8;
+    border-bottom: 0.5px solid rgb(140, 115, 230, 0.411);
     padding-bottom: 0px;
     font-weight: bold;
     margin-bottom: 30px;
     display: flex;
     flex-flow:wrap;
+    color: #261B39!important;
 }
 
 .answer {
     font-weight: lighter;
-    color: white;
+    color: 261B39;
 }
 
 .ReceiptBottom {
@@ -78,7 +79,7 @@
 }
 
 .ReceiptButton {
-    background-color: #fdccc8;
+    background-color: rgb(140, 115, 230, 0.411);
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 10px;

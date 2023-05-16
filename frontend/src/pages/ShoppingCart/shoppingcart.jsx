@@ -207,7 +207,7 @@ import { toast } from "react-hot-toast";
               }
             })
               .then(response => {
-                navigate(`/payment?value=${remainingAmount}`);
+                navigate(`/paymentcard?value=${remainingAmount}`);
                 handlePay();
                 setPaymentSuccessful(true); 
                 // handle success
@@ -238,7 +238,7 @@ import { toast } from "react-hot-toast";
 
       console.log(money)
       const handlePay1 = async () => {
-        navigate(`/payment?value=${totalCosts}`);
+        navigate(`/paymentcard?value=${totalCosts}`);
         handlePay();
       }
       const  handlePay =  async () => {
