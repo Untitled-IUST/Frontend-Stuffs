@@ -5,23 +5,33 @@
   justify-content: center;
 }
 .backgroundprofile{
-  background-color: #161616;
+  background: linear-gradient( #edc7b7,  #123c69d3);
   background-size: cover;
   display: flex;
 }
 .rowContainer{
   justify-content: center;
+  
+}
+.row{
+  display: flex!important;
+  flex-direction: column !important;
+  flex-wrap: wrap !important;
+  align-content: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+
 }
 
 .salam{
-  background-color: rgb(255, 238, 236, 0.6) !important;
+  background-color: #eee2dc !important;
   width: 700px !important;
 }
 
 .MDBCard{
   width: 700px !important;
-  padding: auto;
-  background-color: rgb(255, 238, 236, 0.6) !important;
+  height: 250px !important;
+  background-color:  #eee2dc !important;
 
 }
 .p-0{
@@ -31,28 +41,33 @@
   font-family: 'Roboto' !important;
   font-style: normal !important;
 }
-
+.MDBCard{
+  margin-bottom: 2%;
+  border-radius: 10px;
+}
 .user{
-  color : #120d1c;
+  color: #edc7b7;
   height: 50px;
   width: 150px;
   text-align: center;
   padding: 10px;
-  background-color: rgb(56,43,73, 0.3) !important;
+  background-color: #123c69 !important;
   justify-content: center;
 }
 
 .mbs-4{
-  color: #120d1c;
+  color: #ac3b61;
 }
 .personal-form-input{
   border-radius: 0.5rem ;
-  background-color: rgb(56,43,73, 0.3) ;
+  background-color: #edc7b7 ;
 }
 .update{
-  background-color:rgb(56,43,73, 0.3) ;
-  border-radius: 1rem;
+  background-color:#ac3b61 !important ;
+  border-radius: 5px;
   border-style:none;
   margin: auto;
-  justify-content: left;
+  width: 100px;
+  justify-content:center !important;
+  color: #edc7b7;
 } 
