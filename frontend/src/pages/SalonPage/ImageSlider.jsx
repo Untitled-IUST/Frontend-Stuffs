@@ -57,12 +57,12 @@ console.log(access_token)
     },
   });
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#ffecee',
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#edc7b7',
     ...theme.typography.body2,
     padding: theme.spacing(3),
     textAlign: 'left',
-    color: '#120c1e',
-    fontFamily: 'Roboto',
+    color: '#ac3b61',
+    fontFamily: 'Roboto, ',
     fontSize:  25,
     borderRadius:10,
   }));
@@ -257,8 +257,8 @@ const prevSlide = () => {
       <Typography component="div">
       <ThemeProvider theme={theme}>
       <div className='ti'>
-      <Box  className='ti1' sx={{ bgcolor: 'rgba(248, 220, 220, 0.35)', width: '40%',borderRadius:3,
-        height: 80,fontSize: 30,textAlign:'center',mt:'-5%', mb:'10%',pt:'1%', fontFamily: 'Roboto, ' , color:'#ffecee'}}>
+      <Box  className='ti1' sx={{ bgcolor: '#edc7b7', width: '40%',borderRadius:3,
+        height: 80,fontSize: 30,textAlign:'center',mt:'-5%', mb:'10%',pt:'1%', fontFamily: 'Roboto, ' , color:"#ac3b61",}}>
         {data.BarberShop}
       </Box>
       </div>
@@ -267,7 +267,7 @@ const prevSlide = () => {
     </Container>
 
     <div>
-    <Tabs value={currentTabIndex}  onChange={handleTabChange}  centered>
+    <Tabs  className='mn' value={currentTabIndex}  onChange={handleTabChange}  centered>
       {servicefront.map((item, index) => (
         <Tab  key={item.category} label={item.category} />
       ))}
@@ -282,7 +282,7 @@ const prevSlide = () => {
         {item.categoryServices.map((x) => (
 
           <div  className="card"  key={x.service}>
-            <Card   sx={{ maxWidth: 345, bgcolor: '#ffecee', fontFamily: 'Roboto', color: '#120c1e', borderRadius: 3 }}>
+            <Card   >
             <CardMedia
   sx={{ height: 140 }}
   image={x.servicePic ? x.servicePic : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"}
@@ -292,13 +292,13 @@ const prevSlide = () => {
                 <Typography className='c1' gutterBottom variant="h5" component="div">
                   {x.service}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography className='c2'  variant="body2" color="text.secondary">
                   {x.price}$
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => handleCardSelection({id: x.id, name: x.service, price: x.price })}>Book</Button>
-                <Button onClick={() => handleCardRemoval({id: x.id, name: x.service, price: x.price })}>Remove</Button>
+                <Button className='ab'  onClick={() => handleCardSelection({id: x.id, name: x.service, price: x.price })}>Book</Button>
+                <Button  className='ab'onClick={() => handleCardRemoval({id: x.id, name: x.service, price: x.price })}>Remove</Button>
               </CardActions>
             </Card>
           </div>
@@ -313,7 +313,7 @@ const prevSlide = () => {
           <div className='bt1984'>
           <button className='bt' onClick={handleClickOpen}>Order</button>
           <Dialog open={open} onClose={handleClose} sx={{ '& .MuiPaper-root': { borderRadius: '16px'  } }}>
-            <Box sx={{ p: 5,bgcolor: '#ffecee' }}>
+            <Box sx={{ p: 5,bgcolor: '#edc7b7' }}>
               {/* <Typography variant="h6" color='#120c1e' padding={2} border={5} borderColor={'#120c1e'} borderRadius={2} marginBottom={3}>Selected Cards: </Typography>
               {selectedCards.map((card) => (
                 <Typography  color='#120c1e'  key={card.name} >{card.name} {card.price}</Typography>
@@ -325,7 +325,7 @@ const prevSlide = () => {
                 displayEmpty
                 sx={{
                   width: "70%",
-                  backgroundColor: "#120c1e",
+                  backgroundColor: "#ac3b61",
                   border: "1px solid darkgrey",
                   color: "#ffecee",
                   "& .MuiSvgIcon-root": {
@@ -343,7 +343,7 @@ const prevSlide = () => {
                     key={time}
                     value={time}
                     sx={{
-                      backgroundColor: time === selectedTime ? "#fdccc8" : "#120c1e",
+                      backgroundColor: time === selectedTime ? "#edc7b7" : "#ac3b61",
                       color: "white",
                       "&:hover": {
                         backgroundColor: "#fdccc8",
@@ -354,12 +354,12 @@ const prevSlide = () => {
                   </MenuItem>
                 ))}
               </Select>
-              <LocalizationProvider dateAdapter={AdapterDayjs} >
+              <LocalizationProvider dateAdapter={AdapterDayjs}  className="bl">
                 <DatePicker minDate={dayjs()} onChange={handleDateChange} />
               </LocalizationProvider>
               {/* <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:'50%',padding:2 }}onClick={null}>BUY</Button> */}
               {/* <Button onClick={() => submitCards(selectedCards.map(card => card.id))}>Submit Cards</Button> */}
-              <Button sx={{ backgroundColor: '#120c1e'  , color: 'white',marginTop:3,width:'70%',padding:2 }}o onClick={() => submitCards(selectedCards.map(card => card.id), id,selectedTime, selectedDate)}>Submit Cards</Button>
+              <Button sx={{ backgroundColor: '#ac3b61'  , color: '#edc7b7',marginTop:3,width:'70%',padding:2 }}o onClick={() => submitCards(selectedCards.map(card => card.id), id,selectedTime, selectedDate)}>Submit Cards</Button>
               {/* <Button onClick={() => submitCards( selectedTime, selectedDate)}>Submit Cards</Button> */}
             </Box>
           </Dialog>
@@ -372,8 +372,8 @@ const prevSlide = () => {
 
     <Container fixed>
       <Typography component="div">
-      <Box  className='dis' sx={{ bgcolor: '#ffecee', width: '45%',
-        height: 70,textAlign: 'left', ml: '55%',fontSize: 25, mt:'15%' ,mb:-15.7,fontFamily:'Roboto',pt:1,pr:3,pl:3 , color:'#120c1e',borderRadius:3}}>
+      <Box  className='dis' sx={{ bgcolor: '#123c69', width: '45%',
+        height: 70,textAlign: 'left', ml: '55%',fontSize: 25, mt:'15%' ,mb:-15.7,fontFamily:'Roboto, ',pt:1,pr:3,pl:3 , color:'#edc7b7',borderRadius:3}}>
         you are beautiful cause you care.
       </Box>
     </Typography>
@@ -389,8 +389,8 @@ const prevSlide = () => {
 
     <Typography component="div">
       
-      <Box  className='dis1' sx={{ bgcolor: '#ffecee', width:'45%',
-        height: 317,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 25, mb:15,fontFamily:'Roboto',p: 3 , color:'#120c1e',borderRadius:3}}>
+      <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:'45%',
+        height: 317,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
         our salon beauty is a calm and nice plase
         which will give you the best experince of a beauty salon you ever try. We have perfetional artists and good services
         enjoy your time

@@ -1,6 +1,9 @@
-
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Ubuntu");
+*{
+  font-family: "Ubuntu", sans-serif;
+}
 .wholebarber{
-    background-color: #261b39;
+    background-color: #eee2dc;
     height: 100%;
   }
   .slider {
@@ -25,7 +28,7 @@
     top: 30%;
     right: 32px;
     font-size: 3rem;
-    color: #ffecee;
+    color: #edc7b7;
     z-index: 5;
     cursor: pointer;
     user-select: none;
@@ -36,7 +39,7 @@
     top: 30%;
     left: 32px;
     font-size: 3rem;
-    color: #ffecee;
+    color: #edc7b7;
     z-index: 10;
     cursor: pointer;
     user-select: none;
@@ -57,7 +60,7 @@
   
   
   .MuiTabs-indicator{
-  background: #ffecee !important;
+  background: #edc7b7 !important;
   
   }
   .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-sm-6.MuiGrid-grid-md-4.css-13i4rnv-MuiGrid-root {
@@ -86,37 +89,46 @@
     
   }
   .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected{
-    background-color: #261b39!important;
+    background-color: #edc7b7!important;
   }
   .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
-    width: 70%;
-    margin-left: 15%;
+    width: 145% !important;
     margin-top: 10%;
+    color: #123c69 !important;
   }
   .css-1mafocu-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
   background-color: 
   rgba(180, 54, 54, 0.35)!important;
   }
-  .Mui-selected li{
-  background-color: rgb(32, 32, 32)!important;
-  }
+
   .MuiCardContent-root{
   
   
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
+  background-color: #edc7b7bb;
+  border-bottom: 2px dashed #ac3b61;
   border-radius: 4px;
   }
   .Mui-selected {
   /* background-color: !important; */
-  color:  white!important;
-  font-size: 20px !important;
+  color:  #ac3b61!important;
+  font-size: 24px !important;
+  /* background-color: #ac3b6118 !important; */
   }
   
+button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+  cursor: pointer;
+  /* color: #123c69; */
+  font-size: 18px;
+}
+
+
+
+  
   .MuiTabs-flexContainer{
-  background-color:rgba(248, 220, 220, 0.35); 
+  background-color:#edc7b7da; 
   width: 100%;
-  margin-top: 5%;
+  height: 70px;
+
   }
   
   /* .count{
@@ -145,19 +157,30 @@
   .bt{
   padding: 2%;
   width: 30%;
-  color: #120c1e;
-  background-color: #ffecee;
+  color: #edc7b7!important;
+  background-color: #ac3b61;
   text-align: center;
   margin-top: 5%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.705);
   /* margin-left: 29%; */
-  font-family: "Roboto",sans-serif;
-  font-size: 20PX;
+  font-family: "Ubuntu", sans-serif !important;
+  font-size: 22PX !important;
   border-radius: 10px;
   
   
   }
+.ab{ 
+  font-family: "Ubuntu", sans-serif !important;
+}
+.css-1t6e9jv-MuiCardActions-root{
+  background-color: #edc7b7b7 !important;
+  font-size: 16px !important;
+  
+
+}
   .bt:hover{
   background-color: rgba(252, 203, 199, 0.685)  !important;
+  color: #ac3b61 !important;
   }
   .bt1984{
   display: flex;
@@ -177,11 +200,23 @@
   text-align: center;
   margin-top: 5%;
   margin-left: 29%;
-  font-family: "Roboto",sans-serif;
+  font-family: "Ubuntu", sans-serif !important;
   font-size: 20PX;
   
   
   }
+  .c1{
+
+    font-family: "Ubuntu", sans-serif !important;
+
+  }
+  .c2{
+
+    font-family: "Ubuntu", sans-serif !important;
+    font-size: 20px !important;
+
+  }
+
   
   @media only screen and (max-width:500px){
   .ti1{
@@ -221,10 +256,7 @@
     height: 130px !important;
     width: 130px !important;
   }
-  .MuiMenuItem-root.Mui-selected {
-    background-color: red !important;
-  }
-  
+
   
   
   
