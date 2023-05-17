@@ -15,6 +15,7 @@ import CashWithdrawal from "./pages/Wallet/Wallet";
 import { Receipt } from "./pages/Wallet/Receipt";
 import PaymentMethods from "./pages/ShoppingCart/shoppingcart";
 import SelectedPlan from "./pages/Wallet/Content";
+import CommentExampleReplyFormOuter from "./pages/SalonPage/Comments";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         } /> */}
         <Route path="/ProfilePage" Component={ProfilePage} />
         <Route path="/wallet" Component={CashWithdrawal} />
+
         {/* <Route path="/wallet" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>

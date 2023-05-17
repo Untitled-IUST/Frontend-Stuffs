@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import { SliderData } from '../../Components/SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import {
@@ -10,6 +10,7 @@ import {
   useNavigate
 }from "react-router-dom";
 import Box from '@mui/material/Box';
+import { Comment, Form } from 'semantic-ui-react'
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 import"./css/ImageSlider.css";
@@ -47,17 +48,27 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import MailIcon from '@mui/icons-material/Mail';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import cn from "classnames";
+import "./styles.css";
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider} from '@mui/material';
+
 
 
 let access_token =localStorage.getItem('accessTokenCustomer');
-
+const INITIAL_HEIGHT = 46;
 
 
 function ImageSlider ({ slides }) {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = useState(() => {
+    const savedData = localStorage.getItem('count');
+    return savedData ? JSON.parse(savedData) : 0;
+  });
+  useEffect(() => {
+    localStorage.setItem('count', JSON.stringify(count));
+  }, [count]);
 console.log(access_token)
   const theme = createTheme({
     typography: {
@@ -91,8 +102,7 @@ const StyledMenuItem = styled(MenuItem)({
 
 
   const[data,setMydata]=useState('')
-  const[img,setImg]=useState(0)
-  const[img1,setImg1]=useState(0)
+
   const[servicefront, setServicefront] = useState([]) 
   const times = [];
   for (let i = 9; i <= 21; i += 1) {
@@ -101,7 +111,13 @@ const StyledMenuItem = styled(MenuItem)({
   }
   const [selectedTime, setSelectedTime] = React.useState('');
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedCards, setSelectedCards] = useState([]);
+  const [selectedCards, setSelectedCards] = useState(() => {
+    const savedData = localStorage.getItem('selectedCards');
+    return savedData ? JSON.parse(savedData) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
+  }, [selectedCards]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -217,6 +233,48 @@ const StyledMenuItem = styled(MenuItem)({
         setOpen(false);
       };    
   const totalPrice = selectedCards.reduce((total, card) => total + card.price, 0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [commentValue, setCommentValue] = useState("");
+  const [comments, setComments] = useState([]);
+  const [visibleComments, setVisibleComments] = useState([]);
+  const [commentCount, setCommentCount] = useState(0);
+
+  const outerHeight = useRef(INITIAL_HEIGHT);
+  const textRef = useRef(null);
+  const containerRef = useRef(null);
+  const onExpand = () => {
+    if (!isExpanded) {
+  outerHeight.current = containerRef.current.scrollHeight;
+  setIsExpanded(true);
+}
+}
+const onChange = (e) => {
+    setCommentValue(e.target.value);
+	}
+const onClose = () => {
+        setCommentValue("");
+        setIsExpanded(false);
+      };
+const onSubmit = (e) => {
+        e.preventDefault();
+        if (commentCount < 5) {
+          setComments([...comments, commentValue]);
+          setCommentCount(commentCount + 1);
+        }
+       else {
+        alert("You have reached the maximum number of comments.");
+      }
+        setCommentValue("");
+      }
+const onLoadMoreClick = () => {
+        setVisibleComments(comments);
+      }
+    
+      React.useEffect(() => {
+        setVisibleComments(comments.slice(0, 3));
+      }, [comments]);
+    
+
 
 
   const handleTimeChange = (event) => {
@@ -234,6 +292,7 @@ const prevSlide = () => {
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
   }
+  
 
 
 
@@ -466,18 +525,18 @@ const prevSlide = () => {
     </Container>
 
     <Container fixed>
-      <Box sx={{ width: '100%',pb:3}}>
+      <Box sx={{ width: '100%',pb:3,marginBottom:5}}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 15 }}>
           <Grid item xs={6}>
-            <Item className='bx'><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#6495ed' ,fontSize:25,
+            <Item className='bx'><BrushIcon  style={{ marginLeft:0,marginBottom:-3,color:'#6495ed' ,fontSize:20,
       }}></BrushIcon> Owner: {data.Owner}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item className='bx'><FmdGoodIcon style={{ marginLeft:0,marginBottom:-3,color:'#800000',fontSize:25,
+            <Item className='bx'><FmdGoodIcon style={{ marginLeft:0,marginBottom:-3,color:'#800000',fontSize:20,
       }} ></FmdGoodIcon> Address: {data.address} </Item>
           </Grid>
           <Grid item xs={6}>
-            <Item className='bx'><CallIcon style={{ marginLeft:0,marginBottom:-5,color:'#004600',fontSize:25,
+            <Item className='bx'><CallIcon style={{ marginLeft:0,marginBottom:-5,color:'#004600',fontSize:20,
       }}></CallIcon> Phone Number: {data.phone_Number} </Item>
           </Grid>
           <Grid item xs={6}>
@@ -487,6 +546,89 @@ const prevSlide = () => {
         </Grid>
       </Box>
     </Container>
+    <div>
+    <Box sx={{ width: '100%',pb:3}}>
+      <List sx={{ width: '100%', maxWidth: 520 ,marginBottom:60,bgcolor:'#edc7b7',marginLeft:'3%',
+      paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
+      <Typography sx={{ marginLeft: '15px',fontFamily:'Roboto, ',color:'#ac3b61',fontSize:22 }} >Comments</Typography>
+            {visibleComments.map((comment, index) => (
+              <React.Fragment key={index}>
+                <ListItem alignItems="flex-start">
+
+                  <ListItemAvatar>
+                    <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={comment}
+                    secondary={
+                      <Typography
+                        sx={{ display: 'inline' }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        User
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </React.Fragment>
+            ))}
+            {visibleComments.length < comments.length && (
+            <button onClick={onLoadMoreClick} className='bt17'>Load more</button>
+          )}
+  
+                <form
+                onSubmit={onSubmit}
+                ref={containerRef}
+                className={cn("comment-box", {
+                  expanded: isExpanded,
+                  collapsed: !isExpanded,
+                        modified: commentValue.length > 0,
+                })}
+                style={{
+                  minHeight: isExpanded ? outerHeight.current : INITIAL_HEIGHT
+                }}
+              >
+                <div className="header">
+                    <div className="user1">
+                        <img
+                        src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg"
+                        alt="User avatar"
+                        />
+                        <span>User Name</span>
+                    </div>
+                </div>
+                
+            <label for="comment" className='cmt'>What are your thoughts?</label>
+                    <textarea
+                    ref={textRef}
+                    onClick={onExpand}
+                    onFocus={onExpand}
+                    onChange={onChange}
+                    className="comment-field"
+                    placeholder="What are your thoughts?"
+                    value={commentValue}
+                    name="comment"
+                    id="comment"
+                    />
+                    <div className="actions">
+                        <button type="button" className="cancel" onClick={onClose}>
+                            Cancel
+                        </button>
+                        <button type="submit" disabled={commentValue.length < 1}>
+                            Respond
+                        </button>
+                    </div>
+                    ...
+                </form>
+
+
+        </List>
+        </Box>
+        </div>
+
 
   </div>
   </div>

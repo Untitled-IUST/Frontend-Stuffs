@@ -140,6 +140,25 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 
   }
   
+
+.css-1r5wa48-MuiList-root {
+  background-color: #edc7b7;
+  margin-left: 3% !important;
+  max-width: 520px !important;
+
+}
+.css-1qrvzyw-MuiList-root{
+  /* margin-bottom: 300px !important; */
+  padding-bottom: 0px !important;
+}
+.mty{
+  margin-bottom: 80px !important;
+
+}
+.comnt{
+  margin-left: 40px!;
+}
+  
   /* .count{
   font-size: 15px;
   width: 80%;
@@ -178,6 +197,14 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
   
   
   }
+.bt17{
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69 !important;
+
+  margin-left: 80%;
+  margin-top: 5%;
+
+  }
 .ab{ 
   font-family: "Ubuntu", sans-serif !important;
 }
@@ -187,6 +214,22 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
   
 
 }
+
+
+.css-1s7dekj-MuiTypography-root{
+  font-family: "Ubuntu", sans-serif !important;
+
+}
+.css-10hburv-MuiTypography-root {
+  font-family: "Ubuntu", sans-serif !important;
+  color: #123c69;
+
+}
+.css-1phucj-MuiTypography-root {
+  color: #ac3b61 !important;
+}
+
+
   .bt:hover{
   background-color: rgba(252, 203, 199, 0.685)  !important;
   color: #ac3b61 !important;
