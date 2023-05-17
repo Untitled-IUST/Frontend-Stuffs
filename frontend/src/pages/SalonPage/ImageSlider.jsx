@@ -238,6 +238,7 @@ const StyledMenuItem = styled(MenuItem)({
   const [comments, setComments] = useState([]);
   const [visibleComments, setVisibleComments] = useState([]);
   const [commentCount, setCommentCount] = useState(0);
+  const [replyIndex, setReplyIndex] = useState(-1);
 
   const outerHeight = useRef(INITIAL_HEIGHT);
   const textRef = useRef(null);
@@ -258,13 +259,36 @@ const onClose = () => {
 const onSubmit = (e) => {
         e.preventDefault();
         if (commentCount < 5) {
-          setComments([...comments, commentValue]);
+          setComments([...comments, { text: commentValue, replies: [] }]);
           setCommentCount(commentCount + 1);
         }
        else {
         alert("You have reached the maximum number of comments.");
       }
         setCommentValue("");
+      }
+const onReplyClick = (index) => {
+        setReplyIndex(index);
+      }
+          
+      const onReplySubmit = (e) => {
+        e.preventDefault();
+        const replyValue = e.target.elements.reply.value;
+        if (replyValue.trim() === "") {
+          alert("Please enter a reply.");
+          return;
+        }
+        const newComments = [...comments];
+        newComments[replyIndex].replies.push(replyValue);
+        setComments(newComments);
+        setVisibleComments(newComments.slice(0, 3));
+        setReplyIndex(-1);
+        e.target.elements.reply.value = "";
+      }
+    
+      const onCancelClick = () => {
+        setReplyIndex(-1);
+        document.getElementById(`reply-${replyIndex}`).value = "";
       }
 const onLoadMoreClick = () => {
         setVisibleComments(comments);
@@ -552,29 +576,63 @@ const prevSlide = () => {
       paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
       <Typography sx={{ marginLeft: '15px',fontFamily:'Roboto, ',color:'#ac3b61',fontSize:22 }} >Comments</Typography>
             {visibleComments.map((comment, index) => (
-              <React.Fragment key={index}>
-                <ListItem alignItems="flex-start">
-
-                  <ListItemAvatar>
-                    <Avatar alt="User" src="/static/images/avatar/1.jpg" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={comment}
-                    secondary={
-                      <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        User
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </React.Fragment>
-            ))}
+   <React.Fragment key={index}>
+   <ListItem alignItems="flex-start">
+     <ListItemAvatar>
+       <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+     </ListItemAvatar>
+     <ListItemText
+       primary={comment.text}
+       secondary={
+         <>
+           <Typography
+             sx={{ display: 'inline' }}
+             component="span"
+             variant="body2"
+             color="text.primary"
+           >
+             User
+           </Typography>
+           {comment.replies.map((reply, replyIndex) => (
+                      <React.Fragment key={replyIndex}>
+                        <br />
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.secondary"
+                        >
+                          &nbsp;&nbsp;&nbsp;&nbsp;Reply:
+                        </Typography>
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          &nbsp;{reply}
+                        </Typography>
+                      </React.Fragment>
+                    ))}
+                  </>
+                }
+              />
+            </ListItem>
+            {replyIndex === index ? (
+              <form onSubmit={onReplySubmit}>
+                <label htmlFor={`reply-${index}`}>Reply:</label>
+                <input type="text" name="reply" className='hinp' id={`reply-${index}`} />
+                <div className='hdbtn0' >
+                <button type="submit" className='hdbtn'>Send</button>
+                <button type="button" className='hdbtn1' onClick={onCancelClick}>Cancel</button>
+                </div>
+              </form>
+            ) : (
+              <button className='hbt' onClick={() => onReplyClick(index)}>Reply</button>
+            )}
+            <Divider variant="inset" component="li" />
+          </React.Fragment>
+          ))}
             {visibleComments.length < comments.length && (
             <button onClick={onLoadMoreClick} className='bt17'>Load more</button>
           )}
