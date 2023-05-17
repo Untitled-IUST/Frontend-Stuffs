@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 // let access_token =localStorage.getItem('accesstokenCustomer');
 
 function CashWithdrawal (){
@@ -165,14 +168,23 @@ console.log(fname)
               />
             ))}
         </ul>
-        {alert}
-        <input className='inp'
-          type="number"
-          min="0"
-          value={customValue}
-          onChange={handleCustomValueChange}
-          placeholder="Enter custom value"
-        />
+        {alert} 
+        <div className='btsw'>
+              <IconButton className='idek' onClick={() => setCustomValue(Math.max(customValue - 1, 0))}>
+                <RemoveIcon />
+              </IconButton>
+              <input
+                className='inp'
+                type="number"
+                min="0"
+                value={customValue}
+                onChange={handleCustomValueChange}
+                placeholder="Enter custom value"
+              />
+              <IconButton className='idek1' onClick={() => setCustomValue(parseInt(customValue) + 1)}>
+                <AddIcon />
+              </IconButton>
+        </div>
         <button className='pmr1' onClick={handleCustomValueSubmit}>Add custom value</button>
       </div>
     </div>

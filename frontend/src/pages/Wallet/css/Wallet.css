@@ -133,6 +133,28 @@
   margin-bottom: 5%;
   margin-top: 3%;
 }
+.btsw{
+  display: flex;
+  align-items: center;
+}
+.idek1{
+  color: #ac3b61 !important ;
+  width: 30px;
+  height: 30px;
+  background-color: #edc7b7 !important;
+
+}
+.idek{
+  color: #123c69 !important ;
+  width: 30px;
+  height: 30px;
+  background-color: #edc7b7 !important;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 
 
