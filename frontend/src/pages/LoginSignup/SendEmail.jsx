@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SendEmail() {
   return(
@@ -24,14 +25,19 @@ function SendEmail() {
                 </div>
                 <p className="m-1 text-xs italic text-MediumRuby-500">error</p>
               </div>
-              <div className="mb-4 text-center">
-                  <button
-                    className="w-full py-2 font-bold text-white bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
-                    type="button"
-                  >
-                    Send Email
-                  </button>
-                </div>
+              <div className="mb-2 text-center">
+                <button
+                  className="w-full py-2 font-bold text-white bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
+                  type="button"
+                >
+                  Send Email
+                </button>
+              </div>
+              <p className="m-1 text-xs italic text-MediumRuby-500">error</p>
+              <hr className="mb-3 border-t text-AteneoBlue-500" />
+              <Link to="/SignUpCustomer" className="mb-2 bg-AteneoBlue-500 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
+                Create an Account!
+              </Link>
             </form>
           </div>
       </div>
