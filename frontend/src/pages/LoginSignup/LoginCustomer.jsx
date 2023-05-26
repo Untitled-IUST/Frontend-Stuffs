@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState , useEffect } from "react";
-import { json } from "react-router-dom";
 
 import backgroundImageLoginBarber from "./Images/LoginCustomer.png";
 
@@ -26,6 +25,9 @@ function LoginBarber(){
   }
 
   const handleLogin = (event) => {
+    if(emailAddress !== null){
+      setEmailAddress(emailAddress.toLowerCase());
+    }
     setError("");
     event.preventDefault();
     axios({
@@ -92,9 +94,14 @@ function LoginBarber(){
                   <p className="m-1 text-xs italic text-MediumRuby-500">{emailAddressError}</p>
                 </div>
                 <div className="relative mb-4">
-                  <label className="text-AteneoBlue-500 block mb-2 text-sm font-bold" for="Password">
-                    Password
-                  </label>
+                  <div className="flex flex-row justify-between">
+                    <label className="text-AteneoBlue-500 block mb-2 text-sm font-bold" for="Password">
+                      Password
+                    </label>
+                    <Link className="text-AteneoBlue-500 text-sm font-bold hover:text-AteneoBlue-300 focus:text-AteneoBlue-500">
+                      Forgot Password?
+                    </Link>
+                  </div>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <svg aria-hidden="true" class="w-5 h-5 text-AteneoBlue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
@@ -152,7 +159,7 @@ function LoginBarber(){
                 </div>
                 <div className="mb-4 text-center">
                   <button
-                    className="w-full py-2 font-bold text-white bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
+                    className="w-full py-2 font-bold text-white bg-MediumRuby-500 hover:bg-MediumRuby-400 focus:bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={handleLogin}
                   >
@@ -161,7 +168,7 @@ function LoginBarber(){
                 </div>
                 <p className="m-1 text-xs italic text-MediumRuby-500">{Error}</p>
                 <hr className="mb-3 border-t text-AteneoBlue-500" />
-                <Link to="/SignUpCustomer" className="bg-AteneoBlue-500 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
+                <Link to="/SignUpCustomer" className="bg-AteneoBlue-500 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
                   Create an Account!
                 </Link>
               </form>

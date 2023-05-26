@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState} from "react";
 import axios from "axios";
@@ -92,25 +92,14 @@ function SignUpBarber(){
     }
   }
   
-  const togglePassword = (event) => {
-    let x = document.getElementById("pswrd");
-    if(x.type === "password"){
-      x.type = "text";
-    } else {
-      x.type = "password"
-    }
-  }
-  const toggleConfirmPassword = (event) => {
-    let x = document.getElementById("pswrdConfirm");
-    if(x.type === "password"){
-      x.type = "text";
-    } else {
-      x.type = "password"
-    }
-  }
-  
   function handleSubmit(event){
     event.preventDefault();
+    if(emailAddress !== null){
+      setEmailAddress(emailAddress.toLowerCase())
+    }
+    if(username !== null){
+      setUsername(username.toLowerCase())
+    }
     setSubmitError("");
     if( emailAddressError === false && passwordError === false && confirmPasswordError === false && usernameError === false)
     {
@@ -154,7 +143,7 @@ function SignUpBarber(){
               <img src={backGroundImageBarberSignUp} alt="SignUp" />
             </div>
             <div className="w-full lg:w-1/2 rounded-lg lg:rounded-l-none flex flex-col justify-center">
-              <h3 className="text-AteneoBlue-500 mt-12 text-2xl font-bold text-center">Sign Up Your Salon</h3>
+              <h3 className="text-AteneoBlue-500 mt-12 text-2xl font-bold text-center">Sign Up</h3>
               <form className="mx-8 mt-6 pb-8 mb-4 rounded">
               <div className="mb-4">
                   <label className="block mb-2 text-sm font-bold text-AteneoBlue-500" for="Username">
@@ -312,16 +301,16 @@ function SignUpBarber(){
                 </div>
                 <div className="mb-4 text-center">
                   <button
-                    className="w-full py-2 font-bold text-white bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
+                    className="hover:bg-MediumRuby-400 focus:bg-MediumRuby-500 w-full py-2 font-bold text-white bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                     onClick={handleSubmit}
                   >
-                    Register Your Salon
+                    Register
                   </button>
                   <p className="m-1 text-xs italic text-MediumRuby-500">{submitError}</p>
                 </div>
                 <hr className="mb-3 border-t text-AteneoBlue-500" />
-                <Link to="/" className="inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white">
+                <Link to="/" className="hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 inline-block text-sm text-white align-baseline py-2.5 w-full rounded bg-AteneoBlue-500 text-center focus:text-white">
                   Already have an account? Login!
                 </Link>
               </form>
