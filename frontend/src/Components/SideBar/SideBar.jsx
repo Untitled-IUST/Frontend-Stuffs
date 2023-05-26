@@ -31,8 +31,8 @@ function SideBar(){
     })},[])
 
     return (
-        <Sidebar backgroundColor="#edc7b7">
-          <Menu rootStyles={{color: "#123c69 "}} >
+        <Sidebar backgroundColor="#EEE2DC">
+          <Menu rootStyles={{color: "#AC3B61"}} >
             <MenuItem icon={<MenuOutlinedIcon />} onClick={() => { collapseSidebar(); }} style={{ textAlign: "center" }} >
               {" "}
               <h2>{userName}</h2>
