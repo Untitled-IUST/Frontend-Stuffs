@@ -609,21 +609,26 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         {comments.map((comment, index) => (
           <React.Fragment key={index}>
             <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar alt="User" src="/static/images/avatar/1.jpg" />
-              </ListItemAvatar>
-              <ListItemText
-                primary={comment.text}
-                secondary={
-                  <>
-                    <Typography
-                      sx={{ display: 'inline' }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      User
-                    </Typography>
+            <ListItemAvatar>
+              <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+            </ListItemAvatar>
+            <ListItemText
+              primary={
+                <>
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    User
+                  </Typography>
+                  <br />
+                  {comment.text}
+                </>
+              }
+              secondary={
+                <>
                     {comment.replies.map((reply, replyIndex) => (
                       <React.Fragment key={replyIndex}>
                         <br />
