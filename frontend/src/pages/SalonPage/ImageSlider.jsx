@@ -695,7 +695,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
                         <button type="button" className="cancel" onClick={onClose}>
                             Cancel
                         </button>
-                        <button type="submit" disabled={commentValue.length < 1}>
+                        <button type="submit"  className='subim' disabled={commentValue.length < 1}>
                             Respond
                         </button>
                     </div>
