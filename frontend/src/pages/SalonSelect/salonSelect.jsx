@@ -47,8 +47,8 @@ const SalonSelect = () => {
     fetchAreas();
   },[])
   
-  useEffect(() => {
-    
+  
+  function handleApplyingFilters(){
     async function fetchData(){
       try{
         const areaURL = ContinueURLForFiltersArea + area ;
@@ -67,10 +67,9 @@ const SalonSelect = () => {
       }
     }
     fetchData();
-  },[area,ordering,rateValue,query,Page])
+  }
  
 
-  
   function valueText(value) {
     return `${value}`;
   }
@@ -91,7 +90,7 @@ const SalonSelect = () => {
             <div class="flex items-center pl-1 pointer-events-none">
               <svg aria-hidden="true" className="w-5 h-5 text-AteneoBlue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <input type="search" className="pr-2 w-full pl-2 text-sm text-AteneoBlue-500  bg-DesertSand-500 placeholder-AteneoBlue-500 focus:outline-none" placeholder="Search..."/>
+            <input onKeyDown={(e) => {if(e.key === 'Enter') {setQuery(e.target.value)}}} onChange={(e) =>{setQuery(e.target.value)}} type="search" className="pr-2 w-full pl-2 text-sm text-AteneoBlue-500  bg-DesertSand-500 placeholder-AteneoBlue-500 focus:outline-none" placeholder="Search..."/>
             <button className="top-0 right-0 p-2.5 text-sm font-medium text-white bg-MediumRuby-500 rounded-r-lg hover:bg-MediumRuby-400 focus:outline-none focus:bg-MediumRuby-500">
                 <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
@@ -207,10 +206,10 @@ const SalonSelect = () => {
                   </div>
                 }
                 <div className="flex flex-row justify-between w-full mt-2 gap-2">
-                  <button className="hover:bg-MediumRuby-400 focus:ring-2 focus:ring-MediumRuby-600 text-white bg-MediumRuby-500 rounded-sm text-sm p-1">
+                  <button onClick={() => {handleApplyingFilters()}} className="hover:bg-MediumRuby-400 focus:ring-2 focus:ring-MediumRuby-600 text-white bg-MediumRuby-500 rounded-sm text-sm p-1">
                     <span className="text-sm font-bold">Apply</span>
                   </button>
-                  <button onClick={() => {setRateValue([0,5]); setArea("")}} className="hover:bg-MediumRuby-400 focus:ring-2 focus:ring-MediumRuby-600 text-white bg-MediumRuby-500 rounded-sm p-1 text-sm">
+                  <button onClick={() => handleApplyingFilters()} onChange={() => {setRateValue([0,5]); setArea("");}} className="hover:bg-MediumRuby-400 focus:ring-2 focus:ring-MediumRuby-600 text-white bg-MediumRuby-500 rounded-sm p-1 text-sm">
                     <span className="text-sm font-bold">Reset</span>
                   </button>
                 </div>
