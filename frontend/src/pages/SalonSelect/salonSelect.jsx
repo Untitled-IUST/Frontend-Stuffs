@@ -4,6 +4,7 @@ import { Pagination, colors } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import searchIcon from "./Images/search-bar.png";
+import axios from "axios";
 
 const SalonSelect = () => {
   
@@ -18,7 +19,7 @@ const SalonSelect = () => {
   const [rateDropdown , setRateDropdown] = useState(false);
   const [areaDropdown , setAreaDropdown] = useState(false);
   const [area , setArea] = useState("");
-  const [Page , setPage] = useState("");
+  const [Page , setPage] = useState(1);
   const [rateValue , setRateValue] = useState([0,5]);
   const [query , setQuery] = useState("");
 
@@ -45,15 +46,30 @@ const SalonSelect = () => {
       setTotalAreas(areas);
     }
     fetchAreas();
+    console.log(data)
   },[])
   
+  useEffect(() => {
+    const areaURL = ContinueURLForFiltersArea + area ;
+    const orederURL =  ContinueURLForFiltersOrdering + ordering ;
+    let pageURL = "";
+    if(Page !== "" && Page !== 1){
+      pageURL = ContinueURLForFiltersPage + Page;
+    }
+    const lowRateURL = ContinueURLForFiltersLowRate + rateValue[0];
+    const topRateURL = ContinueURLForFiltersTopRate + rateValue[1];
+    const searchURL = ContinueURLForFiltersSearch + query;
+    
+    axios.get(baseURL+areaURL+orederURL+pageURL+lowRateURL+topRateURL+searchURL)
+    .then(response => {setData(response.data.results);setHowManyPages(Math.ceil(response.data.count/9));})
+  },[Page])
   
   function handleApplyingFilters(){
     async function fetchData(){
       try{
         const areaURL = ContinueURLForFiltersArea + area ;
         const orederURL =  ContinueURLForFiltersOrdering + ordering ;
-        let pageURL = "" ;
+        let pageURL = "";
         const lowRateURL = ContinueURLForFiltersLowRate + rateValue[0];
         const topRateURL = ContinueURLForFiltersTopRate + rateValue[1];
         const searchURL = ContinueURLForFiltersSearch + query;
@@ -68,7 +84,7 @@ const SalonSelect = () => {
     }
     fetchData();
   }
- 
+
 
   function valueText(value) {
     return `${value}`;
@@ -76,9 +92,6 @@ const SalonSelect = () => {
   
   const [rotate , setRotate] = useState([false,false,false]);
 
-  useEffect(() => {
-    console.log(ordering)
-  },[ordering])
   
   const handleOrdering = (event) => {
     setOrdering(event.target.value);
@@ -90,8 +103,8 @@ const SalonSelect = () => {
             <div class="flex items-center pl-1 pointer-events-none">
               <svg aria-hidden="true" className="w-5 h-5 text-AteneoBlue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <input onKeyDown={(e) => {if(e.key === 'Enter') {setQuery(e.target.value)}}} onChange={(e) =>{setQuery(e.target.value)}} type="search" className="pr-2 w-full pl-2 text-sm text-AteneoBlue-500  bg-DesertSand-500 placeholder-AteneoBlue-500 focus:outline-none" placeholder="Search..."/>
-            <button className="top-0 right-0 p-2.5 text-sm font-medium text-white bg-MediumRuby-500 rounded-r-lg hover:bg-MediumRuby-400 focus:outline-none focus:bg-MediumRuby-500">
+            <input onKeyDown={(e) => {if(e.key === 'Enter') {handleApplyingFilters()}}} onChange={(e) =>{setQuery(e.target.value)}} type="search" className="pr-2 w-full pl-2 text-sm text-AteneoBlue-500  bg-DesertSand-500 placeholder-AteneoBlue-500 focus:outline-none" placeholder="Search..."/>
+            <button onClick={() =>{handleApplyingFilters()}} className="top-0 right-0 p-2.5 text-sm font-medium text-white bg-MediumRuby-500 rounded-r-lg hover:bg-MediumRuby-400 focus:outline-none focus:bg-MediumRuby-500">
                 <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
           </div>
@@ -209,7 +222,7 @@ const SalonSelect = () => {
                   <button onClick={() => {handleApplyingFilters()}} className="hover:bg-MediumRuby-400 focus:ring-2 focus:ring-MediumRuby-600 text-white bg-MediumRuby-500 rounded-sm text-sm p-1">
                     <span className="text-sm font-bold">Apply</span>
                   </button>
-                  <button onClick={() => handleApplyingFilters()} onChange={() => {setRateValue([0,5]); setArea("");}} className="hover:bg-MediumRuby-400 focus:ring-2 focus:ring-MediumRuby-600 text-white bg-MediumRuby-500 rounded-sm p-1 text-sm">
+                  <button onClick={() => {setRateValue([0,5]); setArea("");}} className="hover:bg-MediumRuby-400 focus:ring-2 focus:ring-MediumRuby-600 text-white bg-MediumRuby-500 rounded-sm p-1 text-sm">
                     <span className="text-sm font-bold">Reset</span>
                   </button>
                 </div>
@@ -223,8 +236,8 @@ const SalonSelect = () => {
               ))}
             </div>
           </div>
-          <div className="flex justify-center p-2 rounded-lg bg-[#FFECEE]">
-            <Pagination  size="large" count={howManyPages} page={Page} color="secondary"/>
+          <div className="flex justify-center p-2 rounded-lg bg-DesertSand-500">
+            <Pagination  size="large" count={howManyPages} page={Page} onChange={(event,value) => {setPage(value)}} color="secondary" />
           </div>
         </div>
       </div>
