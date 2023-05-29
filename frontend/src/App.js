@@ -15,6 +15,8 @@ import CashWithdrawal from "./pages/Wallet/Wallet";
 import { Receipt } from "./pages/Wallet/Receipt";
 import PaymentMethods from "./pages/ShoppingCart/shoppingcart";
 import SelectedPlan from "./pages/Wallet/Content";
+import { Landing } from "./pages/Landing/Landing";
+
 import CommentExampleReplyFormOuter from "./pages/SalonPage/Comments";
 
 function App() {
@@ -22,7 +24,8 @@ function App() {
     <div className="App">
     <Router>
       <Routes>
-        <Route path="/" Component={LoginCustomer}/>
+        <Route path="/" Component={Landing}/>
+        <Route path="/LoginCustomer" Component={LoginCustomer} />
         <Route path="/SignUpCustomer" Component={SignUpCustomer} />
         <Route path="/SalonSelect" element={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
