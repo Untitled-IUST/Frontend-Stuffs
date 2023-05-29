@@ -36,21 +36,18 @@ function App() {
             <ImageSlider slides={SliderData}/>
         </div>
         } />
-        {/* <Route path="/ProfilePage" element ={
+        <Route path="/ProfilePage" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <ProfilePage/>
           </div>
-        } /> */}
-        <Route path="/ProfilePage" Component={ProfilePage} />
-        <Route path="/wallet" Component={CashWithdrawal} />
-
-        {/* <Route path="/wallet" element ={
+        } />
+        <Route path="/wallet" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>
             <CashWithdrawal/>
           </div>
-        } /> */}
+        } />
         {/* <Route path="/payment" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
             <SideBar/>

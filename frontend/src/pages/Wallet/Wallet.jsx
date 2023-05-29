@@ -139,7 +139,7 @@ function CashWithdrawal (){
   
 console.log(fname)
   return (
-    <div className="main-container min-h-screen">
+    <div className="main-container min-h-screen w-full">
       <div className="inner-container">
             
             <div className='prp'>

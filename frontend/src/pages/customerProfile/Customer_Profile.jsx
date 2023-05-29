@@ -152,6 +152,8 @@ export  default function ProfilePage() {
 
 
   return (
+    <div className="bg-WhiteChocolate-500 w-full min-h-screen">
+
     <section className='backgroundprofile' style={{ backgroundColor: ''}} >
       <MDBContainer className="py-5" >
         <MDBRow className='rowContainer'>
@@ -263,5 +265,6 @@ export  default function ProfilePage() {
         </MDBRow>
       </MDBContainer>
     </section>
+    </div>
   );
                         }
