@@ -19,12 +19,16 @@ import {
     import { useNavigate } from 'react-router-dom';
     import "./shoppingcart.css"
     import axios from "axios";
+    import Box from '@mui/material/Box';
+    import Rating from '@mui/material/Rating';
+    import Typography from '@mui/material/Typography';
     import { Link } from 'react-router-dom';
 import { toast } from "react-hot-toast";
     
     export default function PaymentMethods() {
       const navigate = useNavigate();
         const [money, setMoney] = useState('');
+        const [value, setValue] = React.useState(0);
 
         const [orders,setOrders] = useState([]) 
         const [quantity, setQuantity] = useState(1);
@@ -393,8 +397,37 @@ import { toast } from "react-hot-toast";
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
+          <MDBCol md="4">
+            <MDBCard className="mb-4 shopcartcolor">
+              <MDBCardHeader>
+                <MDBTypography tag="h5" className="mb-0 ">
+                  Rateing
+                </MDBTypography>
+              </MDBCardHeader>
+              <MDBCardBody>
+
+                          <Box
+                  sx={{
+                    '& > legend': { mt: 2 },
+                  }}
+                >
+                  <Typography component="legend">Controlled</Typography>
+                  <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  />
+
+                </Box>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
         </MDBRow>
+  
       </MDBContainer>
+   
     </section>
     );
     }

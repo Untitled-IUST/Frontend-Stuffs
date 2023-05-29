@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect, useRef } from 'react';
+import React, { useState,useEffect, useRef , useContext } from 'react';
 import { SliderData } from '../../Components/SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import QRCode from 'react-qr-code';
@@ -11,6 +11,7 @@ import {
   useNavigate
 }from "react-router-dom";
 import Box from '@mui/material/Box';
+import UserProfileContext from './UserProfileContext';
 import { Comment, Form } from 'semantic-ui-react'
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
@@ -60,6 +61,7 @@ const INITIAL_HEIGHT = 46;
 
 
 function ImageSlider ({ slides }) {
+  const { hasEditedProfile } = useContext(UserProfileContext);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const length = slides.length;
@@ -147,22 +149,23 @@ const StyledMenuItem = styled(MenuItem)({
         setServicefront(response.data.categories) 
     }).catch(err=> console.log(err))
     },[])
-    useEffect(() => {
-      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
-        headers: {
-          'Authorization': `JWT ${access_token}`,
-          'Content-Type': 'application/json',
-        }
-      })
-        .then((response) => {
-          setDes(response.data.results[0].description);
-          setTitle(response.data.results[0].title)
-          setBarbimg(response.data.results[0].img)
-          console.log('picofbarb',barbimg)
-          console.log('here',des);
-        })
-        .catch(err => console.log(err));
-    }, []);
+    // useEffect(() => {
+    //   console.log(access_token)
+    //   axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+    //     headers: {
+    //       'Authorization': `JWT ${access_token}`,
+    //       'Content-Type': 'application/json',
+    //     }
+    //   })
+    //     .then((response) => {
+    //       setDes(response.data.results[0].description);
+    //       setTitle(response.data.results[0].title)
+    //       setBarbimg(response.data.results[0].img)
+    //       console.log('picofbarb',barbimg)
+    //       console.log('here',des);
+    //     })
+    //     .catch(err => console.log(err));
+    // }, []);
     useEffect(() => {
       fetchComments();
     }, []);
@@ -172,6 +175,9 @@ const StyledMenuItem = styled(MenuItem)({
         .then(response => {
           setComments(response.data.comments);
           setVisibleComments(response.data.comments.slice(0, 3));
+          setDes(response.data.barberDesc[0].description);
+          setTitle(response.data.barberDesc[0].title)
+          setBarbimg(response.data.barberDesc[0].img)
         })
         .catch(error => {
           console.error(error);
@@ -216,6 +222,7 @@ const StyledMenuItem = styled(MenuItem)({
       }
       } catch (error) {
         console.error('POST request failed:', error);
+        alert(`You  Cant Reserve This Time.`);
       }
     }
   
@@ -281,7 +288,7 @@ const StyledMenuItem = styled(MenuItem)({
   const [commentValue, setCommentValue] = useState("");
   const [comments, setComments] = useState([]);
   const [visibleComments, setVisibleComments] = useState([]);
-  const [commentCount, setCommentCount] = useState(0);
+  const [commentCount, setCommentCount] = useState({});
   const [replyIndex, setReplyIndex] = useState(-1);
 
   const outerHeight = useRef(INITIAL_HEIGHT);
@@ -301,14 +308,17 @@ const onClose = () => {
         setIsExpanded(false);
       };
 
-    
-const onSubmit = (event) => {
+      const onSubmit = (event) => {
         event.preventDefault();
-        if (comments.length >= 3) {
-          alert(`You have reached the maximum number of ${3} comments.`);
+        if (!hasEditedProfile) {
+          alert('You must edit your profile before submitting a comment.');
           return;
         }
-    
+        if (commentCount[idbarb] >= 5) {
+          alert(`You have reached the maximum number of ${5} comments for this barber.`);
+          return;
+        }
+      
         axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/comments/create/', { barber: idbarb, body: commentValue }, {
           headers: {
             'Authorization': `JWT ${access_token}`,
@@ -319,13 +329,18 @@ const onSubmit = (event) => {
             // Fetch updated comments
             console.log("post it darling",response.data)
             fetchComments();
+            setCommentCount({
+              ...commentCount,
+              [idbarb]: (commentCount[idbarb] || 0) + 1
+            });
           })
           .catch(error => {
             console.error(error);
           });
-    
+      
         setCommentValue('');
       };
+      
 const onReplyClick = (index) => {
         setReplyIndex(index);
       }

@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import UserProfileContext from '../SalonPage/UserProfileContext';
 //import { idCheck } from './contextAll';
 //import { useContext , createContext } from 'react';
 import "./customerProfile.css"
@@ -26,7 +27,7 @@ import { json } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 
 export  default function ProfilePage() {
-  
+  const { setHasEditedProfile } = useContext(UserProfileContext);
 
 
   const [Name , setName] = useState("");
@@ -57,6 +58,8 @@ export  default function ProfilePage() {
       setUserName(res.data.user.username);
       setArea(res.data.area);
       setPhoneNumber(res.data.phone_Number);
+      setHasEditedProfile(true);
+      console.log("did it?",setHasEditedProfile)
     }).catch((err)=>{
       console.log(err)
     })},[])
@@ -139,6 +142,8 @@ export  default function ProfilePage() {
     .then((res) => {
       toast.success("profile updates succesfully");
       window.location.reload(false);
+      setHasEditedProfile(true);
+      console.log("true done",setHasEditedProfile)
     }
     )
     .catch((error) => {
