@@ -31,7 +31,10 @@ function App() {
           </div>
         }/>
         <Route path="/SalonPage/:id" element ={
-          <ImageSlider slides={SliderData}/>
+          <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+            <SideBar/>
+            <ImageSlider slides={SliderData}/>
+        </div>
         } />
         {/* <Route path="/ProfilePage" element ={
           <div id="app" style={({ height: "100vh" }, { display: "flex" })}>

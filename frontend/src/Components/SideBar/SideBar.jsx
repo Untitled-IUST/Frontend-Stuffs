@@ -35,7 +35,7 @@ function SideBar(){
           <Menu rootStyles={{color: "#AC3B61"}} >
             <MenuItem icon={<MenuOutlinedIcon />} onClick={() => { collapseSidebar(); }} style={{ textAlign: "center" }} >
               {" "}
-              <h2>{userName}</h2>
+              <h2 className="text-xl">{userName}</h2>
             </MenuItem>
             <MenuItem icon={<AddHomeIcon/>} component={<Link to="/SalonSelect" />}>SalonSelect</MenuItem>
             <MenuItem icon={<AccountBoxRoundedIcon />}  component={<Link to="/ProfilePage" />}>Profile</MenuItem>
