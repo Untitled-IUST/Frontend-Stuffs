@@ -93,7 +93,7 @@
 }
 
 .landingTitle {
-    color: white;
+    color: Black;
     font-size: 5rem;
     font-weight: bolder;
 }
@@ -168,3 +168,9 @@
     background-color: #161616;
 }
 
+.landingQuotes{
+    color: Black;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    margin-left: 50px;
+}
