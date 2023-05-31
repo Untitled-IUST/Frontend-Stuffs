@@ -16,6 +16,7 @@ import { Receipt } from "./pages/Wallet/Receipt";
 import PaymentMethods from "./pages/ShoppingCart/shoppingcart";
 import SelectedPlan from "./pages/Wallet/Content";
 import CommentExampleReplyFormOuter from "./pages/SalonPage/Comments";
+import OrderHistory from "./pages/orderhistory/orderhistory"
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           </div>
         } />
         <Route path="/paymentcard"  Component={SelectedPlan} />
+        <Route path="/orderhistory" Component={OrderHistory}/>
       </Routes>
     </Router>
     </div>

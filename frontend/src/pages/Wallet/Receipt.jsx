@@ -9,8 +9,21 @@ import { useLocation } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import GradeIcon from '@mui/icons-material/Grade';
-
-
+import { Grid } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import StarIcon from '@mui/icons-material/Star';
+const labels = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
 
 
 
@@ -69,20 +82,10 @@ const handleRatingChange = (event, newValue) => {
               <p className='answer'>: {money}$</p>
             </div>
           </div>
-          <Typography component="legend">Controlled</Typography>
           <div>
-              <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={handleRatingChange}
-            emptyIcon="☆"
-            fullIcon="★"
-            readOnly={false}
-          />
-          
-           <Item className='bx'><GradeIcon style={{ marginLeft:0,marginBottom:-6,color:'#fec20c',fontSize:25,
-      }}></GradeIcon>Rate</Item>
+            <Typography component="legend">Controlled</Typography>
           </div>
+        
           <div className='ReceiptBottom'>
             <p>Back to being beauty!</p>
             <button className='ReceiptButton' onClick={()=>handleSubmit()}>salons</button>

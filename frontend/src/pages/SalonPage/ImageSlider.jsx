@@ -117,6 +117,7 @@ const StyledMenuItem = styled(MenuItem)({
   });
   useEffect(() => {
     localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
+    // localStorage.removeItem('selectedCards', JSON.stringify(selectedCards));
   }, [selectedCards]);
 
   const handleDateChange = (date) => {

@@ -20,12 +20,16 @@ import {
     import "./shoppingcart.css"
     import axios from "axios";
     import { Link } from 'react-router-dom';
-import { toast } from "react-hot-toast";
+    import { toast } from "react-hot-toast";
+    import Dropdown from 'react-dropdown';
+    import { Select, MenuItem, InputLabel } from '@mui/material';
+    import Box from '@mui/material/Box';
+    import Rating from '@mui/material/Rating';
     
     export default function PaymentMethods() {
-      const navigate = useNavigate();
+        const navigate = useNavigate();
         const [money, setMoney] = useState('');
-
+        const [value, setValue] = useState(1);
         const [orders,setOrders] = useState([]) 
         const [quantity, setQuantity] = useState(1);
         const total= orders.reduce((partialSum , o) => partialSum+o.totalCost,0);
@@ -39,12 +43,17 @@ import { toast } from "react-hot-toast";
         const[area, setArea] = useState("");
         const [addresse, setAddresse] = useState("");
         //const [servicelist, setServicelist] = useState(orders);
-        const totalCosts = orders.reduce((partialSum, o) => partialSum + o.totalCost, 0);
-        const [stateorder, setStateorde] = useState([]) ;
+        const [tCosts,setTotalcosts]=useState(0)
+        console.log(orders)
+        let totalCosts = orders.reduce((partialSum, o) => partialSum + o.totalCost, 0);
+        
+        
+        const [stateorder, setStateorder] = useState([]) ;
         const orderIds = orders.map((order) => order.id);
         const quantities = orders.map((order) => order.quantity);
         const statuses = ['paid']; 
         const [paymentSuccessful, setPaymentSuccessful] = useState(false);
+        
 
         const orderData = {};
         orderIds.forEach((id, index) => {
@@ -104,6 +113,15 @@ import { toast } from "react-hot-toast";
             return updatedList;
           });
         },[]);
+        
+
+
+          const tips = [5,10,15];
+          const [selectedTip, setSelectedTip] = useState(0);
+        
+          const handleTipChange = (event) => {
+            setSelectedTip(event.target.value);
+          };
 
 
         useEffect(() => {
@@ -118,11 +136,9 @@ import { toast } from "react-hot-toast";
                 setPrice(res.data.results[0].service.price)  
                 setTemp(res.data.results[0].service.price)
                 setTime(res.data.results[0].time)
-                //setDate(res.data.results[0].date)
                 setArea(res.data.results[0].barber.area)
                 setAddresse(res.data.results[0].barber.address)
                 setFlag(() => !flag)
-                console.log("hi1")
                 setData(res.data.results[0].barber.BarberShop)
 
 
@@ -308,9 +324,6 @@ import { toast } from "react-hot-toast";
 
                   </MDBCol>
                   <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
-                  {/* <p className="text-start text-md-center">
-                      <strong>Price: {item.service.price}$</strong>
-                    </p> */}
                     
                     <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
                       <MDBBtn className="px-3 me-2 shopcartbutton" onClick={() => handleDecreaseQuantity(item.id)}>
@@ -366,30 +379,98 @@ import { toast } from "react-hot-toast";
             </MDBCard>
           </MDBCol>
           <MDBCol md="4">
+
+
             <MDBCard className="mb-4 shopcartcolor">
               <MDBCardHeader>
                 <MDBTypography tag="h5" className="mb-0 ">
                   Summary
                 </MDBTypography>
               </MDBCardHeader>
+              
               <MDBCardBody>
-                <MDBListGroup flush>
-                  <MDBListGroupItem
-                    className="d-flex justify-content-between align-items-center border-0 px-0 mb-3 shopcartcolor">
-                    <div>
-                      <strong>Total amount</strong><br></br>
-                      <strong>Your Wallet's Balance</strong><br></br>
-                      <strong>
-                        <p className="mb-0"></p>
-                      </strong>
-                    </div>
-                    <span>
-                      
-                      <strong>{totalCosts}</strong><br></br>
-                      <strong>{money < 0 ? 0 : money}</strong><br></br>
-                    </span>
-                  </MDBListGroupItem>
-                </MDBListGroup>
+                <div className="container" >
+                  <div className="total-amount" style={{color : "#4F4F4F", display : "flex", gap : "83px"}}>
+                    <strong> Total amount : </strong>
+                    <strong>{totalCosts + selectedTip}</strong>
+                  </div>
+                  <div className="wallet-balance" style={{color : "#4F4F4F", display : "flex", gap : "30px"}}>
+                    <strong> Your wallet's Balance: </strong>
+                    <strong>{money < 0 ? 0 : money}</strong>
+                  </div>
+                  <div className="tip" style={{color : "#4F4F4F", display : "flex", gap : "30px", marginTop : "10px"}}>
+                    <strong style={{marginTop : "5px"}}> Tip: </strong>
+                    <InputLabel id="tip-label">Choose a tip</InputLabel>
+                    <Select
+                      labelId="tip-label"
+                      sx={{
+                        height: "35px",
+                        width: "120px",
+                        // marginLeft : "100px",
+                        backgroundColor: "#ac3b61",
+                        border: "1px solid darkgrey",
+                        color: "#ffecee",
+                        "& .MuiSvgIcon-root": {
+                          color: "white",
+                        },
+                      }}
+                      label = "Choose"
+                      value={selectedTip}
+                      onChange={handleTipChange}
+                    >
+                    {/* <MenuItem style={{backgroundColor:"#ac3b61", width : "100%"}} value="">
+                  <em >Choose</em>
+                </MenuItem> */}
+                {tips.map((tips) => (
+                  <MenuItem
+                    key={tips}
+                    value={tips}
+
+                    sx={{
+                      width: "100%",
+                      backgroundColor: tips === selectedTip ? "#edc7b7" : "#ac3b61",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "#fdccc8",
+                      },
+                    }}
+                  >
+                    {tips}
+                  </MenuItem>
+                ))}
+                    </Select>
+                    
+                  </div>
+                </div>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+          <MDBCol md="4">
+            <MDBCard className="mb-4 shopcartcolor">
+              <MDBCardHeader>
+                <MDBTypography tag="h5" className="mb-0 ">
+                  Rating
+                </MDBTypography>
+              </MDBCardHeader>
+              <MDBCardBody>
+
+                <Box
+                  sx={{
+                    '& > legend': { mt: 2 },
+                  }}
+                >
+                  <div className="first-layer-component">
+                  <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  />
+                  </div>
+
+
+                </Box>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
