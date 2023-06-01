@@ -52,7 +52,7 @@ export const Landing = () => {
         </button>
       </div>
       <div className="landingTitleHolder">
-        <p className="landingTitle">Untitled Beauty</p>
+        <p className="landingTitle">Touch & Care</p>
         <p className="landingQuotes">Everything has beauty, but not everyone sees it.</p>
         <br></br>
         <br></br>
