@@ -65,7 +65,7 @@ function ImageSlider ({ slides }) {
   // const { hasEditedProfile } = useContext(UserProfileContext);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const length = slides.length;
   const [count, setCount] = useState(() => {
     const savedData = localStorage.getItem('count');
@@ -169,6 +169,18 @@ const StyledMenuItem = styled(MenuItem)({
           }
         );
         console.log(response.data);
+        axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/rate/`, {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then((response) => {
+          setValue(response.data.rating)
+          console.log("got it darling for rate", value)
+        })
+        .catch(err => console.log(err))
+    
       } catch (error) {
         console.error(error);
       }
