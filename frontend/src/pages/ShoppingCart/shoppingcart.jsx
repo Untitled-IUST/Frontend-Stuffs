@@ -58,7 +58,14 @@ import { toast } from "react-hot-toast";
   };
 });
 
-
+      const sendRating = async (value) => {
+        try {
+          const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/', {  rate:value });
+          console.log(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
 
         function handleDelete(id) {
@@ -118,6 +125,7 @@ import { toast } from "react-hot-toast";
               },
             })
             .then((res) => {
+              console.log(res.data)
                 setOrders(res.data.results) 
                 setPrice(res.data.results[0].service.price)  
                 setTemp(res.data.results[0].service.price)
@@ -411,12 +419,12 @@ import { toast } from "react-hot-toast";
                     '& > legend': { mt: 2 },
                   }}
                 >
-                  <Typography component="legend">Controlled</Typography>
                   <Rating
                     name="simple-controlled"
                     value={value}
                     onChange={(event, newValue) => {
                       setValue(newValue);
+                      sendRating(newValue);
                     }}
                   />
 

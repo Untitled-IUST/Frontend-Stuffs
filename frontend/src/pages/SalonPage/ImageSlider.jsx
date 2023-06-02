@@ -2,6 +2,7 @@
 import React, { useState,useEffect, useRef , useContext } from 'react';
 import { SliderData } from '../../Components/SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+import Rating from '@mui/material/Rating';
 import QRCode from 'react-qr-code';
 import {
   BrowserRouter as Router,
@@ -64,6 +65,7 @@ function ImageSlider ({ slides }) {
   const { hasEditedProfile } = useContext(UserProfileContext);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
+  const [value, setValue] = React.useState(0);
   const length = slides.length;
   const [count, setCount] = useState(() => {
     const savedData = localStorage.getItem('count');
@@ -149,6 +151,25 @@ const StyledMenuItem = styled(MenuItem)({
         setServicefront(response.data.categories) 
     }).catch(err=> console.log(err))
     },[])
+    const sendRating = async (value) => {
+      try {
+        const response = await axios.post(
+          `https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/rate/`,
+          { rating: value },
+          {
+            headers: {
+              'Authorization': `JWT ${access_token}`,
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+
     // useEffect(() => {
     //   console.log(access_token)
     //   axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
@@ -758,9 +779,25 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
 
         </List>
         </Box>
+       
         </div>
+        <div className='rtdiv'>
+                        <Box
+                          sx={{
+                            '& > legend': { mt: 2 , paddingLeft:'5%' }
+                          }}
+                        >
+                          <Rating sx={{padding:'5%',textAlign:'center'}}
+                            name="simple-controlled"
+                            value={value}
+                            onChange={(event, newValue) => {
+                              setValue(newValue);
+                              sendRating(newValue);
+                            }}
+                          />
 
-
+                        </Box>
+        </div>
   </div>
   </div>
   
