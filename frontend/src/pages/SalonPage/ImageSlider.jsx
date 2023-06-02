@@ -151,6 +151,7 @@ const StyledMenuItem = styled(MenuItem)({
   .then((response) => {
     setMydata(response.data)
     setIdbarb(response.data.id)
+    setValue(response.data.customers_rate)
     setServicefront(response.data.categories) 
   })
   .catch(err => console.log(err))
@@ -169,14 +170,14 @@ const StyledMenuItem = styled(MenuItem)({
           }
         );
         console.log(response.data);
-        axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/rate/`, {
+        axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`, {
           headers: {
             'Authorization': `JWT ${access_token}`,
             'Content-Type': 'application/json',
           }
         })
         .then((response) => {
-          setValue(response.data.rating)
+          setValue(response.data.customers_rate)
           console.log("got it darling for rate", value)
         })
         .catch(err => console.log(err))
@@ -702,8 +703,9 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
                             name="simple-controlled"
                             value={value}
                             onChange={(event, newValue) => {
-                              setValue(newValue);
                               sendRating(newValue);
+                              setValue(newValue);
+                
                             }}
                           />
 
