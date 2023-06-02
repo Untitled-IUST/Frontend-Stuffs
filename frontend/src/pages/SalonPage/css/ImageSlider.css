@@ -4,7 +4,7 @@
 }
 .wholebarber{
     background-color: #eee2dc;
-    height: 3000px;
+    height: 100%;
   }
 
   .slider {
@@ -302,8 +302,8 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 
   }
   .rtdiv{
-    margin-top: -48%;
-    /* margin-bottom: 70% !important; */
+    /* margin-top: -8%; */
+    margin-bottom: -6.5% !important;
     background-color: #edc7b7;
     width: 43%;
     height: 80px;

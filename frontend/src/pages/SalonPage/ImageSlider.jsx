@@ -62,7 +62,7 @@ const INITIAL_HEIGHT = 46;
 
 
 function ImageSlider ({ slides }) {
-  const { hasEditedProfile } = useContext(UserProfileContext);
+  // const { hasEditedProfile } = useContext(UserProfileContext);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [value, setValue] = React.useState(0);
@@ -73,6 +73,7 @@ function ImageSlider ({ slides }) {
   });
   useEffect(() => {
     localStorage.setItem('count', JSON.stringify(count));
+    // localStorage.removeItem('count', JSON.stringify(count));
 
   }, [count]);
 
@@ -129,6 +130,7 @@ const StyledMenuItem = styled(MenuItem)({
   });
   useEffect(() => {
     localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
+    // localStorage.removeItem('selectedCards', JSON.stringify(selectedCards));
   }, [selectedCards]);
 
   const handleDateChange = (date) => {
@@ -140,16 +142,19 @@ const StyledMenuItem = styled(MenuItem)({
   useEffect(()=> {
   //axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
   // axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
-  axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`)
-    .then((response) => {
-    
-        setMydata(response.data)
-        //console.log(response.data.images[0])
-        setIdbarb(response.data.id)
-
-        // console.log("************** The id is **************** ", id)
-        setServicefront(response.data.categories) 
-    }).catch(err=> console.log(err))
+  axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`, {
+    headers: {
+      'Authorization': `JWT ${access_token}`,
+      'Content-Type': 'application/json',
+    }
+  })
+  .then((response) => {
+    setMydata(response.data)
+    setIdbarb(response.data.id)
+    setServicefront(response.data.categories) 
+  })
+  .catch(err => console.log(err))
+  
     },[])
     const sendRating = async (value) => {
       try {
@@ -190,21 +195,26 @@ const StyledMenuItem = styled(MenuItem)({
     useEffect(() => {
       fetchComments();
     }, []);
-  
+    
     const fetchComments = () => {
-      axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`)
-        .then(response => {
-          setComments(response.data.comments);
-          setVisibleComments(response.data.comments.slice(0, 3));
-          setDes(response.data.barberDesc[0].description);
-          setTitle(response.data.barberDesc[0].title)
-          setBarbimg(response.data.barberDesc[0].img)
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`, {
+        headers: {
+          'Authorization': `JWT ${access_token}`,
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(response => {
+        setComments(response.data.comments);
+        setVisibleComments(response.data.comments.slice(0, 3));
+        setDes(response.data.barberDesc[0].description);
+        setTitle(response.data.barberDesc[0].title)
+        setBarbimg(response.data.barberDesc[0].img)
+      })
+      .catch(error => {
+        console.error(error);
+      });
     };
-
+    
 
     
     
@@ -331,10 +341,10 @@ const onClose = () => {
 
       const onSubmit = (event) => {
         event.preventDefault();
-        if (!hasEditedProfile) {
-          alert('You must edit your profile before submitting a comment.');
-          return;
-        }
+        // if (!hasEditedProfile) {
+        //   alert('You must edit your profile before submitting a comment.');
+        //   return;
+        // }
         if (commentCount[idbarb] >= 5) {
           alert(`You have reached the maximum number of ${5} comments for this barber.`);
           return;
@@ -670,6 +680,23 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         </Grid>
       </Box>
     </Container>
+    <div className='rtdiv'>
+                        <Box
+                          sx={{
+                            '& > legend': { mt: 2 , paddingLeft:'5%' }
+                          }}
+                        >
+                          <Rating sx={{padding:'5%',textAlign:'center'}}
+                            name="simple-controlled"
+                            value={value}
+                            onChange={(event, newValue) => {
+                              setValue(newValue);
+                              sendRating(newValue);
+                            }}
+                          />
+
+                        </Box>
+        </div>
     <div>
     <Box sx={{ width: '100%',pb:3}}>
     <List sx={{ width: '100%', maxWidth: 520 ,marginBottom:60,bgcolor:'#edc7b7',marginLeft:'3%',
@@ -781,23 +808,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         </Box>
        
         </div>
-        <div className='rtdiv'>
-                        <Box
-                          sx={{
-                            '& > legend': { mt: 2 , paddingLeft:'5%' }
-                          }}
-                        >
-                          <Rating sx={{padding:'5%',textAlign:'center'}}
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                              sendRating(newValue);
-                            }}
-                          />
-
-                        </Box>
-        </div>
+      
   </div>
   </div>
   
