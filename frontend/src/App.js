@@ -38,7 +38,7 @@ const App = () => {
           }/>
           <Route path="/SalonPage/:id" element ={
             <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
-              <SideBar/>
+              {/* <SideBar/> */}
               <ImageSlider slides={SliderData}/>
           </div>
           } />

@@ -696,10 +696,10 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
     <div className='rtdiv'>
                         <Box
                           sx={{
-                            '& > legend': { mt: 2 , paddingLeft:'5%' }
+                            '& > legend': { mt: 2 , }
                           }}
                         >
-                          <Rating sx={{padding:'5%',textAlign:'center'}}
+                          <Rating sx={{textAlign:'center'}}
                             name="simple-controlled"
                             value={value}
                             onChange={(event, newValue) => {
