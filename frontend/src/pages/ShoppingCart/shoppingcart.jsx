@@ -125,7 +125,7 @@ import {
 
           const tips = [0,5,10,15];
           const [selectedTip, setSelectedTip] = useState(0);
-          const finalMoney = totalCosts + selectedTip;
+          let finalMoney = totalCosts + selectedTip;
           const handleTipChange = (event) => {
             setSelectedTip(event.target.value);
           };
@@ -266,6 +266,7 @@ import {
         handlePay();
       }
       const  handlePay =  async () => {
+        finalMoney = 0;
         try {
           for (const id of orderIds) {
             const { quantity, status } = orderData[id];
@@ -400,7 +401,7 @@ import {
                 <div className="container" >
                   <div className="total-amount" style={{color : "#4F4F4F", display : "flex", gap : "83px"}}>
                     <strong> Total amount : </strong>
-                    <strong>{totalCosts + selectedTip}</strong>
+                    <strong>{finalMoney}</strong>
                   </div>
                   <div className="wallet-balance" style={{color : "#4F4F4F", display : "flex", gap : "30px"}}>
                     <strong> Your wallet's Balance: </strong>
