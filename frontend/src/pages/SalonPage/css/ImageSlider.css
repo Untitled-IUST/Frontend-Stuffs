@@ -314,8 +314,13 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     
   }
   .css-10a8lib {
-    text-align: center;
+    /* text-align: center; */
+    margin-left: 10px !important;
   }
+  .css-pikhkf {
+    margin-left: 33% !important;
+    padding:5% !important;
+}
 
   
   @media only screen and (max-width:500px){
