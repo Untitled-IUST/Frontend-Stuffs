@@ -19,7 +19,7 @@ import CommentExampleReplyFormOuter from "./pages/SalonPage/Comments";
 import UserProfileContext from "./pages/SalonPage/UserProfileContext";
 import OrderHistory from "./pages/orderhistory/orderhistory"
 import SendEmail from "./pages/LoginSignup/SendEmail";
-
+import Landing from "./pages/Landing/Landing";
 const App = () => {
   const [hasEditedProfile, setHasEditedProfile] = useState(false);
 
@@ -29,7 +29,8 @@ const App = () => {
       <div className="App">
       <Router>
         <Routes>
-          <Route path="/" Component={LoginCustomer}/>
+          <Route path="/" Component={Landing} />
+          <Route path="/LoginCustomer" Component={LoginCustomer}/>
           <Route path="/SignUpCustomer" Component={SignUpCustomer} />
           <Route path="/SalonSelect" element={
             <div id="app" style={({ height: "100vh" }, { display: "flex" })}>

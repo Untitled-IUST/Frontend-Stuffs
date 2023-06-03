@@ -23,7 +23,7 @@ import Typography from "@mui/material/Typography";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 
-export const Landing = () => {
+const Landing = () => {
   const navigate = useNavigate();
   const [landingState, setLandingState] = useState("");
   
@@ -78,3 +78,5 @@ export const Landing = () => {
     </div>
   );
 };
+
+export default Landing;
