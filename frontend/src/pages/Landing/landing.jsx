@@ -44,9 +44,6 @@ const Landing = () => {
         <button className="nameButton" onClick={() => navigate("/")}>
           UNTITLED
         </button>
-        <button className="navButtons" onClick={() => navigate("/SalonSelect")}>
-          Hairdressers
-        </button>
         <button className="navLogin" onClick={() => navigate("/LoginCustomer")}>
           Login/Register
         </button>
