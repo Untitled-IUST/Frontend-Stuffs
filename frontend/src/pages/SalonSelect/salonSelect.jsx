@@ -13,7 +13,13 @@ const SalonSelect = () => {
   const baseURL = "https://amirmohammadkomijani.pythonanywhere.com/barber/info/"
   const [TotalAreas ,  setTotalAreas] = useState([]);
 
- 
+  const acccessTokenCustomer = localStorage.getItem('accessTokenCustomer');
+  const options =  {
+    headers : {
+      Authorization : `JWT ${acccessTokenCustomer}`,
+      'Content-Type' : 'application/json'
+    }
+  }
 
   const [ordering , setOrdering] = useState("");
   const [rateDropdown , setRateDropdown] = useState(false);
@@ -34,14 +40,14 @@ const SalonSelect = () => {
   useEffect(() => {
     async function fetchData(){
       
-      const response = await fetch(baseURL);
+      const response = await fetch(baseURL,options);
       const fetchedData = await response.json();
       setData(fetchedData.results);
       setHowManyPages(Math.ceil(fetchedData.count/9));
     }
     fetchData();
     async function fetchAreas(){
-      const resp = await fetch("https://amirmohammadkomijani.pythonanywhere.com/barber/area/");
+      const resp = await fetch("https://amirmohammadkomijani.pythonanywhere.com/barber/area/",options);
       const areas = await resp.json();
       setTotalAreas(areas);
     }
@@ -59,12 +65,19 @@ const SalonSelect = () => {
     const lowRateURL = ContinueURLForFiltersLowRate + rateValue[0];
     const topRateURL = ContinueURLForFiltersTopRate + rateValue[1];
     const searchURL = ContinueURLForFiltersSearch + query;
-    
-    axios.get(baseURL+areaURL+orederURL+pageURL+lowRateURL+topRateURL+searchURL)
+    axios({
+      method : "get",
+      url :baseURL+areaURL+orederURL+pageURL+lowRateURL+topRateURL+searchURL,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization : `JWT ${acccessTokenCustomer}`
+      },
+    })
     .then(response => {setData(response.data.results);setHowManyPages(Math.ceil(response.data.count/9));})
   },[Page])
   
   function handleApplyingFilters(){
+    setPage(1);
     async function fetchData(){
       try{
         const areaURL = ContinueURLForFiltersArea + area ;
@@ -74,7 +87,7 @@ const SalonSelect = () => {
         const topRateURL = ContinueURLForFiltersTopRate + rateValue[1];
         const searchURL = ContinueURLForFiltersSearch + query;
         
-        const response = await fetch(baseURL+areaURL+orederURL+pageURL+lowRateURL+topRateURL+searchURL);
+        const response = await fetch((baseURL+areaURL+orederURL+pageURL+lowRateURL+topRateURL+searchURL),options);
         const fetchedData = await response.json();
         setData(fetchedData.results);
         setHowManyPages(Math.ceil(fetchedData.count/9));
@@ -237,7 +250,7 @@ const SalonSelect = () => {
             </div>
           </div>
           <div className="flex justify-center p-2 rounded-lg bg-DesertSand-500">
-            <Pagination  size="large" count={howManyPages} page={Page} onChange={(event,value) => {setPage(value)}} color="secondary" />
+            <Pagination  size="large" count={howManyPages} page={Page} onChange={(event,value) => {setPage(value)}}  />
           </div>
         </div>
       </div>
