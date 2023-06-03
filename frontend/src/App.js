@@ -18,6 +18,7 @@ import SelectedPlan from "./pages/Wallet/Content";
 import CommentExampleReplyFormOuter from "./pages/SalonPage/Comments";
 import UserProfileContext from "./pages/SalonPage/UserProfileContext";
 import OrderHistory from "./pages/orderhistory/orderhistory"
+import SendEmail from "./pages/LoginSignup/SendEmail";
 
 const App = () => {
   const [hasEditedProfile, setHasEditedProfile] = useState(false);
@@ -74,6 +75,7 @@ const App = () => {
               <OrderHistory/>
             </div>
           } />
+          <Route path="/ForgotPassword"  Component={SendEmail} />
         </Routes>
       </Router>
       </div>
