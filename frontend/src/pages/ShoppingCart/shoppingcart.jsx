@@ -405,33 +405,6 @@ import { toast } from "react-hot-toast";
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-          <MDBCol md="4">
-            <MDBCard className="mb-4 shopcartcolor">
-              <MDBCardHeader>
-                <MDBTypography tag="h5" className="mb-0 ">
-                  Rateing
-                </MDBTypography>
-              </MDBCardHeader>
-              <MDBCardBody>
-
-                          <Box
-                  sx={{
-                    '& > legend': { mt: 2 },
-                  }}
-                >
-                  <Rating
-                    name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                      sendRating(newValue);
-                    }}
-                  />
-
-                </Box>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
         </MDBRow>
   
       </MDBContainer>
