@@ -51,7 +51,8 @@ import {
         const [stateorder, setStateorder] = useState([]) ;
         const orderIds = orders.map((order) => order.id);
         const quantities = orders.map((order) => order.quantity);
-        const statuses = ['paid']; 
+        // const statuses = ['paid']; 
+        let statuses = `paid`;
         const [paymentSuccessful, setPaymentSuccessful] = useState(false);
         
 
@@ -125,7 +126,7 @@ import {
 
           const tips = [0,5,10,15];
           const [selectedTip, setSelectedTip] = useState(0);
-          let finalMoney = totalCosts + selectedTip;
+          const finalMoney = totalCosts + selectedTip;
           const handleTipChange = (event) => {
             setSelectedTip(event.target.value);
           };
@@ -266,13 +267,12 @@ import {
         handlePay();
       }
       const  handlePay =  async () => {
-        finalMoney = 0;
         try {
           for (const id of orderIds) {
             const { quantity, status } = orderData[id];
             const response = await axios.put(`https://amirmohammadkomijani.pythonanywhere.com/barber/basket/${id}/`, {
               quantity: quantity,
-              status: status
+              status: statuses
             }, {
               headers: {
                 'Authorization': `JWT ${access_token}`,
@@ -280,6 +280,7 @@ import {
               }
             });
             console.log('request succsessful')
+            
             console.log(response.data); // Output: the updated order object
           }
           setPaymentSuccessful(true); 
@@ -409,7 +410,7 @@ import {
                   </div>
                   <div className="tip" style={{color : "#4F4F4F", display : "flex", gap : "30px", marginTop : "10px"}}>
                     <strong style={{marginTop : "5px"}}> Tip: </strong>
-                    <InputLabel id="tip-label">Choose a tip</InputLabel>
+                    {/* <InputLabel id="tip-label">Choose a tip</InputLabel> */}
                     <Select
                       labelId="tip-label"
                       sx={{
