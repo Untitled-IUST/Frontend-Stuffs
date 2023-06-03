@@ -1,7 +1,8 @@
 
-import React, { useState,useEffect, useRef } from 'react';
+import React, { useState,useEffect, useRef , useContext } from 'react';
 import { SliderData } from '../../Components/SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+import Rating from '@mui/material/Rating';
 import QRCode from 'react-qr-code';
 import {
   BrowserRouter as Router,
@@ -11,6 +12,7 @@ import {
   useNavigate
 }from "react-router-dom";
 import Box from '@mui/material/Box';
+import UserProfileContext from './UserProfileContext';
 import { Comment, Form } from 'semantic-ui-react'
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
@@ -60,8 +62,10 @@ const INITIAL_HEIGHT = 46;
 
 
 function ImageSlider ({ slides }) {
+  // const { hasEditedProfile } = useContext(UserProfileContext);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
+  const [value, setValue] = useState(0);
   const length = slides.length;
   const [count, setCount] = useState(() => {
     const savedData = localStorage.getItem('count');
@@ -69,6 +73,7 @@ function ImageSlider ({ slides }) {
   });
   useEffect(() => {
     localStorage.setItem('count', JSON.stringify(count));
+    // localStorage.removeItem('count', JSON.stringify(count));
 
   }, [count]);
 
@@ -109,6 +114,7 @@ const StyledMenuItem = styled(MenuItem)({
   const[des,setDes]=useState('')
   const[barbimg,setBarbimg]=useState()
   const[title,setTitle]=useState('')
+  const[idbarb,setIdbarb]=useState('')
 
   const[servicefront, setServicefront] = useState([]) 
   const times = [];
@@ -119,11 +125,12 @@ const StyledMenuItem = styled(MenuItem)({
   const [selectedTime, setSelectedTime] = React.useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedCards, setSelectedCards] = useState(() => {
-    const savedData = localStorage.getItem('selectedCards');
+  const savedData = localStorage.getItem('selectedCards');
     return savedData ? JSON.parse(savedData) : [];
   });
   useEffect(() => {
     localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
+    // localStorage.removeItem('selectedCards', JSON.stringify(selectedCards));
   }, [selectedCards]);
 
   const handleDateChange = (date) => {
@@ -131,35 +138,99 @@ const StyledMenuItem = styled(MenuItem)({
   };
 
   let { id } = useParams();
+
   useEffect(()=> {
   //axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${props.id}/`)
   // axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/') 
-  axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`)
-    .then((response) => {
-    
-        setMydata(response.data)
-        //console.log(response.data.images[0])
-
-        // console.log("************** The id is **************** ", id)
-        setServicefront(response.data.categories) 
-    }).catch(err=> console.log(err))
+  axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`, {
+    headers: {
+      'Authorization': `JWT ${access_token}`,
+      'Content-Type': 'application/json',
+    }
+  })
+  .then((response) => {
+    setMydata(response.data)
+    setIdbarb(response.data.id)
+    setValue(response.data.customers_rate)
+    setServicefront(response.data.categories) 
+  })
+  .catch(err => console.log(err))
+  
     },[])
+    const sendRating = async (value) => {
+      try {
+        const response = await axios.post(
+          `https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/rate/`,
+          { rating: value },
+          {
+            headers: {
+              'Authorization': `JWT ${access_token}`,
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+        console.log(response.data);
+        axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`, {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then((response) => {
+          setValue(response.data.customers_rate)
+          console.log("got it darling for rate", value)
+        })
+        .catch(err => console.log(err))
+    
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+
+    // useEffect(() => {
+    //   console.log(access_token)
+    //   axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+    //     headers: {
+    //       'Authorization': `JWT ${access_token}`,
+    //       'Content-Type': 'application/json',
+    //     }
+    //   })
+    //     .then((response) => {
+    //       setDes(response.data.results[0].description);
+    //       setTitle(response.data.results[0].title)
+    //       setBarbimg(response.data.results[0].img)
+    //       console.log('picofbarb',barbimg)
+    //       console.log('here',des);
+    //     })
+    //     .catch(err => console.log(err));
+    // }, []);
     useEffect(() => {
-      axios.get('https://amirmohammadkomijani.pythonanywhere.com/barber/description/', {
+      fetchComments();
+    }, []);
+    
+    const fetchComments = () => {
+      axios.get(`https://amirmohammadkomijani.pythonanywhere.com/barber/info/${id}/`, {
         headers: {
           'Authorization': `JWT ${access_token}`,
           'Content-Type': 'application/json',
         }
       })
-        .then((response) => {
-          setDes(response.data.results[0].description);
-          setTitle(response.data.results[0].title)
-          setBarbimg(response.data.results[0].img)
-          console.log('picofbarb',barbimg)
-          console.log('here',des);
-        })
-        .catch(err => console.log(err));
-    }, []);
+      .then(response => {
+        setComments(response.data.comments);
+        setVisibleComments(response.data.comments.slice(0, 3));
+        setDes(response.data.barberDesc[0].description);
+        setTitle(response.data.barberDesc[0].title)
+        setBarbimg(response.data.barberDesc[0].img)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    };
+    
+
+    
+    
     useEffect(() => {
       console.log(servicefront)
     },[servicefront])
@@ -195,6 +266,7 @@ const StyledMenuItem = styled(MenuItem)({
       }
       } catch (error) {
         console.error('POST request failed:', error);
+        alert(`You  Cant Reserve This Time.`);
       }
     }
   
@@ -260,7 +332,7 @@ const StyledMenuItem = styled(MenuItem)({
   const [commentValue, setCommentValue] = useState("");
   const [comments, setComments] = useState([]);
   const [visibleComments, setVisibleComments] = useState([]);
-  const [commentCount, setCommentCount] = useState(0);
+  const [commentCount, setCommentCount] = useState({});
   const [replyIndex, setReplyIndex] = useState(-1);
 
   const outerHeight = useRef(INITIAL_HEIGHT);
@@ -279,17 +351,40 @@ const onClose = () => {
         setCommentValue("");
         setIsExpanded(false);
       };
-const onSubmit = (e) => {
-        e.preventDefault();
-        if (commentCount < 5) {
-          setComments([...comments, { text: commentValue, replies: [] }]);
-          setCommentCount(commentCount + 1);
+
+      const onSubmit = (event) => {
+        event.preventDefault();
+        // if (!hasEditedProfile) {
+        //   alert('You must edit your profile before submitting a comment.');
+        //   return;
+        // }
+        if (commentCount[idbarb] >= 5) {
+          alert(`You have reached the maximum number of ${5} comments for this barber.`);
+          return;
         }
-       else {
-        alert("You have reached the maximum number of comments.");
-      }
-        setCommentValue("");
-      }
+      
+        axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/comments/create/', { barber: idbarb, body: commentValue }, {
+          headers: {
+            'Authorization': `JWT ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(response => {
+            // Fetch updated comments
+            console.log("post it darling",response.data)
+            fetchComments();
+            setCommentCount({
+              ...commentCount,
+              [idbarb]: (commentCount[idbarb] || 0) + 1
+            });
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      
+        setCommentValue('');
+      };
+      
 const onReplyClick = (index) => {
         setReplyIndex(index);
       }
@@ -304,7 +399,7 @@ const onReplyClick = (index) => {
         const newComments = [...comments];
         newComments[replyIndex].replies.push(replyValue);
         setComments(newComments);
-        setVisibleComments(newComments.slice(0, 3));
+        // setVisibleComments(newComments.slice(0, 3));
         setReplyIndex(-1);
         e.target.elements.reply.value = "";
       }
@@ -313,13 +408,10 @@ const onReplyClick = (index) => {
         setReplyIndex(-1);
         document.getElementById(`reply-${replyIndex}`).value = "";
       }
-const onLoadMoreClick = () => {
-        setVisibleComments(comments);
-      }
+      const onLoadMoreClick = () => {
+        setVisibleComments(comments.slice(0, visibleComments.length + 3));
+      };
     
-      React.useEffect(() => {
-        setVisibleComments(comments.slice(0, 3));
-      }, [comments]);
     
 
 
@@ -601,20 +693,37 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         </Grid>
       </Box>
     </Container>
+    <div className='rtdiv'>
+                        <Box
+                          sx={{
+                            '& > legend': { mt: 2 , paddingLeft:'5%' }
+                          }}
+                        >
+                          <Rating sx={{padding:'5%',textAlign:'center'}}
+                            name="simple-controlled"
+                            value={value}
+                            onChange={(event, newValue) => {
+                              sendRating(newValue);
+                              setValue(newValue);
+                
+                            }}
+                          />
+
+                        </Box>
+        </div>
     <div>
     <Box sx={{ width: '100%',pb:3}}>
     <List sx={{ width: '100%', maxWidth: 520 ,marginBottom:60,bgcolor:'#edc7b7',marginLeft:'3%',
-   paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
+        paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
         <Typography sx={{ marginLeft: '15px',fontFamily:'Roboto, ',color:'#ac3b61',fontSize:22 }} >Comments</Typography>
-        {comments.map((comment, index) => (
+        {visibleComments.map((comment, index) => (
           <React.Fragment key={index}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+                <Avatar alt="User" src={comment.customer.profile_pic} />
               </ListItemAvatar>
               <ListItemText
-                primary={comment.text}
-                secondary={
+                primary={
                   <>
                     <Typography
                       sx={{ display: 'inline' }}
@@ -622,10 +731,16 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
                       variant="body2"
                       color="text.primary"
                     >
-                      User
+                      {comment.customer.first_name} {comment.customer.last_name}
                     </Typography>
-                    {comment.replies.map((reply, replyIndex) => (
-                      <React.Fragment key={replyIndex}>
+                    <br />
+                    {comment.body}
+                  </>
+                }
+                secondary={
+                  <>
+                    {comment.reply && (
+                      <>
                         <br />
                         <Typography
                           sx={{ display: 'inline' }}
@@ -641,10 +756,10 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
                           variant="body2"
                           color="text.primary"
                         >
-                          &nbsp;{reply}
+                          &nbsp;{comment.reply}
                         </Typography>
-                      </React.Fragment>
-                    ))}
+                      </>
+                    )}
                   </>
                 }
               />
@@ -653,7 +768,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
           </React.Fragment>
         ))}
 
-            {visibleComments.length < comments.length && (
+        {visibleComments.length < comments.length && (
             <button onClick={onLoadMoreClick} className='bt17'>Load more</button>
           )}
   
@@ -695,7 +810,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
                         <button type="button" className="cancel" onClick={onClose}>
                             Cancel
                         </button>
-                        <button type="submit" disabled={commentValue.length < 1}>
+                        <button type="submit"  className='subim' disabled={commentValue.length < 1}>
                             Respond
                         </button>
                     </div>
@@ -705,9 +820,9 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
 
         </List>
         </Box>
+       
         </div>
-
-
+      
   </div>
   </div>
   

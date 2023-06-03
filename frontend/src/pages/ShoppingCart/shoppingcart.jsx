@@ -19,12 +19,16 @@ import {
     import { useNavigate } from 'react-router-dom';
     import "./shoppingcart.css"
     import axios from "axios";
+    import Box from '@mui/material/Box';
+    import Rating from '@mui/material/Rating';
+    import Typography from '@mui/material/Typography';
     import { Link } from 'react-router-dom';
 import { toast } from "react-hot-toast";
     
     export default function PaymentMethods() {
       const navigate = useNavigate();
         const [money, setMoney] = useState('');
+        const [value, setValue] = React.useState(0);
 
         const [orders,setOrders] = useState([]) 
         const [quantity, setQuantity] = useState(1);
@@ -54,7 +58,14 @@ import { toast } from "react-hot-toast";
   };
 });
 
-
+      const sendRating = async (value) => {
+        try {
+          const response = await axios.post('https://amirmohammadkomijani.pythonanywhere.com/barber/info/1/', {  rate:value });
+          console.log(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
 
         function handleDelete(id) {
@@ -114,6 +125,7 @@ import { toast } from "react-hot-toast";
               },
             })
             .then((res) => {
+              console.log(res.data)
                 setOrders(res.data.results) 
                 setPrice(res.data.results[0].service.price)  
                 setTemp(res.data.results[0].service.price)
@@ -393,8 +405,37 @@ import { toast } from "react-hot-toast";
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
+          <MDBCol md="4">
+            <MDBCard className="mb-4 shopcartcolor">
+              <MDBCardHeader>
+                <MDBTypography tag="h5" className="mb-0 ">
+                  Rateing
+                </MDBTypography>
+              </MDBCardHeader>
+              <MDBCardBody>
+
+                          <Box
+                  sx={{
+                    '& > legend': { mt: 2 },
+                  }}
+                >
+                  <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                      sendRating(newValue);
+                    }}
+                  />
+
+                </Box>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
         </MDBRow>
+  
       </MDBContainer>
+   
     </section>
     );
     }
