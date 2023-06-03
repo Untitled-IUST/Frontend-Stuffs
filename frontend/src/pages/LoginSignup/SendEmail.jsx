@@ -41,8 +41,8 @@ function SendEmail() {
   }
 
   return(
-    <div className="bg-WhiteChocolate-500 min-h-screen flex flex-col justify-center">
-      <div className="container mx-auto">
+    <div className=" bg-WhiteChocolate-500 min-h-screen flex flex-col justify-center">
+      <div className="max-w-[800px] container mx-auto">
           <h3 className="text-AteneoBlue-500 font-bold text-2xl text-center">Forgot Password</h3>
           <div className="rounded-lg bg-DesertSand-500">
             <form className="mx-8 mt-6 pt-3 pb-1 rounded">
@@ -64,7 +64,7 @@ function SendEmail() {
               </div>
               <div className="mb-2 text-center">
                 <button
-                  onClick={()=>{handleSubmit()}}
+                  onClick={(event)=>{handleSubmit(event)}}
                   className="hover:bg-MediumRuby-600 w-full py-2 font-bold text-white bg-MediumRuby-500 rounded focus:outline-none focus:shadow-outline"
                   type="button"
                 >
