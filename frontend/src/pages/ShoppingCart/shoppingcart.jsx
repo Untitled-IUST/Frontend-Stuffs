@@ -123,9 +123,9 @@ import {
         
 
 
-          const tips = [5,10,15];
+          const tips = [0,5,10,15];
           const [selectedTip, setSelectedTip] = useState(0);
-        
+          const finalMoney = totalCosts + selectedTip;
           const handleTipChange = (event) => {
             setSelectedTip(event.target.value);
           };
@@ -183,7 +183,7 @@ import {
           if (total<= money) {
             // User can pay by wallet
             // Deduct totalCost from credit and update the credit in the backend 
-            const newCredit = -total;
+            const newCredit = -finalMoney;
             let access_token = localStorage.getItem('accessTokenCustomer');
             console.log(newCredit);
             axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : newCredit }, {
@@ -219,7 +219,7 @@ import {
           }  else if (money > 0) {
             // User pays by wallet and pays the rest of the money with payment page
             // Deduct credit from totalCost and redirect user to payment page with the remaining amount
-            const remainingAmount = total - money;
+            const remainingAmount = finalMoney - money;
             const value1= -money
             // Update the credit in the backend to zero using an API call
             // Update the total cost in the backend using an API call
@@ -262,7 +262,7 @@ import {
 
       console.log(money)
       const handlePay1 = async () => {
-        navigate(`/paymentcard?value=${totalCosts}`);
+        navigate(`/paymentcard?value=${finalMoney}`);
         handlePay();
       }
       const  handlePay =  async () => {
