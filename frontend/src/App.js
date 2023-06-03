@@ -20,6 +20,7 @@ import UserProfileContext from "./pages/SalonPage/UserProfileContext";
 
 const App = () => {
   const [hasEditedProfile, setHasEditedProfile] = useState(false);
+import OrderHistory from "./pages/orderhistory/orderhistory"
 
   return (
     <UserProfileContext.Provider value={{ hasEditedProfile, setHasEditedProfile }}>
@@ -67,6 +68,7 @@ const App = () => {
             </div>
           } />
           <Route path="/paymentcard"  Component={SelectedPlan} />
+          <Route path="/orderhistory" Component={OrderHistory}/>
         </Routes>
       </Router>
       </div>

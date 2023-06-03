@@ -486,12 +486,12 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
                 </Button>
                 <Dialog open={open1} onClose={handleClose1} sx={{ '& .MuiPaper-root': { borderRadius: '16px' } }}>
               <Box sx={{ p: 4,bgcolor: '#edc7b7',width: 300 }}>
-              <Typography variant="h6" color='#123c69' padding={2} border={5 } borderColor={'#123c69'} borderRadius={2} border={'dashed'} marginBottom={3}>Selected Cards: </Typography>
+              <Typography variant="h6" color='#123c69' padding={2} border={5 } borderColor={'#123c69'} borderRadius={2}  border = {'dashed'} marginBottom={3}>Selected Cards: </Typography>
               {selectedCards.map((card) => (
                 <Typography  color='#123c69'  key={card.name} >{card.name} {card.price}$</Typography>
                 
               ))}
-              <Typography variant="h6"color='#ac3b61' padding={2} marginTop={2}  marginBottom={2}  border={5} borderColor={'#ac3b61'} border={'dashed'}  borderRadius={2}>
+              <Typography variant="h6"color='#ac3b61' padding={2} marginTop={2}  marginBottom={2}  border={5} borderColor={'#ac3b61'} border = {'dashed'}  borderRadius={2}>
                 Total Price: ${totalPrice}</Typography>
                 </Box>
                 </Dialog>

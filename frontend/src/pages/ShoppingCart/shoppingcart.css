@@ -20,11 +20,15 @@
 }
 .shopcartbutton:focus,
 .shopcartbutton:active {
-    background-color: rgb(56,43,73,0.8);
+    background-color: #edc7b7;
 }
 
 .shopcarticon{
     font-size: 1.75em !important;
     size : 1.75em !important;
-    color :#382b49;
+    color : #123c69;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list{
+    width: "30%" !important;
 }
