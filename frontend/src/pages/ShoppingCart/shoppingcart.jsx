@@ -24,7 +24,6 @@ import {
     import Typography from '@mui/material/Typography';
     import { Link } from 'react-router-dom';
     import { toast } from "react-hot-toast";
-    import Dropdown from 'react-dropdown';
     import { Select, MenuItem, InputLabel } from '@mui/material';
     
     export default function PaymentMethods() {
@@ -376,10 +375,10 @@ import {
                 <p>
                   <strong>We accept</strong>
                 </p>
-                <button onClick={handleClick} disabled={paymentSuccessful} style={{ fontSize: '2em' }}>
+                <button className="hover:scale-110" onClick={handleClick} disabled={paymentSuccessful} style={{ fontSize: '2em' }}>
                 <i className="material-icons shopcarticon">account_balance_wallet</i>
               </button><br></br>
-              <button onClick={handlePay1} disabled={paymentSuccessful}>
+              <button className="hover:scale-110" onClick={handlePay1} disabled={paymentSuccessful}>
                 <MDBCardImage className="me-2 shopcarticon" 
                   src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
                   alt="PayPal acceptance mark" />
@@ -451,35 +450,6 @@ import {
                     
                   </div>
                 </div>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol md="4">
-            <MDBCard className="mb-4 shopcartcolor">
-              <MDBCardHeader>
-                <MDBTypography tag="h5" className="mb-0 ">
-                  Rating
-                </MDBTypography>
-              </MDBCardHeader>
-              <MDBCardBody>
-
-                <Box
-                  sx={{
-                    '& > legend': { mt: 2 },
-                  }}
-                >
-                  <div className="first-layer-component">
-                  <Rating
-                    name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
-                  />
-                  </div>
-
-
-                </Box>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>

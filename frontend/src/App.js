@@ -17,10 +17,10 @@ import PaymentMethods from "./pages/ShoppingCart/shoppingcart";
 import SelectedPlan from "./pages/Wallet/Content";
 import CommentExampleReplyFormOuter from "./pages/SalonPage/Comments";
 import UserProfileContext from "./pages/SalonPage/UserProfileContext";
+import OrderHistory from "./pages/orderhistory/orderhistory"
 
 const App = () => {
   const [hasEditedProfile, setHasEditedProfile] = useState(false);
-import OrderHistory from "./pages/orderhistory/orderhistory"
 
   return (
     <UserProfileContext.Provider value={{ hasEditedProfile, setHasEditedProfile }}>
