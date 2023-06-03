@@ -48,7 +48,7 @@ function OrderHistory() {
     else if(selectedIndex === 6){
       setData(ConfirmedData);
     }
-    else if(selectedIndex === 6){
+    else if(selectedIndex === 7){
       setData(OrderingData);
     }
   },[selectedIndex])
