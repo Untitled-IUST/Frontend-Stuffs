@@ -53,7 +53,6 @@ import {
         const quantities = orders.map((order) => order.quantity);
         const statuses = ['paid']; 
         const [paymentSuccessful, setPaymentSuccessful] = useState(false);
-        
 
         const orderData = {};
         orderIds.forEach((id, index) => {
@@ -123,9 +122,9 @@ import {
         
 
 
-          const tips = [5,10,15];
+          const tips = [0,5,10,15];
           const [selectedTip, setSelectedTip] = useState(0);
-        
+          const finalmoney = totalCosts + selectedTip;
           const handleTipChange = (event) => {
             setSelectedTip(event.target.value);
           };
@@ -183,7 +182,7 @@ import {
           if (total<= money) {
             // User can pay by wallet
             // Deduct totalCost from credit and update the credit in the backend 
-            const newCredit = -total;
+            const newCredit = -finalmoney;
             let access_token = localStorage.getItem('accessTokenCustomer');
             console.log(newCredit);
             axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/wallet/add_credits/', { credit : newCredit }, {
@@ -219,7 +218,7 @@ import {
           }  else if (money > 0) {
             // User pays by wallet and pays the rest of the money with payment page
             // Deduct credit from totalCost and redirect user to payment page with the remaining amount
-            const remainingAmount = total - money;
+            const remainingAmount = finalmoney - money;
             const value1= -money
             // Update the credit in the backend to zero using an API call
             // Update the total cost in the backend using an API call
@@ -262,7 +261,7 @@ import {
 
       console.log(money)
       const handlePay1 = async () => {
-        navigate(`/paymentcard?value=${totalCosts}`);
+        navigate(`/paymentcard?value=${finalmoney}`);
         handlePay();
       }
       const  handlePay =  async () => {
@@ -408,7 +407,7 @@ import {
                   </div>
                   <div className="tip" style={{color : "#4F4F4F", display : "flex", gap : "30px", marginTop : "10px"}}>
                     <strong style={{marginTop : "5px"}}> Tip: </strong>
-                    <InputLabel id="tip-label">Choose a tip</InputLabel>
+                    
                     <Select
                       labelId="tip-label"
                       sx={{
