@@ -68,7 +68,12 @@ const App = () => {
             </div>
           } />
           <Route path="/paymentcard"  Component={SelectedPlan} />
-          <Route path="/orderhistory" Component={OrderHistory}/>
+          <Route path="/orderhistory" element ={
+            <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+              <SideBar/>
+              <OrderHistory/>
+            </div>
+          } />
         </Routes>
       </Router>
       </div>
