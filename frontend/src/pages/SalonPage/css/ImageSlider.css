@@ -202,7 +202,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
   
   }
   .bt{
-  padding: 2%;
+  padding: 1%;
   width: 30%;
   color: #edc7b7!important;
   background-color: #ac3b61;
@@ -369,7 +369,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     font-size: 10px !important;
     width: 43% !important;
     height: 320px !important;
-    margin-top: -85% !important;
+    /* margin-top: -85% !important; */
   
   }
   .imdis{
@@ -380,8 +380,8 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     font-size: 18px !important;
   }
   .lg{
-    margin-top: -100rem !important;
-    margin-bottom:25rem !important;
+    margin-top: -33rem !important;
+    /* margin-bottom:25rem !important; */
     height: 130px !important;
     width: 130px !important;
   }
@@ -403,6 +403,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 .rtty{
   font-size: 1rem !important;
 }
+
 
   
   
