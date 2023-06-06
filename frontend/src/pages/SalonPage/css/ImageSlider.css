@@ -2,6 +2,7 @@
 *{
   font-family: "Ubuntu", sans-serif;
 }
+
 .wholebarber{
     background-color: #eee2dc;
     height: 100%;
@@ -21,13 +22,15 @@
   .image {
   
     width: 100%;
-    height: 450px;
+    height: 300px;
+    object-fit: cover;
+    object-position: 25% 53%; 
   
   } 
   
   .right-arrow {
     position: absolute;
-    top: 30%;
+    top: 15%;
     right: 32px;
     font-size: 3rem;
     color: #edc7b7;
@@ -40,7 +43,7 @@
   
   .left-arrow {
     position: absolute;
-    top: 30%;
+    top: 15%;
     left: 32px;
     font-size: 3rem;
     color: #edc7b7;
@@ -122,6 +125,15 @@
   background-color: none !important;
   margin-left: 15% !important;
   margin-top: -15% !important;
+ 
+
+}
+.css-120aytt-MuiSvgIcon-root {
+  position: fixed;
+  top: 0;
+  margin-left: -14%;
+  margin-top: 1%;
+  z-index: 9999;
 }
 
 .css-jcn4dz-MuiBadge-badge {
@@ -151,6 +163,9 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
   max-width: 520px !important;
 
 }
+/* .css-xmjq4a-MuiList-root{
+  margin-left: 8% !important;
+} */
 .css-1qrvzyw-MuiList-root{
   /* margin-bottom: 300px !important; */
   padding-bottom: 0px !important;
@@ -306,20 +321,28 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     /* margin-top: -8%; */
     margin-bottom: -6.5% !important;
     background-color: #edc7b7;
-    width: 43%;
+    width: 39%;
     height: 80px;
-    margin-left: 54%;
+    margin-left: 54.3%;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.705);
     
+  }
+  .rtty{
+    color: #123c69 !important;
+    font-family: "Ubuntu", sans-serif !important;
+    font-size: 1.5rem !important;
+    margin-left: 2% !important;
+    padding-top: 4% !important;
+
   }
   .css-10a8lib {
     /* text-align: center; */
     margin-left: 10px !important;
   }
   .css-pikhkf {
-    margin-left: 33% !important;
-    padding:5% !important;
+    margin-left: 73% !important;
+  margin-top: -6% !important;
 }
 
   
@@ -334,18 +357,19 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     font-size: 18px !important;
   }
   .dis{
-    font-size: 18px !important;
+    font-size: 15px !important;
     margin-top: 25% !important;
     margin-bottom: 0px !important;
-    width: 32% !important;
+    width: 43% !important;
     height: 20px !important;
     margin-left: 1% !important;
     padding-bottom: 34px !important;
   }
   .dis1{
-    font-size: 18px !important;
-    width: 35% !important;
-    height: 300px !important;
+    font-size: 10px !important;
+    width: 43% !important;
+    height: 320px !important;
+    margin-top: -85% !important;
   
   }
   .imdis{
@@ -361,6 +385,24 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     height: 130px !important;
     width: 130px !important;
   }
+  .css-sgfie4-MuiList-root {
+    min-width: 90% !important;
+    margin-left: 5% !important;
+  }
+  .rtdiv{
+    margin-left: 5% !important;
+    margin-top: -10% !important;
+    margin-bottom: 10% !important;
+    width: 90% !important;
+  }
+  .css-pikhkf {
+    margin-left: 63% !important;
+    margin-top: -6% !important;
+
+}
+.rtty{
+  font-size: 1rem !important;
+}
 
   
   

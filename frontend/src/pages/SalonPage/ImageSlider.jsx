@@ -11,6 +11,7 @@ import {
   Link,
   useNavigate
 }from "react-router-dom";
+import ReactCrop from 'react-image-crop';
 import Box from '@mui/material/Box';
 import UserProfileContext from './UserProfileContext';
 import { Comment, Form } from 'semantic-ui-react'
@@ -461,10 +462,10 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         <div> 
           <img  className='lg' style={{ width: 200, 
                 height: 200, marginLeft:'1%' ,position: 'relative' ,borderColor:'#ffecee' ,border:"dotted", borderWidth:3,
-                zIndex: '3',  marginTop:'-20%',marginBottom:'1%',
+                zIndex: '3',  marginTop:'-30%',marginBottom:'1%',
            borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
            {/* <LocalGroceryStoreIcon  style={{color:'#ffecee', fontSize:45, marginTop:'-30%',marginBottom:'10%',marginLeft:5}} ></LocalGroceryStoreIcon>  */}
-           <QRCode value={webAddress}        style={{ height: 'auto', width: '5%', marginLeft:'7%' ,backgroundColor:'#ac3b61',color:'#ac3b61' }}/>
+           <QRCode value={webAddress}        style={{ height: 'auto', width: '5%', marginLeft:'5.5%' ,backgroundColor:'#ac3b61',color:'#ac3b61' }}/>
         <div/>
         <div>
         <Box       sx={{
@@ -507,7 +508,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
       <ThemeProvider theme={theme}>
       <div className='ti'>
       <Box  className='ti1' sx={{ bgcolor: '#edc7b7', width: '40%',borderRadius:3,
-        height: 80,fontSize: 30,textAlign:'center',mt:'-5%', mb:'10%',pt:'1%', fontFamily: 'Roboto, ' , color:"#ac3b61",}}>
+        height: 80,fontSize: 30,textAlign:'center',mt:'-9.5%', mb:'10%',pt:'1%', fontFamily: 'Roboto, ' , color:"#ac3b61",}}>
         {data.BarberShop}
       </Box>
       </div>
@@ -694,11 +695,13 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
       </Box>
     </Container>
     <div className='rtdiv'>
+    <Typography  className='rtty'>Rate To This Shop</Typography>
                         <Box
                           sx={{
                             '& > legend': { mt: 2 , }
                           }}
                         >
+
                           <Rating sx={{textAlign:'center'}}
                             name="simple-controlled"
                             value={value}
@@ -713,7 +716,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         </div>
     <div>
     <Box sx={{ width: '100%',pb:3}}>
-    <List sx={{ width: '100%', maxWidth: 520 ,marginBottom:60,bgcolor:'#edc7b7',marginLeft:'3%',
+    <List sx={{ width: '100%', maxWidth: '38%',marginBottom:60,bgcolor:'#edc7b7',marginLeft:'7.5%',
         paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
         <Typography sx={{ marginLeft: '15px',fontFamily:'Roboto, ',color:'#ac3b61',fontSize:22 }} >Comments</Typography>
         {visibleComments.map((comment, index) => (
