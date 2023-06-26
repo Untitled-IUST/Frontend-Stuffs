@@ -716,7 +716,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         </div>
     <div>
     <Box sx={{ width: '100%',pb:3}}>
-    <List sx={{ width: '100%', maxWidth: '38%',marginBottom:60,bgcolor:'#edc7b7',marginLeft:'7.5%',
+    <List sx={{ width: '100%', maxWidth: '41.5%',marginBottom:60,bgcolor:'#edc7b7',marginLeft:'3.5%',
         paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
         <Typography sx={{ marginLeft: '15px',fontFamily:'Roboto, ',color:'#ac3b61',fontSize:22 }} >Comments</Typography>
         {visibleComments.map((comment, index) => (
