@@ -1,6 +1,7 @@
 .py-5{
   font-family: 'Roboto' !important;
   font-style: normal !important;
+  color: #123c69;
   height: 790px;
   justify-content: center;
 }
@@ -22,38 +23,66 @@
 
 }
 
+
 .salam{
   background-color: #eee2dc !important;
   width: 700px !important;
+  color:#123c69 !important;
+  /* background-color: rgb(18,60,105, 0.6) !important; */
 }
 
 .MDBCard{
   width: 700px !important;
   height: 250px !important;
   background-color:  #eee2dc !important;
+  border: #ac3b61 !important;
 
 }
 .p-0{
   width: 10px !important;
 }
 .divpro{
+  font-size: 30px;
   font-family: 'Roboto' !important;
   font-style: normal !important;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .MDBCard{
   margin-bottom: 2%;
   border-radius: 10px;
 }
-.user{
-  color: #edc7b7;
+.user {
   height: 50px;
-  width: 150px;
+  margin-left: -2.8rem;
+  width: 113%;
+  color: #edc7b7;
   text-align: center;
   padding: 10px;
-  background-color: #123c69 !important;
-  justify-content: center;
+  background-color: rgb(172,59,97) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+@media (min-width: 768px) {
+  /* apply styles for screens 768px and above */
+  .user {
+    flex-direction: row;
+    justify-content: space-between;
+    height: auto;
+    padding: 20px;
+  }
+}
+
+
+/* #123c69  */
+.picy{
+  margin-left: 250px;
+  margin-top: -130px;
+}
 .mbs-4{
   color: #ac3b61;
 }
@@ -62,11 +91,77 @@
   background-color: #edc7b7 ;
 }
 .update{
-  background-color:#ac3b61 !important ;
+  background-color:rgb(172,59,97)  !important ;
   border-radius: 5px;
   border-style:none;
   margin: auto;
-  width: 100px;
+  width: 130px;
+  height: 35px;
   justify-content:center !important;
   color: #edc7b7;
 } 
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 0.25rem;
+  font-size: 0.5rem;
+  margin-left: -3%;
+  margin-bottom: -2rem;
+  color: #edc7b7;
+  background-color: rgb(172,59,97);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+
+.profilelength{
+  height: 2.2rem;
+  border-radius: 0.5rem;
+}
+.axeprofile{
+  justify-content: center !important;
+  margin-top: 120px;
+
+}
+.picentry{
+  border-radius: 50%;
+  width: 30%;
+  height: auto;
+  max-width: 150px;
+  object-fit: cover;
+
+}
+
+@media (max-width: 768px) {
+  /* apply styles for screens 768px and below */
+  .form-container {
+    margin-top: 4rem;
+  }
+}
+
+.picy {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  max-width: 100%; /* set a max-width to make the image responsive */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .picy {
+    max-width: 75px; /* decrease max-width on smaller screens */
+  }
+}
+

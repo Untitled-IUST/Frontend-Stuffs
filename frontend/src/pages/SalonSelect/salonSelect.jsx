@@ -109,8 +109,40 @@ const SalonSelect = () => {
   const handleOrdering = (event) => {
     setOrdering(event.target.value);
   }
+
+  const[ShowNotif , setShowNotif] = useState(false);
+  useEffect(() => {
+    const loginChecker = localStorage.getItem('LoginChecker');
+    const shouldShowNotification = loginChecker === '1';
+
+    if (shouldShowNotification) {
+      setShowNotif(true);
+      setTimeout(() => {
+        setShowNotif(false);
+        localStorage.removeItem('LoginChecker');
+      }, 5000);
+    }
+  }, []);
+
     return(
       <div className="w-full bg-WhiteChocolate-500 min-h-screen">
+        {ShowNotif && (
+            <div
+              style={{
+                position: 'fixed',
+                bottom: "20px",
+                right: "15px",
+                width: '150px',
+                backgroundColor: '#892F4D',
+                color: '#ffffff',
+                padding: '10px',
+                textAlign: 'center',
+                borderRadius : '0.25rem',
+              }}
+            >
+              Successfully Logged in!
+            </div>
+          )}
         <div className="mx-auto w-full max-w-[1400px]">
           <div className="flex flex-row h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-DesertSand-500 rounded-lg shadow">
             <div class="flex items-center pl-1 pointer-events-none">
