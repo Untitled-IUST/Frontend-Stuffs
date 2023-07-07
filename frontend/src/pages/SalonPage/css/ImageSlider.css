@@ -138,6 +138,11 @@
 
 .css-jcn4dz-MuiBadge-badge {
   background-color: #edc7b7 !important;
+  position: fixed !important;
+  top: 0 !important;
+  margin-right: 95% !important;
+  margin-top: 1%;
+  z-index: 9999 !important;
 }
   
 button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
