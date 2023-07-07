@@ -1,6 +1,5 @@
 
 import React, { useState,useEffect, useRef , useContext } from 'react';
-import { SliderData } from '../../Components/SliderData';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import Rating from '@mui/material/Rating';
 import QRCode from 'react-qr-code';
@@ -62,12 +61,10 @@ let access_token =localStorage.getItem('accessTokenCustomer');
 const INITIAL_HEIGHT = 46;
 
 
-function ImageSlider ({ slides }) {
+function ImageSlider () {
   // const { hasEditedProfile } = useContext(UserProfileContext);
   const navigate = useNavigate();
-  const [current, setCurrent] = useState(0);
   const [value, setValue] = useState(0);
-  const length = slides.length;
   const [count, setCount] = useState(() => {
     const savedData = localStorage.getItem('count');
     return savedData ? JSON.parse(savedData) : 0;
@@ -116,6 +113,8 @@ const StyledMenuItem = styled(MenuItem)({
   const[barbimg,setBarbimg]=useState()
   const[title,setTitle]=useState('')
   const[idbarb,setIdbarb]=useState('')
+  const[logo,setLogo]=useState(null)
+  const[background,setBackground]=useState(null)
 
   const[servicefront, setServicefront] = useState([]) 
   const times = [];
@@ -154,6 +153,8 @@ const StyledMenuItem = styled(MenuItem)({
     setIdbarb(response.data.id)
     setValue(response.data.customers_rate)
     setServicefront(response.data.categories) 
+    setLogo(response.data.logo)
+    setBackground(response.data.background)
   })
   .catch(err => console.log(err))
   
@@ -421,17 +422,7 @@ const onReplyClick = (index) => {
     setSelectedTime(event.target.value);
     console.log('Selected time:', event.target.value);
   }
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
 
-const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
-
-  if (!Array.isArray(slides) || slides.length <= 0) {
-    return null;
-  }
 const webAddress = `http://localhost:3000/SalonPage/${id}`;
   
 
@@ -440,30 +431,17 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
 
   return (
     <div className='wholebarber'>
-        <section className='slider'>
-          <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
-          <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
-          {SliderData.map((slide, index) => {
-            return (
-              <div
-                className={index === current ? 'slide active' : 'slide'}
-                key={index}
-              >
-                {index === current && (
-                  <img src={slide.image} alt='barber image' className='image' />
-                )}
-              </div>
-            );
-          })}
-        </section>
+        <div>
+        <img src={background} className='image'/>
+        </div>
 
         {/* {error && <Alert className='er'> {error} </Alert>} */}
         <Snackbar open={Boolean(error)} message={error} severity="error" />
         <div> 
           <img  className='lg' style={{ width: 200, 
                 height: 200, marginLeft:'1%' ,position: 'relative' ,borderColor:'#ffecee' ,border:"dotted", borderWidth:3,
-                zIndex: '3',  marginTop:'-30%',marginBottom:'1%',
-           borderRadius: 130,}} src="https://s2.uupload.ir/files/348ad8c26d7ff7b6c23fe3e30f3e44dd_ducd.jpg" alt="React lost" />
+                zIndex: '3',  marginTop:'-10%',marginBottom:'1%',
+           borderRadius: 130,}} src={logo} alt="React lost" />
            {/* <LocalGroceryStoreIcon  style={{color:'#ffecee', fontSize:45, marginTop:'-30%',marginBottom:'10%',marginLeft:5}} ></LocalGroceryStoreIcon>  */}
            <QRCode value={webAddress}        style={{ height: 'auto', width: '5%', marginLeft:'5.5%' ,backgroundColor:'#ac3b61',color:'#ac3b61' }}/>
         <div/>
@@ -534,7 +512,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
           <div  className="card"  key={x.service}>
             <Card   >
             <CardMedia
-  sx={{ height: 140 }}
+  sx={{ height: 140 ,boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.705)'}}
   image={x.servicePic ? x.servicePic : "https://s2.uupload.ir/files/a9d966e052bdeb38027ca58ac3217845_z5j6.jpg"}
   title="Hair style"
 />
@@ -640,8 +618,8 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
 
     <Container fixed>
       <Typography component="div">
-      <Box  className='dis' sx={{ bgcolor: '#123c69', width: '45%',
-        height: 70,textAlign: 'left', ml: '55%',fontSize: 25, mt:'15%' ,mb:-15.7,fontFamily:'Roboto, ',pt:1,pr:3,pl:3 , color:'#edc7b7',borderRadius:3}}>
+      <Box  className='dis' sx={{ bgcolor: '#ac3b61', width: '45%',
+        height: 70,textAlign: 'left', ml: '55%',fontSize: 25, mt:'15%' ,mb:-15.7,fontFamily:'Roboto, ',pt:1,pr:3,pl:3 , color:'#edc7b7',borderRadius:3,  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.705)'}}>
           {title}
       </Box>
     </Typography>
@@ -655,7 +633,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
            */}
            <img
           className='imdis'
-          style={{ width: '44%', height: 450, marginLeft:'-.5%', marginTop:'5%', borderRadius: 10 }}
+          style={{ width: '44%', height: 450, marginLeft:'-.5%', marginTop:'5%', borderRadius: 10 ,  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.705)'}}
           src={barbimg}
           alt="React lost"
           onError={(e) => { e.target.src = "https://s2.uupload.ir/files/studio_benicky_salon_design.jpeg_parj.jpg"; }} />
@@ -666,7 +644,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
     <Typography component="div">
       
       <Box  className='dis1' sx={{ bgcolor: '#edc7b7', width:'45%',
-        height: 317,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3}}>
+        height: 317,textAlign: 'left', ml: '55%' ,mt:-40,fontSize: 25, mb:15,fontFamily:'Roboto, ',p: 3 , color:'#123c69',borderRadius:3,  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.705)'}}>
         {des}
       </Box>
     </Typography>
@@ -716,7 +694,7 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         </div>
     <div>
     <Box sx={{ width: '100%',pb:3}}>
-    <List sx={{ width: '100%', maxWidth: '41.5%',marginBottom:60,bgcolor:'#edc7b7',marginLeft:'3.5%',
+    <List sx={{ width: '100%', maxWidth: '38.5%',marginBottom:60,bgcolor:'#edc7b7',marginLeft:'7.5%',
         paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
         <Typography sx={{ marginLeft: '15px',fontFamily:'Roboto, ',color:'#ac3b61',fontSize:22 }} >Comments</Typography>
         {visibleComments.map((comment, index) => (
