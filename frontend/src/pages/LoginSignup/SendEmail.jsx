@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ErrorIcon from '@mui/icons-material/Error';
 
 
 function SendEmail() {
@@ -71,7 +72,7 @@ function SendEmail() {
                   Send Email
                 </button>
               </div>
-              <p className="m-1 text-xs italic text-MediumRuby-500">{submitError}</p>
+              <p className="font-bold m-1 text-xs italic text-MediumRuby-500">{typeof submitError === "object" && (<React.Fragment><ErrorIcon fontSize="small"/><span>{submitError}</span></React.Fragment>)}</p>
               <hr className="mb-3 border-t text-AteneoBlue-500" />
               <Link to="/SignUpCustomer" className="hover:bg-AteneoBlue-600 mb-2 bg-AteneoBlue-500 py-2.5 rounded w-full text-center text-white inline-block text-sm align-baseline">
                 Create an Account!
