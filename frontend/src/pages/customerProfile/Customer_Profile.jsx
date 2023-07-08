@@ -25,6 +25,7 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import toast from "react-hot-toast";
 import { json } from 'react-router-dom';
 import { Avatar } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 export  default function ProfilePage() {
   const { setHasEditedProfile } = useContext(UserProfileContext);
@@ -33,14 +34,11 @@ export  default function ProfilePage() {
   const [Name , setName] = useState("");
   const [LastName , setLastName] = useState("");
   const[phoneNumber , setPhoneNumber] = useState(null);
-  const[emailAddress , setEmailAddress] = useState(null);
-  //const [imgFile, setImgFile] = useState(null);
   const [password, setpassword] = useState("");
   let access_token =localStorage.getItem('accessTokenCustomer');
   const [UserName, setUserName] = useState("");
   const [Area, setArea] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   //const firstchar = data?.Name?data.Name.charAt(0) : "UN";
   //const firstchar ="";
 
@@ -58,6 +56,7 @@ export  default function ProfilePage() {
       setUserName(res.data.user.username);
       setArea(res.data.area);
       setPhoneNumber(res.data.phone_Number);
+      setSelectedFile(res.data.profile_pic);
       setHasEditedProfile(true);
       console.log("did it?",setHasEditedProfile)
     }).catch((err)=>{
@@ -65,93 +64,40 @@ export  default function ProfilePage() {
     })},[])
 
 
-    useEffect(() => {
-      const fetchImage = async () => {
-        try {
-          const response = await axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', {
-            headers: {
-              'Authorization': `JWT ${access_token}`, 
-            },
-          });
-          setImagePreviewUrl(response.data.profile_pic);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchImage();
-    }, []);
-
-
-    //image
 
     const handleFileInputChange = (event) => {
       setSelectedFile(event.target.files[0]);
-      // Preview the image
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(event.target.files[0]);
+      
     };
+    console.log("?", selectedFile);
 
-
-    const handleSubmit = async (event) => {
+    const handlesubmit = async (event) => {
       event.preventDefault();
       const formData = new FormData();
-      formData.append('image', selectedFile);
+      formData.append("profile_pic", selectedFile);
+      console.log("dose this work?",selectedFile);
+      formData.append('firstname', Name);
+      formData.append('last_name', LastName);
+      formData.append('phone_Number', phoneNumber);
+      formData.append('area', Area);
+      formData.append('user.username', UserName);
+      formData.append('user.password' , password);
       try {
-        const response = await axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', formData, {
+        const response = await axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', formData, 
+        {
           headers: {
-            'Content-Type': 'multipart/form-data',
             'Authorization' : `JWT ${access_token}`
           },
         });
-        console.log(response.data.imageUrl);
+        console.log(selectedFile);
+
+        toast.success("profile updates successfully");
         window.location.reload(false);
+        setHasEditedProfile(true);
       } catch (error) {
         console.error(error);
       }
     };
-  const handlesubmit = (event) =>
-  {
-    
-    event.preventDefault();
-    axios({
-      method : "put",
-      url : "https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `JWT ${access_token}`
-    },
-    data :
-    {
-      first_name : Name,
-      last_name : LastName,
-      username : UserName,
-      area : Area,
-      phone_Number : phoneNumber,
-      password : password,
-      //profile_pic : imgFile,
-      user:{
-        username : UserName,
-        password : password,
-      }
-
-    }
-    })
-    .then((res) => {
-      toast.success("profile updates succesfully");
-      window.location.reload(false);
-      setHasEditedProfile(true);
-      console.log("true done",setHasEditedProfile)
-    }
-    )
-    .catch((error) => {
-      console.log(error);
-    }); 
-    
-  }
-
 
 
 
@@ -172,11 +118,20 @@ export  default function ProfilePage() {
                   </div>
                 </MDBCard>
                   <div>
-                    <form className='axeprofile' onSubmit={handleSubmit}>
-                      <input type="file" onChange={handleFileInputChange} alt="avatar" style={{width: "150px"}}/>
-                        <button type="submit">Upload</button>
+                    <form className='axeprofile' onSubmit={handlesubmit}>
+                    <label htmlFor="photo" className="custom-file-upload">
+                      <i className="fa fa-cloud-upload"></i> <CloudUploadIcon />Upload A Photo
+                      </label>
+                      <input  id="photo" className='picentry' type="file" onChange={handleFileInputChange} alt="avatar" style={{ display: "none"}}/>
                     </form>
-                    {imagePreviewUrl && <img src={imagePreviewUrl} alt="Preview"  style={{ borderRadius: '50%', width: '100px', height: '100px'}}/>}
+                    {selectedFile && (
+      <img
+      className='picy'
+        src={selectedFile}
+        alt="Preview"
+        style={{ borderRadius: "50%", width: "100px", height: "100px" }}
+      />
+    )}
                   </div>
               </MDBCardBody>
             </MDBCard>
@@ -194,7 +149,7 @@ export  default function ProfilePage() {
                   <label htmlFor="title">
                         FirstName:</label>
                       <input
-                          className="personal-form-input"
+                          className="personal-form-input profilelength"
                           value={Name}
                           type="text"
                           id="title"
@@ -204,16 +159,25 @@ export  default function ProfilePage() {
                   <MDBRow>
                   <label>LastName:</label>
                   <input
-                      className="personal-form-input"
+                      className="personal-form-input profilelength"
                       value={LastName}
                       type="text"
                       onChange={(e) => setLastName(e.target.value)}
                     />
                   </MDBRow>
+                  {/* <MDBRow>
+                  <label>Email:</label>
+                  <input
+                      className="personal-form-input profilelength"
+                      value={email}
+                      type="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </MDBRow> */}
                   <MDBRow>
                   <label>UserName:</label>
                   <input
-                      className="personal-form-input"
+                      className="personal-form-input profilelength"
                       value={UserName}
                       type="text"
                       onChange={(e) => setUserName(e.target.value)}
@@ -222,7 +186,7 @@ export  default function ProfilePage() {
                   <MDBRow>
                   <label>Area:</label>
                   <input
-                      className="personal-form-input"
+                      className="personal-form-input profilelength"
                       value={Area}
                       type="text"
                       onChange={(e) => setArea(e.target.value)}
@@ -231,7 +195,7 @@ export  default function ProfilePage() {
                   <MDBRow>
                   <label>PhoneNumber:</label>
                       <input
-                          className="personal-form-input"
+                          className="personal-form-input profilelength"
                           value={phoneNumber}
                           type="text"
                           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -240,7 +204,7 @@ export  default function ProfilePage() {
                   <MDBRow>
                   <label>Password:</label>
                       <input
-                          className="personal-form-input"
+                          className="personal-form-input profilelength"
                           value={password}
                           type="email"
                           placeholder='*********'

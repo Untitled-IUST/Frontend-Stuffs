@@ -5,8 +5,23 @@
     color: #ac3b61;
 
     }
+.wholecart{
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.shopcartpicture{
+    margin-left: -35rem;
+}
+.axsize{
+    object-fit: cover;
+}
+.shopcartinfo{
+    margin-top: -9rem;
+}
 
-
+.shopcartprice{
+    margin-left: -13.5rem;
+    
+}
 .shopcartcolor{
     background-color: #edc7b7;
 }
