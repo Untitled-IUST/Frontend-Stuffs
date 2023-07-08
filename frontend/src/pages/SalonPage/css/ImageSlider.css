@@ -218,17 +218,12 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
   font-family: "Ubuntu", sans-serif !important;
   font-size: 22PX !important;
   border-radius: 10px;
-  animation: shake 0.5s ease-in-out infinite;
+
 
   
   
   }
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-    100% { transform: translateX(0); }
-  }
+ 
 
   .css-bhp9pd-MuiPaper-root-MuiCard-root{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.705) !important;
