@@ -24,7 +24,7 @@ import {
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import toast from "react-hot-toast";
 import { json } from 'react-router-dom';
-import { Avatar } from '@mui/material';
+import { Avatar, selectClasses } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 export  default function ProfilePage() {
@@ -69,8 +69,7 @@ export  default function ProfilePage() {
       setSelectedFile(event.target.files[0]);
       
     };
-    console.log("?", selectedFile);
-
+    
     const handlesubmit = async (event) => {
       event.preventDefault();
       const formData = new FormData();
@@ -79,7 +78,6 @@ export  default function ProfilePage() {
       formData.append('firstname', Name);
       formData.append('last_name', LastName);
       formData.append('phone_Number', phoneNumber);
-      formData.append('area', Area);
       formData.append('user.username', UserName);
       // formData.append('user.password' , password);
       try {
@@ -182,15 +180,6 @@ export  default function ProfilePage() {
                       value={UserName}
                       type="text"
                       onChange={(e) => setUserName(e.target.value)}
-                    />
-                  </MDBRow>
-                  <MDBRow>
-                  <label>Area:</label>
-                  <input
-                      className="personal-form-input profilelength"
-                      value={Area}
-                      type="text"
-                      onChange={(e) => setArea(e.target.value)}
                     />
                   </MDBRow>
                   <MDBRow>
