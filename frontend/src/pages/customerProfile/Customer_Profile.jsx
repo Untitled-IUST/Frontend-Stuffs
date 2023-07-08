@@ -81,7 +81,7 @@ export  default function ProfilePage() {
       formData.append('phone_Number', phoneNumber);
       formData.append('area', Area);
       formData.append('user.username', UserName);
-      formData.append('user.password' , password);
+      // formData.append('user.password' , password);
       try {
         const response = await axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', formData, 
         {
@@ -124,6 +124,7 @@ export  default function ProfilePage() {
                       </label>
                       <input  id="photo" className='picentry' type="file" onChange={handleFileInputChange} alt="avatar" style={{ display: "none"}}/>
                     </form>
+                    <div className='pad'></div>
                     {selectedFile && (
       <img
       className='picy'
@@ -201,7 +202,7 @@ export  default function ProfilePage() {
                           onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                   </MDBRow>
-                  <MDBRow>
+                  {/* <MDBRow>
                   <label>Password:</label>
                       <input
                           className="personal-form-input profilelength"
@@ -210,7 +211,7 @@ export  default function ProfilePage() {
                           placeholder='*********'
                           onChange={(e) => setpassword(e.target.value)}
                         />
-                  </MDBRow>
+                  </MDBRow> */}
                   <br></br>
                   <MDBCol>
                     <div style={{ display: "flex", alignItems: "flex-end", alignContent: "flex-end"}}>
