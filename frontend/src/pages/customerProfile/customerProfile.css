@@ -165,26 +165,3 @@
   }
 }
 
-.MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputAdornedEnd.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
-  background-color: #edc7b7 ;
-  width: 63%;
-  z-index: 1;
-  border-radius: 0.5rem;
-}
-
-.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-edgeEnd.MuiIconButton-sizeMedium.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root {
-  background-color: #edc7b7 ;
-  width: 63%;
-  z-index: 1;
-}
-
-.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-  background-color: #edc7b7 ;
-  width: 69%;
-  border-radius: 0.5rem;
-} 
-
-.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
-  margin-top: -1px;
-}
-
