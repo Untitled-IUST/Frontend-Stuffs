@@ -19,9 +19,9 @@ import CommentExampleReplyFormOuter from "./pages/SalonPage/Comments";
 import UserProfileContext from "./pages/SalonPage/UserProfileContext";
 import OrderHistory from "./pages/orderhistory/orderhistory"
 import SendEmail from "./pages/LoginSignup/SendEmail";
-import Landing from "./pages/Landing/landing"
 import EditPass from "./pages/LoginSignup/EditPassword";
-
+import Hero from "./pages/Landing/Hero";
+import Footer from "./pages/Landing/Footer";
 const App = () => {
   const [hasEditedProfile, setHasEditedProfile] = useState(false);
 
@@ -31,7 +31,12 @@ const App = () => {
       <div className="App">
       <Router>
         <Routes>
-          <Route path="/" Component={Landing} />
+        <Route path="/" element={
+        <div id="app" style={({ backgroundColor:"#eee2dc"})}>
+          <Hero slides={SliderData}/>
+          <Footer />
+        </div>
+      }/>
           <Route path="/LoginCustomer" Component={LoginCustomer}/>
           <Route path="/SignUpCustomer" Component={SignUpCustomer} />
           <Route path="/SalonSelect" element={
