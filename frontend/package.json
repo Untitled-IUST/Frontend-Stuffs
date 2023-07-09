@@ -10,7 +10,7 @@
     "@ionic/react": "^7.0.9",
     "@material/card": "^14.0.0",
     "@mui/icons-material": "^5.11.16",
-    "@mui/lab": "^5.0.0-alpha.129",
+    "@mui/lab": "^5.0.0-alpha.135",
     "@mui/material": "^5.13.3",
     "@mui/x-date-pickers": "^6.4.0",
     "@testing-library/jest-dom": "^5.16.5",
