@@ -45,10 +45,10 @@ function SalonCard({id,name,address,phoneNumber,rate,background,logo}){
         alt="salon"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{ color : "#123C69"}} variant="body2" color="text.secondary">
           <p><PhoneIcon/>{phoneNumber}</p>
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{ color : "#123C69"}} variant="body2" color="text.secondary">
           <p><HomeIcon/>{address}</p>
         </Typography>
       </CardContent>
