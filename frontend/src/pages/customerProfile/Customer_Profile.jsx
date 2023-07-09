@@ -27,7 +27,7 @@ import toast from "react-hot-toast";
 import { json } from 'react-router-dom';
 import { Avatar, selectClasses } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
+import {Link}  from 'react-router-dom';
 export  default function ProfilePage() {
   const { setHasEditedProfile } = useContext(UserProfileContext);
 
@@ -212,6 +212,9 @@ export  default function ProfilePage() {
                         />
                   </MDBRow>
                   <br></br>
+                  <Link to="/EditPassword" className="w-fit bg-AteneoBlue-500 hover:bg-AteneoBlue-400 focus:bg-AteneoBlue-500 py-2.5 rounded text-center text-white inline-block text-sm align-baseline">
+                    Edit Password
+                  </Link>
                   <MDBCol>
                     <div style={{ display: "flex", alignItems: "flex-end", alignContent: "flex-end"}}>
                       <button
