@@ -211,12 +211,6 @@ export  default function ProfilePage() {
                           onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                   </MDBRow>
-                  <MDBRow>
-                  <label>Birthday:</label> 
-                  < LocalizationProvider dateAdapter={AdapterDayjs} >
-                    <DatePicker className="my-date-picker" value={selectedDate} onChange={handleDateChange}   renderInput={(props) => <input {...props} readOnly />} /> 
-                  </LocalizationProvider>
-                  </MDBRow>
                   <br></br>
                   <MDBCol>
                     <div style={{ display: "flex", alignItems: "flex-end", alignContent: "flex-end"}}>

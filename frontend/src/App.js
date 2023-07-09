@@ -20,6 +20,8 @@ import UserProfileContext from "./pages/SalonPage/UserProfileContext";
 import OrderHistory from "./pages/orderhistory/orderhistory"
 import SendEmail from "./pages/LoginSignup/SendEmail";
 import Landing from "./pages/Landing/landing"
+import EditPass from "./pages/LoginSignup/EditPassword";
+
 const App = () => {
   const [hasEditedProfile, setHasEditedProfile] = useState(false);
 
@@ -77,6 +79,7 @@ const App = () => {
             </div>
           } />
           <Route path="/ForgotPassword"  Component={SendEmail} />
+          <Route path="/EditPassword"  Component={EditPass} />
         </Routes>
       </Router>
       </div>
