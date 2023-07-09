@@ -672,27 +672,8 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
         </Grid>
       </Box>
     </Container>
-    <div className='rtdiv'>
-    <Typography  className='rtty'>Rate To This Shop</Typography>
-                        <Box
-                          sx={{
-                            '& > legend': { mt: 2 , }
-                          }}
-                        >
+    
 
-                          <Rating sx={{textAlign:'center'}}
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                              sendRating(newValue);
-                              setValue(newValue);
-                
-                            }}
-                          />
-
-                        </Box>
-        </div>
-    <div>
     <Box sx={{ width: '100%',pb:3}}>
     <List sx={{ width: 'full',marginBottom:60,bgcolor:'#edc7b7',marginLeft:'7.5%',marginRight : '7.5%',
         paddingBottom:0,borderRadius:3,boxShadow: '0px 3px 5px 4px rgba(0, 0, 0, 0.4)' }}>
@@ -804,7 +785,6 @@ const webAddress = `http://localhost:3000/SalonPage/${id}`;
        
         </div>
       
-  </div>
   </div>
   
   
