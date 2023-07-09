@@ -71,7 +71,7 @@ function ImageSlider () {
   });
   useEffect(() => {
     localStorage.setItem('count', JSON.stringify(count));
-    // localStorage.removeItem('count', JSON.stringify(count));
+    localStorage.removeItem('count', JSON.stringify(count));
 
   }, [count]);
 

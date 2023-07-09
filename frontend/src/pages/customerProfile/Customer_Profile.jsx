@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import UserProfileContext from '../SalonPage/UserProfileContext';
-//import { idCheck } from './contextAll';
-//import { useContext , createContext } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import "./customerProfile.css"
 import axios from "axios";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   MDBCol,
   MDBContainer,
@@ -31,17 +32,14 @@ export  default function ProfilePage() {
   const { setHasEditedProfile } = useContext(UserProfileContext);
 
 
-  const [Name , setName] = useState("");
+  const [Name , setName] = useState ("");
   const [LastName , setLastName] = useState("");
   const[phoneNumber , setPhoneNumber] = useState(null);
-  const [password, setpassword] = useState("");
   let access_token =localStorage.getItem('accessTokenCustomer');
   const [UserName, setUserName] = useState("");
   const [Area, setArea] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null); 
   const [selectedFile, setSelectedFile] = useState(null);
-  //const firstchar = data?.Name?data.Name.charAt(0) : "UN";
-  //const firstchar ="";
-
   useEffect(() => {
     console.log(access_token);
     axios.get('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/',{
@@ -57,6 +55,12 @@ export  default function ProfilePage() {
       setArea(res.data.area);
       setPhoneNumber(res.data.phone_Number);
       setSelectedFile(res.data.profile_pic);
+      const birthday = res.data.birthday;
+      if (birthday) {
+        setSelectedDate(AdapterDayjs.date(birthday));
+      } else {
+        setSelectedDate(null);
+      }
       setHasEditedProfile(true);
       console.log("did it?",setHasEditedProfile)
     }).catch((err)=>{
@@ -75,11 +79,12 @@ export  default function ProfilePage() {
       const formData = new FormData();
       formData.append("profile_pic", selectedFile);
       console.log("dose this work?",selectedFile);
+      formData.append('birthday', selectedDate);
+      console.log('birthday', selectedDate);
       formData.append('firstname', Name);
       formData.append('last_name', LastName);
       formData.append('phone_Number', phoneNumber);
       formData.append('user.username', UserName);
-      // formData.append('user.password' , password);
       try {
         const response = await axios.put('https://amirmohammadkomijani.pythonanywhere.com/customer/profile/me/', formData, 
         {
@@ -98,7 +103,22 @@ export  default function ProfilePage() {
     };
 
 
+    // const renderInput = (props) => (
+    //   <input
+    //     {...props}
+    //     value={selectedDate ? selectedDate.format("YYYY-MM-DD") : ""}
+    //     readOnly
+    //   />
+    // );
 
+    const handleDateChange = (date) => {
+      if (date !== null) {
+        const formattedDate = date.format("YYYY-MM-DD");
+        setSelectedDate(formattedDate);
+      } else {
+        setSelectedDate(date);
+      }
+    };
 
   return (
     <div className="bg-WhiteChocolate-500 w-full min-h-screen">
@@ -191,16 +211,12 @@ export  default function ProfilePage() {
                           onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                   </MDBRow>
-                  {/* <MDBRow>
-                  <label>Password:</label>
-                      <input
-                          className="personal-form-input profilelength"
-                          value={password}
-                          type="email"
-                          placeholder='*********'
-                          onChange={(e) => setpassword(e.target.value)}
-                        />
-                  </MDBRow> */}
+                  <MDBRow>
+                  <label>Birthday:</label> 
+                  < LocalizationProvider dateAdapter={AdapterDayjs} >
+                    <DatePicker className="my-date-picker" value={selectedDate} onChange={handleDateChange}   renderInput={(props) => <input {...props} readOnly />} /> 
+                  </LocalizationProvider>
+                  </MDBRow>
                   <br></br>
                   <MDBCol>
                     <div style={{ display: "flex", alignItems: "flex-end", alignContent: "flex-end"}}>
