@@ -14,16 +14,12 @@ function OrderHistory() {
   const [data ,setData] = useState([]);
   const [AllData , setAllData] = useState([]);
   const [DoneData , setDoneData] = useState([]);
-  const [CanceledByMeData , setCenceledByMeData] = useState([]);
-  const [CanceledByBarberData , setCenceledByBarberData] = useState([]);
-  const [CustomerDidntArriveData , setCustomerDidntArriveData] = useState([]);
   const [PaidData , setPaidData] = useState([]);
-  const [ConfirmedData , setConfirmedData] = useState([]);
-  const [OrderingData , setOrderingData] = useState([]); 
+  const [RejectedData , setRejectedData] = useState([]);
   const accessTokenBarber = localStorage.getItem('accessTokenCustomer');
   const [selectedIndex , setSelectedIndex] = useState(0);
   const Filters = [
-    "All" ,"Done", "Canceled by me" , "Canceled by barber" , "I didn't arrive", "paid" , "confirmed" , "ordering" 
+    "All" ,"Done", "paid" , "rejected" 
   ]
   
   useEffect(() => {
@@ -34,22 +30,10 @@ function OrderHistory() {
       setData(DoneData);
     }
     else if(selectedIndex === 2){
-      setData(CanceledByMeData);
-    }
-    else if(selectedIndex === 3){
-      setData(CanceledByBarberData);
-    }
-    else if(selectedIndex === 4){
-      setData(CustomerDidntArriveData);
-    }
-    else if(selectedIndex === 5){
       setData(PaidData);
     }
-    else if(selectedIndex === 6){
-      setData(ConfirmedData);
-    }
-    else if(selectedIndex === 7){
-      setData(OrderingData);
+    else if(selectedIndex === 3){
+      setData(RejectedData);
     }
   },[selectedIndex])
 
@@ -76,44 +60,21 @@ function OrderHistory() {
       const fetchedData = await response.json();
       setDoneData(fetchedData.results);
     }
-    async function fetchCanceledByMeData(url,options){
-      const response = await fetch(url,options);
-      const fetchedData = await response.json();
-      setCenceledByMeData(fetchedData.results);
-    }
-    async function fetchCanceledByBarberData(url,options){
-      const response = await fetch(url,options);
-      const fetchedData = await response.json();
-      setCenceledByBarberData(fetchedData.results);
-    }
-    async function fetchCustomerDidntArriveData(url,options){
-      const response = await fetch(url,options);
-      const fetchedData = await response.json();
-      setCustomerDidntArriveData(fetchedData.results);
-    }
     async function fetchPaidData(url,options){
       const response = await fetch(url,options);
       const fetchedData = await response.json();
       setPaidData(fetchedData.results);
     }
-    async function fetchConfirmedData(url,options){
+    async function fetchRejectedData(url,options){
       const response = await fetch(url,options);
       const fetchedData = await response.json();
-      setConfirmedData(fetchedData.results);
-    }
-    async function fetchOrderingData(url,options){
-      const response = await fetch(url,options);
-      const fetchedData = await response.json();
-      setOrderingData(fetchedData.results);
+      setRejectedData(fetchedData.results);
     }
     fetchData((url+"?status=&date="+date),options);
     fetchDoneData((url+"?status=Done&date"+date),options);
-    fetchCanceledByMeData((url+"?status=CustomerCancelled&date="+date),options);
-    fetchCanceledByBarberData((url+"?status=BarberCancelled&date="+date),options);
-    fetchCustomerDidntArriveData((url+"?status=CustomerNotCome&date="+date),options);
     fetchPaidData((url+"?status=paid&date="+date),options);
-    fetchConfirmedData((url+"?status=confirmed&date="+date),options);
-    fetchOrderingData((url+"?status=ordering&date="+date),options);
+    fetchRejectedData((url+"?status=rejected&date="+date),options);
+
   },[date])
 
   
