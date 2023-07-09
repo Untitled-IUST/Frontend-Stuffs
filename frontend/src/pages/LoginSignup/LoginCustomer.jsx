@@ -6,7 +6,8 @@ import ErrorIcon from '@mui/icons-material/Error';
 import backgroundImageLoginBarber from "./Images/LoginCustomer.png";
 import LoadingButton from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function LoginBarber(){
 
   useEffect( () => {
@@ -59,17 +60,16 @@ function LoginBarber(){
       setLoading(false);
     }) 
   }
-  const[ShowNotif , setShowNotif] = useState(false);
   useEffect(() => {
     const registerChecker = localStorage.getItem('RegisterChecker');
     const shouldShowNotification = registerChecker === '1';
 
     if (shouldShowNotification) {
-      setShowNotif(true);
-      setTimeout(() => {
-        setShowNotif(false);
-        localStorage.removeItem('RegisterChecker');
-      }, 5000);
+      toast.success('Registered Successfuly!', {
+        position: toast.POSITION.TOP_RIGHT,
+        className : "bg-DesertSand-500 text-AteneoBlue-500"
+      });
+      localStorage.removeItem('RegisterChecker');
     }
   }, []);
 
@@ -83,27 +83,11 @@ function LoginBarber(){
   
   return(
     <div className="bg-WhiteChocolate-500 min-h-screen flex flex-col justify-center">
+    <ToastContainer/>
     <div className="flex items-center">
       <div className="container mx-auto">
         <div className="flex justify-center mx-3">
           <div className="bg-WhiteChocolate-500 w-full flex appearance-none">
-          {ShowNotif && (
-            <div
-              style={{
-                position: 'fixed',
-                bottom: "20px",
-                right: "15px",
-                width: '150px',
-                backgroundColor: '#892F4D',
-                color: '#ffffff',
-                padding: '10px',
-                textAlign: 'center',
-                borderRadius : '0.25rem'
-              }}
-            >
-              Successfully Registered
-            </div>
-          )}  
             <div className="w-full lg:flex items-center hidden lg:w-1/2 bg-cover rounded-l-lg">
               <img src={backgroundImageLoginBarber} alt="Login"/>
             </div>

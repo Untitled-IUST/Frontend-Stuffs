@@ -5,6 +5,8 @@ import Slider from "@mui/material/Slider";
 import Button from "@mui/material/Button";
 import searchIcon from "./Images/search-bar.png";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SalonSelect = () => {
   
@@ -106,43 +108,25 @@ const SalonSelect = () => {
   const [rotate , setRotate] = useState([false,false,false]);
 
   
-  const handleOrdering = (event) => {
-    setOrdering(event.target.value);
-  }
-
-  const[ShowNotif , setShowNotif] = useState(false);
+  // const handleOrdering = (event) => {
+  //   setOrdering(event.target.value);
+  // }
+  
   useEffect(() => {
     const loginChecker = localStorage.getItem('LoginChecker');
     const shouldShowNotification = loginChecker === '1';
-
     if (shouldShowNotification) {
-      setShowNotif(true);
-      setTimeout(() => {
-        setShowNotif(false);
-        localStorage.removeItem('LoginChecker');
-      }, 5000);
+      toast.success('Logged in Successfuly!', {
+        position: toast.POSITION.TOP_RIGHT,
+        className : "bg-DesertSand-500 text-AteneoBlue-500"
+      });
+      localStorage.removeItem('LoginChecker');
     }
   }, []);
 
     return(
       <div className="w-full bg-WhiteChocolate-500 min-h-screen">
-        {ShowNotif && (
-            <div
-              style={{
-                position: 'fixed',
-                bottom: "20px",
-                right: "15px",
-                width: '150px',
-                backgroundColor: '#892F4D',
-                color: '#ffffff',
-                padding: '10px',
-                textAlign: 'center',
-                borderRadius : '0.25rem',
-              }}
-            >
-              Successfully Logged in!
-            </div>
-          )}
+        <ToastContainer/>
         <div className="mx-auto w-full max-w-[1400px]">
           <div className="flex flex-row h-[50px] sm:w-3/5 lg:w-3/4 m-4 mb-0 bg-DesertSand-500 rounded-lg shadow">
             <div class="flex items-center pl-1 pointer-events-none">
