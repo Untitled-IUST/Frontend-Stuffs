@@ -32,7 +32,7 @@ function SalonCard({id,name,address,phoneNumber,rate,background,logo}){
       <CardHeader
         avatar = { 
           <Avatar>
-            <img src={logo} alt="profile"/>
+            <img  src={logo} alt="profile"/>
           </Avatar>
         }
         title={name}
@@ -40,7 +40,7 @@ function SalonCard({id,name,address,phoneNumber,rate,background,logo}){
       />
       <CardMedia
         component="img"
-        height="155"
+        className="h-[155px] object-cover"
         image={background}
         alt="salon"
       />
