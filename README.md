@@ -4,7 +4,7 @@ Welcome to **Barba**, the ultimate platform to help you discover and book hair, 
 
 ## About Barba
 
-**Barba** is a product by [Untitled-Team](https://github.com/Untitled-Team), designed to make booking salon services easier than ever. Whether you're looking for a haircut, skincare treatment, or any other beauty service, Barba helps you find the best salons near you and book appointments in a few clicks.
+**Barba** is a product by [Untitled-Team](https://github.com/Untitled-IUST), designed to make booking salon services easier than ever. Whether you're looking for a haircut, skincare treatment, or any other beauty service, Barba helps you find the best salons near you and book appointments in a few clicks.
 
 ### Features
 
